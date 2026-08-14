@@ -1,0 +1,1446 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Conecto",
+    "version": "1",
+    "description": "Customer-messaging platform API: live chat, AI agents, tickets and knowledge base.\n\nUNOFFICIAL SPEC. Conecto publishes no OpenAPI description. The API does expose\n`GET /schema/`, which returns the whole surface as JSON, but that endpoint\nrequires credentials, so this spec was AUTHORED FROM THE PUBLISHED PROSE\nDOCUMENTATION at https://conecto.chat/developers and cross-checked against the\nvendor's own MIT-licensed Python SDK (github.com/Nancy-Consulting/conecto-sdk)\nfor paths, verbs and field names.\n\nKnown limits, stated plainly: response shapes come from documented examples\nrather than a schema, so optional fields the docs do not show are absent here;\n`blocks` is left open because the ten documented block types are an untagged\nunion with no discriminator; and nothing here has been verified against a live\nworkspace. Anyone holding credentials should prefer `GET /schema/`.\n\nConventions the API applies throughout: pagination is `limit` plus `before_id`,\nwith `next_before_id` in the response; writes accept an `Idempotency-Key`\nheader and return 200 rather than 201 on a retry; errors are\n`{\"error\": {\"code\", \"message\"}}`; and the rate limit is 300 requests/min per\ncredential, which returns 429 with `Retry-After`.",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "externalDocs": {
+    "url": "https://conecto.chat/developers",
+    "description": "Conecto developer documentation"
+  },
+  "servers": [
+    {
+      "url": "https://conecto.chat/api/v1",
+      "description": "Conecto API v1"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic",
+        "description": "Client id as username, secret as password."
+      },
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Authorization: Bearer <client_id>:<secret>"
+      }
+    },
+    "schemas": {
+      "ActionResult": {
+        "type": "object",
+        "description": "Result of running an integration action.",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "result": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Block"
+            }
+          },
+          "not_found": {
+            "type": "boolean",
+            "description": "A normal no-match, not an error."
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok"
+        ]
+      },
+      "Block": {
+        "type": "object",
+        "description": "One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "image",
+              "video",
+              "embed",
+              "audio",
+              "file",
+              "cards",
+              "list",
+              "buttons",
+              "text",
+              "divider"
+            ]
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "additionalProperties": true
+      },
+      "Contact": {
+        "type": "object",
+        "description": "A person known to the workspace.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Contact id."
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "custom_fields": {
+            "type": "object",
+            "description": "Workspace-defined fields.",
+            "additionalProperties": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "Conversation": {
+        "type": "object",
+        "description": "A conversation between a visitor and the workspace.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Conversation id."
+          },
+          "status": {
+            "type": "string",
+            "description": "Lifecycle state.",
+            "enum": [
+              "open",
+              "pending",
+              "closed"
+            ]
+          },
+          "widget_id": {
+            "type": "integer",
+            "description": "Widget the conversation belongs to."
+          },
+          "session": {
+            "type": "string",
+            "description": "Visitor browser session key."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "messages": {
+            "type": "array",
+            "description": "Visitor-facing messages, oldest first.",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "status"
+        ]
+      },
+      "Credential": {
+        "type": "object",
+        "description": "The scope the calling credential has.",
+        "properties": {
+          "workspace_id": {
+            "type": "integer"
+          },
+          "widget_id": {
+            "type": "integer",
+            "description": "Set when the credential is widget-scoped rather than workspace-wide."
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "description": "Every error response has this shape.",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "Integration": {
+        "type": "object",
+        "description": "A custom integration the AI agent can call.",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "Stable identifier, used in the path."
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable name."
+          },
+          "base_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Root URL Conecto POSTs actions to."
+          },
+          "auth_type": {
+            "type": "string",
+            "description": "How Conecto authenticates to base_url."
+          },
+          "actions": {
+            "type": "array",
+            "description": "Actions this integration exposes.",
+            "items": {
+              "$ref": "#/components/schemas/IntegrationAction"
+            }
+          },
+          "signing_secret": {
+            "type": "string",
+            "description": "Secret used to sign action calls. Returned on create and on read, and replaced by rotate_signing_secret."
+          }
+        },
+        "required": [
+          "slug",
+          "name",
+          "base_url"
+        ]
+      },
+      "IntegrationAction": {
+        "type": "object",
+        "description": "One callable action on an integration.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Action name, e.g. orders.get_status."
+          },
+          "path": {
+            "type": "string",
+            "description": "Path appended to base_url."
+          },
+          "risk": {
+            "type": "string",
+            "description": "Identity requirement. public_read needs no identity; verified_read requires a verified visitor email; write is a mutation on a verified account and is never silently retried.",
+            "enum": [
+              "public_read",
+              "verified_read",
+              "public_write",
+              "write"
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "Media": {
+        "type": "object",
+        "description": "An uploaded file, addressable by URL from a block.",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "HTTPS URL of the stored file."
+          },
+          "filename": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "description": "Bytes. Maximum 10 MB on upload."
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "Message": {
+        "type": "object",
+        "description": "A single message in a conversation.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Message id."
+          },
+          "sender": {
+            "type": "string",
+            "description": "Who sent it.",
+            "examples": [
+              "visitor",
+              "agent",
+              "bot"
+            ]
+          },
+          "body": {
+            "type": "string",
+            "description": "Plain-text body."
+          },
+          "blocks": {
+            "type": "array",
+            "description": "Rich content blocks. At most 10 per message.",
+            "items": {
+              "$ref": "#/components/schemas/Block"
+            }
+          },
+          "internal": {
+            "type": "boolean",
+            "description": "Internal note, not shown to the visitor."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the message was created."
+          }
+        },
+        "required": [
+          "id",
+          "sender",
+          "body",
+          "created_at"
+        ]
+      },
+      "Schema": {
+        "type": "object",
+        "description": "The complete API surface as data: endpoints, events, block types, actions, limits and error codes.",
+        "additionalProperties": true
+      },
+      "Webhook": {
+        "type": "object",
+        "description": "An HTTP endpoint subscribed to workspace events.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Webhook id."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "HTTPS endpoint that receives the event POST."
+          },
+          "events": {
+            "type": "array",
+            "description": "Event names subscribed to.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "url",
+          "events"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    },
+    {
+      "basicAuth": []
+    }
+  ],
+  "paths": {
+    "/contacts/": {
+      "get": {
+        "operationId": "listContacts",
+        "summary": "List contacts.",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Page size. Defaults to 25.",
+            "schema": {
+              "type": "integer",
+              "default": 25
+            }
+          },
+          {
+            "name": "before_id",
+            "in": "query",
+            "required": false,
+            "description": "Return records older than this id. Take it from next_before_id in the previous response.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contacts": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Contact"
+                      }
+                    },
+                    "next_before_id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createContact",
+        "summary": "Create or update a contact.",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "Any UUID. Retrying a write with the same key returns 200 with the original result instead of creating a duplicate.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "custom_fields": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conversations/": {
+      "get": {
+        "operationId": "listConversations",
+        "summary": "List conversations, newest activity first.",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "Filter by lifecycle state.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "open",
+                "pending",
+                "closed"
+              ]
+            }
+          },
+          {
+            "name": "widget_id",
+            "in": "query",
+            "required": false,
+            "description": "Filter to one widget.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "session",
+            "in": "query",
+            "required": false,
+            "description": "Narrow to one visitor browser session.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Page size. Defaults to 25.",
+            "schema": {
+              "type": "integer",
+              "default": 25
+            }
+          },
+          {
+            "name": "before_id",
+            "in": "query",
+            "required": false,
+            "description": "Return records older than this id. Take it from next_before_id in the previous response.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "conversations": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Conversation"
+                      }
+                    },
+                    "next_before_id": {
+                      "type": "integer",
+                      "description": "Pass as before_id to fetch the next page."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createConversation",
+        "summary": "Start a conversation.",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "Any UUID. Retrying a write with the same key returns 200 with the original result instead of creating a duplicate.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "widget_id": {
+                    "type": "integer"
+                  },
+                  "session": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string",
+                    "description": "Opening message."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conversation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conversations/{id}/": {
+      "get": {
+        "operationId": "getConversation",
+        "summary": "One conversation with its visitor-facing messages.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Conversation id.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "required": false,
+            "description": "Return only messages newer than this id — the cheap way to poll a thread already being tracked.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conversation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conversations/{id}/assign/": {
+      "post": {
+        "operationId": "assignConversation",
+        "summary": "Assign the conversation to a user.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Conversation id.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "user_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conversation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conversations/{id}/handoff/": {
+      "post": {
+        "operationId": "handoffConversation",
+        "summary": "Hand the conversation off to a human.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Conversation id.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conversation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conversations/{id}/messages/": {
+      "post": {
+        "operationId": "createMessage",
+        "summary": "Send a message to a conversation.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Conversation id.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "Any UUID. Retrying a write with the same key returns 200 with the original result instead of creating a duplicate.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "body": {
+                    "type": "string"
+                  },
+                  "blocks": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Block"
+                    },
+                    "description": "At most 10."
+                  },
+                  "buttons": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  },
+                  "ask_email": {
+                    "type": "boolean",
+                    "description": "Prompt the visitor for an email address."
+                  },
+                  "ticket_form": {
+                    "type": "boolean",
+                    "description": "Show the ticket form."
+                  },
+                  "products": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  },
+                  "internal": {
+                    "type": "boolean",
+                    "description": "Internal note, not shown to the visitor."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "closeConversation",
+        "summary": "Close the conversation.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Conversation id.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conversation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/": {
+      "get": {
+        "operationId": "listIntegrations",
+        "summary": "List custom integrations.",
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "integrations": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Integration"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createIntegration",
+        "summary": "Register a custom integration.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "slug": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "base_url": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "auth_type": {
+                    "type": "string"
+                  },
+                  "credential": {
+                    "type": "string"
+                  },
+                  "actions": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/IntegrationAction"
+                    }
+                  }
+                },
+                "required": [
+                  "slug",
+                  "name",
+                  "base_url"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created. The response carries signing_secret.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Integration"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/{slug}/": {
+      "get": {
+        "operationId": "getIntegration",
+        "summary": "One integration, including its signing secret.",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Integration slug.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Integration"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/{slug}/actions/{action}/run/": {
+      "post": {
+        "operationId": "runIntegrationAction",
+        "summary": "Run an action, as the AI agent would.",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Integration slug.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "action",
+            "in": "path",
+            "required": true,
+            "description": "Action name.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "arguments": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "conversation_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/{slug}/install/": {
+      "post": {
+        "operationId": "installIntegration",
+        "summary": "Install the integration on one or more widgets.",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Integration slug.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "widget_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "actions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Allowlist of action names."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Integration"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/{slug}/rotate_signing_secret/": {
+      "post": {
+        "operationId": "rotateIntegrationSigningSecret",
+        "summary": "Replace the integration signing secret.",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Integration slug.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Integration"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me/": {
+      "get": {
+        "operationId": "getMe",
+        "summary": "Verify credentials and report their scope.",
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Credential"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/media/": {
+      "post": {
+        "operationId": "createMedia",
+        "summary": "Upload a file and get a URL usable from a block.",
+        "requestBody": {
+          "required": true,
+          "description": "Multipart upload, at most 10 MB.",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Media"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schema/": {
+      "get": {
+        "operationId": "getSchema",
+        "summary": "The complete API surface as JSON.",
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Schema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/webhooks/": {
+      "get": {
+        "operationId": "listWebhooks",
+        "summary": "List registered webhooks.",
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "webhooks": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Webhook"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createWebhook",
+        "summary": "Subscribe an endpoint to events.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "events": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "e.g. message.created, conversation.created."
+                  }
+                },
+                "required": [
+                  "url",
+                  "events"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Webhook"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/webhooks/{id}/": {
+      "get": {
+        "operationId": "getWebhook",
+        "summary": "One webhook.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Webhook id.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Webhook"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteWebhook",
+        "summary": "Delete a webhook.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Webhook id.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted."
+          }
+        }
+      }
+    },
+    "/widgets/{id}/visitors/{session}/identify/": {
+      "post": {
+        "operationId": "identifyVisitor",
+        "summary": "Vouch for a logged-in visitor.",
+        "description": "Marks visitor.verified true in webhook payloads, which is what verified_read and write actions check.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Widget id.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "session",
+            "in": "path",
+            "required": true,
+            "description": "Visitor browser session key.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/widgets/{id}/visitors/{session}/message/": {
+      "post": {
+        "operationId": "messageVisitor",
+        "summary": "Push a proactive message to a visitor session.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Widget id.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "session",
+            "in": "path",
+            "required": true,
+            "description": "Visitor browser session key.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "Any UUID. Retrying a write with the same key returns 200 with the original result instead of creating a duplicate.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "body": {
+                    "type": "string"
+                  },
+                  "buttons": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  },
+                  "products": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/widgets/{id}/visitors/{session}/unverify/": {
+      "post": {
+        "operationId": "unverifyVisitor",
+        "summary": "Revoke a visitor's verification on logout.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Widget id.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "session",
+            "in": "path",
+            "required": true,
+            "description": "Visitor browser session key.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
