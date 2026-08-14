@@ -1,0 +1,18 @@
+# BasicMediaFlow
+
+main: kit: flow: BasicMediaFlow:
+{
+  entity: "media",
+  kind: "basic",
+  name: "BasicMediaFlow",
+  step: [
+    {
+      input: {
+        ref: "media_ref01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicMediaFlow"
+}

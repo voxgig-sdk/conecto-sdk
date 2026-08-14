@@ -1,0 +1,33 @@
+{
+  "existing": {
+    "webhook": {
+      "WEBHOOK00": {
+        "created_at": "s28",
+        "events": [],
+        "id": "WEBHOOK00",
+        "url": "s2b"
+      },
+      "WEBHOOK01": {
+        "created_at": "s50",
+        "events": [],
+        "id": "WEBHOOK01",
+        "url": "s53"
+      },
+      "WEBHOOK02": {
+        "created_at": "s78",
+        "events": [],
+        "id": "WEBHOOK02",
+        "url": "s7b"
+      }
+    }
+  },
+  "new": {
+    "webhook": {
+      "webhook_ref01": {
+        "created_at": "sa0",
+        "events": [],
+        "url": "sa3"
+      }
+    }
+  }
+}

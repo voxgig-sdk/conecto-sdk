@@ -1,0 +1,49 @@
+{
+  "existing": {
+    "conversation": {
+      "CONVERSATION00": {
+        "body": "s50",
+        "created_at": "s51",
+        "id": "CONVERSATION00",
+        "messages": [],
+        "session": "s54",
+        "status": "s55",
+        "user_id": "USER01",
+        "widget_id": "WIDGET01"
+      },
+      "CONVERSATION01": {
+        "body": "sa0",
+        "created_at": "sa1",
+        "id": "CONVERSATION01",
+        "messages": [],
+        "session": "sa4",
+        "status": "sa5",
+        "user_id": "USER01",
+        "widget_id": "WIDGET01"
+      },
+      "CONVERSATION02": {
+        "body": "sf0",
+        "created_at": "sf1",
+        "id": "CONVERSATION02",
+        "messages": [],
+        "session": "sf4",
+        "status": "sf5",
+        "user_id": "USER01",
+        "widget_id": "WIDGET01"
+      }
+    }
+  },
+  "new": {
+    "conversation": {
+      "conversation_ref01": {
+        "body": "s140",
+        "created_at": "s141",
+        "messages": [],
+        "session": "s144",
+        "status": "s145",
+        "user_id": "USER01",
+        "widget_id": "WIDGET01"
+      }
+    }
+  }
+}

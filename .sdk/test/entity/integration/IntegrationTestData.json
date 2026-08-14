@@ -1,0 +1,53 @@
+{
+  "existing": {
+    "integration": {
+      "INTEGRATION00": {
+        "actions": [],
+        "auth_type": "s51",
+        "base_url": "s52",
+        "credential": "s53",
+        "name": "s54",
+        "signing_secret": "s55",
+        "slug": "s56",
+        "widget_ids": [],
+        "id": "INTEGRATION00"
+      },
+      "INTEGRATION01": {
+        "actions": [],
+        "auth_type": "sa1",
+        "base_url": "sa2",
+        "credential": "sa3",
+        "name": "sa4",
+        "signing_secret": "sa5",
+        "slug": "sa6",
+        "widget_ids": [],
+        "id": "INTEGRATION01"
+      },
+      "INTEGRATION02": {
+        "actions": [],
+        "auth_type": "sf1",
+        "base_url": "sf2",
+        "credential": "sf3",
+        "name": "sf4",
+        "signing_secret": "sf5",
+        "slug": "sf6",
+        "widget_ids": [],
+        "id": "INTEGRATION02"
+      }
+    }
+  },
+  "new": {
+    "integration": {
+      "integration_ref01": {
+        "actions": [],
+        "auth_type": "s141",
+        "base_url": "s142",
+        "credential": "s143",
+        "name": "s144",
+        "signing_secret": "s145",
+        "slug": "s146",
+        "widget_ids": []
+      }
+    }
+  }
+}

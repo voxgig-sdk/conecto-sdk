@@ -1,0 +1,20 @@
+{
+  "existing": {
+    "media": {
+      "MEDIA00": {
+        "id": "MEDIA00"
+      },
+      "MEDIA01": {
+        "id": "MEDIA01"
+      },
+      "MEDIA02": {
+        "id": "MEDIA02"
+      }
+    }
+  },
+  "new": {
+    "media": {
+      "media_ref01": {}
+    }
+  }
+}

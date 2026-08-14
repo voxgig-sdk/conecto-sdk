@@ -1,0 +1,58 @@
+{
+  "existing": {
+    "message": {
+      "MESSAGE00": {
+        "ask_email": true,
+        "blocks": [],
+        "body": "s48",
+        "buttons": [],
+        "internal": true,
+        "products": [],
+        "ticket_form": true,
+        "session": "SESSION01",
+        "widget_id": "WIDGET01",
+        "conversation_id": "CONVERSATION01",
+        "id": "MESSAGE00"
+      },
+      "MESSAGE01": {
+        "ask_email": true,
+        "blocks": [],
+        "body": "s8e",
+        "buttons": [],
+        "internal": true,
+        "products": [],
+        "ticket_form": true,
+        "session": "SESSION01",
+        "widget_id": "WIDGET01",
+        "conversation_id": "CONVERSATION01",
+        "id": "MESSAGE01"
+      },
+      "MESSAGE02": {
+        "ask_email": true,
+        "blocks": [],
+        "body": "sd4",
+        "buttons": [],
+        "internal": true,
+        "products": [],
+        "ticket_form": true,
+        "session": "SESSION01",
+        "widget_id": "WIDGET01",
+        "conversation_id": "CONVERSATION01",
+        "id": "MESSAGE02"
+      }
+    }
+  },
+  "new": {
+    "message": {
+      "message_ref01": {
+        "ask_email": true,
+        "blocks": [],
+        "body": "s11a",
+        "buttons": [],
+        "internal": true,
+        "products": [],
+        "ticket_form": true
+      }
+    }
+  }
+}

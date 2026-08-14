@@ -1,0 +1,122 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 10
+  metrics: count: path: 19
+  metrics: count: method: 25
+
+  entity: action_result: {
+    path: "/integrations/{slug}/actions/{action}/run/": {
+      action: "run": {}
+      rename: param: "action": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: contact: {
+    path: "/contacts/": {
+      op: create: method: *POST
+      op: create: transform: res: *("`body.custom_fields`")|top
+      op: list: method: *GET
+      op: list: transform: res: *("`body.contacts`")|top
+    }
+  }
+
+  entity: conversation: {
+    path: "/conversations/": {
+      op: create: method: *POST
+      op: list: method: *GET
+      op: list: transform: res: *("`body.conversations`")|top
+    }
+    path: "/conversations/{id}/": {
+      op: load: method: *GET
+    }
+    path: "/conversations/{id}/assign/": {
+      action: "assign": {}
+      op: create: method: *POST
+    }
+    path: "/conversations/{id}/handoff/": {
+      action: "handoff": {}
+      op: create: method: *POST
+    }
+    path: "/conversations/{id}/messages/": {
+      action: "message": {}
+      op: patch: method: *PATCH
+    }
+  }
+
+  entity: credential: {
+    path: "/me/": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: integration: {
+    path: "/integrations/": {
+      op: create: method: *POST
+      op: list: method: *GET
+      op: list: transform: res: *("`body.integrations`")|top
+    }
+    path: "/integrations/{slug}/": {
+      rename: param: "slug": *"id"
+      op: load: method: *GET
+    }
+    path: "/integrations/{slug}/install/": {
+      action: "install": {}
+      op: create: method: *POST
+    }
+    path: "/integrations/{slug}/rotate_signing_secret/": {
+      action: "rotate_signing_secret": {}
+      op: create: method: *POST
+    }
+  }
+
+  entity: media: {
+    path: "/media/": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: message: {
+    path: "/conversations/{id}/messages/": {
+      rename: param: "id": *"conversation_id"
+      op: create: method: *POST
+    }
+    path: "/widgets/{id}/visitors/{session}/message/": {
+      rename: param: "id": *"widget_id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: schema: {
+    path: "/schema/": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: visitor: {
+    path: "/widgets/{id}/visitors/{session}/identify/": {
+      action: "identify": {}
+      rename: param: "id": *"widget_id"
+      op: create: method: *POST
+    }
+    path: "/widgets/{id}/visitors/{session}/unverify/": {
+      action: "unverify": {}
+      rename: param: "id": *"widget_id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: webhook: {
+    path: "/webhooks/": {
+      op: create: method: *POST
+      op: list: method: *GET
+      op: list: transform: res: *("`body.webhooks`")|top
+    }
+    path: "/webhooks/{id}/": {
+      op: load: method: *GET
+      op: remove: method: *DELETE
+    }
+  }
+
+}

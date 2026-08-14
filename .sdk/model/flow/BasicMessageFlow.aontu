@@ -1,0 +1,22 @@
+# BasicMessageFlow
+
+main: kit: flow: BasicMessageFlow:
+{
+  entity: "message",
+  kind: "basic",
+  name: "BasicMessageFlow",
+  step: [
+    {
+      input: {
+        ref: "message_ref01"
+      }
+
+      match: {
+        conversation_id: "conversation01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicMessageFlow"
+}

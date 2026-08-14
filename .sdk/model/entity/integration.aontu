@@ -1,0 +1,194 @@
+# Entity: integration
+
+main: kit: entity: integration: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "actions"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "auth_type"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "base_url"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "credential"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "name"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "signing_secret"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "slug"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "widget_ids"
+      req: false
+      type: "`$ARRAY`"
+    }
+  ]
+
+  name: "integration"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "slug"
+                orig: "slug"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/integrations/{slug}/install/"
+          parts: [
+            "integrations"
+            "{slug}"
+            "install"
+          ]
+          select: {
+            "$action": "install"
+            exist: [
+              "slug"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "slug"
+                orig: "slug"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/integrations/{slug}/rotate_signing_secret/"
+          parts: [
+            "integrations"
+            "{slug}"
+            "rotate_signing_secret"
+          ]
+          select: {
+            "$action": "rotate_signing_secret"
+            exist: [
+              "slug"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "POST"
+          orig: "/integrations/"
+          parts: [
+            "integrations"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/integrations/"
+          parts: [
+            "integrations"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body.integrations`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "slug"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/integrations/{slug}/"
+          parts: [
+            "integrations"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              slug: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "integration"
+      ]
+    ]
+  }
+
+
+
+}

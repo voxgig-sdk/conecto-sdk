@@ -1,0 +1,114 @@
+# Entity: contact
+
+main: kit: entity: contact: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "created_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "custom_fields"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "email"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$INTEGER`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "contact"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                kind: "header"
+                name: "idempotency_key"
+                orig: "idempotency_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/contacts/"
+          parts: [
+            "contacts"
+          ]
+          select: {
+            exist: [
+              "idempotency_key"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.custom_fields`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "before_id"
+                orig: "before_id"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 25
+                kind: "query"
+                name: "limit"
+                orig: "limit"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/contacts/"
+          parts: [
+            "contacts"
+          ]
+          select: {
+            exist: [
+              "before_id"
+              "limit"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.contacts`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

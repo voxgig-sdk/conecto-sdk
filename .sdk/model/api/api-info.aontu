@@ -1,0 +1,50 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      description: `Customer-messaging platform API: live chat, AI agents, tickets and knowledge base.
+
+UNOFFICIAL SPEC. Conecto publishes no OpenAPI description. The API does expose
+\`GET /schema/\`, which returns the whole surface as JSON, but that endpoint
+requires credentials, so this spec was AUTHORED FROM THE PUBLISHED PROSE
+DOCUMENTATION at https://conecto.chat/developers and cross-checked against the
+vendor's own MIT-licensed Python SDK (github.com/Nancy-Consulting/conecto-sdk)
+for paths, verbs and field names.
+
+Known limits, stated plainly: response shapes come from documented examples
+rather than a schema, so optional fields the docs do not show are absent here;
+\`blocks\` is left open because the ten documented block types are an untagged
+union with no discriminator; and nothing here has been verified against a live
+workspace. Anyone holding credentials should prefer \`GET /schema/\`.
+
+Conventions the API applies throughout: pagination is \`limit\` plus \`before_id\`,
+with \`next_before_id\` in the response; writes accept an \`Idempotency-Key\`
+header and return 200 rather than 201 on a retry; errors are
+\`{"error": {"code", "message"}}\`; and the rate limit is 300 requests/min per
+credential, which returns 429 with \`Retry-After\`.`
+      license: {
+        name: "MIT"
+      }
+      security: {
+        in: "header"
+        name: "Authorization"
+        prefix: "Bearer"
+        scheme: "bearerAuth"
+        type: "http"
+      }
+      servers: [
+        {
+          description: "Conecto API v1"
+          url: "https://conecto.chat/api/v1"
+        }
+      ]
+      summary: "Customer-messaging platform API: live chat, AI agents, tickets and knowledge base."
+      title: "Conecto"
+      version: "1"
+      website: "https://conecto.chat/developers"
+    }
+  }
+}
+

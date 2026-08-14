@@ -1,0 +1,130 @@
+# Entity: visitor
+
+main: kit: entity: visitor: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "email"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "name"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "visitor"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "session"
+                orig: "session"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "widget_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/widgets/{id}/visitors/{session}/identify/"
+          parts: [
+            "widgets"
+            "{widget_id}"
+            "visitors"
+            "{session}"
+            "identify"
+          ]
+          rename: {
+            param: {
+              id: "widget_id"
+            }
+          }
+          select: {
+            "$action": "identify"
+            exist: [
+              "session"
+              "widget_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "session"
+                orig: "session"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "widget_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/widgets/{id}/visitors/{session}/unverify/"
+          parts: [
+            "widgets"
+            "{widget_id}"
+            "visitors"
+            "{session}"
+            "unverify"
+          ]
+          rename: {
+            param: {
+              id: "widget_id"
+            }
+          }
+          select: {
+            "$action": "unverify"
+            exist: [
+              "session"
+              "widget_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "widget"
+        "visitor"
+      ]
+    ]
+  }
+
+
+
+}

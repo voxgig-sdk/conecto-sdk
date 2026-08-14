@@ -1,0 +1,109 @@
+# Entity: action_result
+
+main: kit: entity: action_result: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "arguments"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "blocks"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "conversation_id"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "error"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "not_found"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "ok"
+      req: true
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "result"
+      req: false
+      type: "`$OBJECT`"
+    }
+  ]
+
+  name: "action_result"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "action"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "slug"
+                orig: "slug"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/integrations/{slug}/actions/{action}/run/"
+          parts: [
+            "integrations"
+            "{slug}"
+            "actions"
+            "{id}"
+            "run"
+          ]
+          rename: {
+            param: {
+              action: "id"
+            }
+          }
+          select: {
+            "$action": "run"
+            exist: [
+              "id"
+              "slug"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "integration"
+      ]
+    ]
+  }
+
+
+
+}

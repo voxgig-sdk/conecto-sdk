@@ -1,0 +1,23 @@
+# BasicActionResultFlow
+
+main: kit: flow: BasicActionResultFlow:
+{
+  entity: "action_result",
+  kind: "basic",
+  name: "BasicActionResultFlow",
+  step: [
+    {
+      input: {
+        ref: "action_result_ref01"
+      }
+
+      match: {
+        action: "action01",
+        slug: "slug01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicActionResultFlow"
+}

@@ -1,0 +1,52 @@
+{
+  "existing": {
+    "action_result": {
+      "ACTION_RESULT00": {
+        "arguments": {},
+        "blocks": [],
+        "conversation_id": "CONVERSATION01",
+        "error": "s49",
+        "not_found": true,
+        "ok": false,
+        "result": {},
+        "slug": "SLUG01",
+        "id": "ACTION_RESULT00"
+      },
+      "ACTION_RESULT01": {
+        "arguments": {},
+        "blocks": [],
+        "conversation_id": "CONVERSATION01",
+        "error": "s8f",
+        "not_found": true,
+        "ok": false,
+        "result": {},
+        "slug": "SLUG01",
+        "id": "ACTION_RESULT01"
+      },
+      "ACTION_RESULT02": {
+        "arguments": {},
+        "blocks": [],
+        "conversation_id": "CONVERSATION01",
+        "error": "sd5",
+        "not_found": true,
+        "ok": false,
+        "result": {},
+        "slug": "SLUG01",
+        "id": "ACTION_RESULT02"
+      }
+    }
+  },
+  "new": {
+    "action_result": {
+      "action_result_ref01": {
+        "arguments": {},
+        "blocks": [],
+        "conversation_id": "CONVERSATION01",
+        "error": "s11b",
+        "not_found": true,
+        "ok": false,
+        "result": {}
+      }
+    }
+  }
+}

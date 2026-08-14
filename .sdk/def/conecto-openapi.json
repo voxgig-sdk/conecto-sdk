@@ -32,35 +32,6 @@
       }
     },
     "schemas": {
-      "ActionResult": {
-        "type": "object",
-        "description": "Result of running an integration action.",
-        "properties": {
-          "ok": {
-            "type": "boolean"
-          },
-          "result": {
-            "type": "object",
-            "additionalProperties": true
-          },
-          "blocks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Block"
-            }
-          },
-          "not_found": {
-            "type": "boolean",
-            "description": "A normal no-match, not an error."
-          },
-          "error": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "ok"
-        ]
-      },
       "Block": {
         "type": "object",
         "description": "One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.",
@@ -985,7 +956,33 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ActionResult"
+                  "type": "object",
+                  "description": "Result of running an integration action.",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "result": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "blocks": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Block"
+                      }
+                    },
+                    "not_found": {
+                      "type": "boolean",
+                      "description": "A normal no-match, not an error."
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
                 }
               }
             }

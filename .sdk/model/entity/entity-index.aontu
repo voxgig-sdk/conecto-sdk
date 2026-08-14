@@ -1,0 +1,12 @@
+# Entity Models
+
+@"action_result.aontu"
+@"contact.aontu"
+@"conversation.aontu"
+@"credential.aontu"
+@"integration.aontu"
+@"media.aontu"
+@"message.aontu"
+@"schema.aontu"
+@"visitor.aontu"
+@"webhook.aontu"

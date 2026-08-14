@@ -1,0 +1,35 @@
+{
+  "existing": {
+    "visitor": {
+      "VISITOR00": {
+        "email": "s14",
+        "name": "s15",
+        "session": "SESSION01",
+        "widget_id": "WIDGET01",
+        "id": "VISITOR00"
+      },
+      "VISITOR01": {
+        "email": "s28",
+        "name": "s29",
+        "session": "SESSION01",
+        "widget_id": "WIDGET01",
+        "id": "VISITOR01"
+      },
+      "VISITOR02": {
+        "email": "s3c",
+        "name": "s3d",
+        "session": "SESSION01",
+        "widget_id": "WIDGET01",
+        "id": "VISITOR02"
+      }
+    }
+  },
+  "new": {
+    "visitor": {
+      "visitor_ref01": {
+        "email": "s50",
+        "name": "s51"
+      }
+    }
+  }
+}

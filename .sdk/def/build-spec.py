@@ -225,22 +225,6 @@ SCHEMAS = {
         "additionalProperties": True,
     },
 
-    "ActionResult": {
-        "type": "object",
-        "description": "Result of running an integration action.",
-        "properties": {
-            "ok": {"type": "boolean"},
-            "result": {"type": "object", "additionalProperties": True},
-            "blocks": {"type": "array", "items": ref("Block")},
-            "not_found": {
-                "type": "boolean",
-                "description": "A normal no-match, not an error.",
-            },
-            "error": {"type": "string"},
-        },
-        "required": ["ok"],
-    },
-
     "Error": {
         "type": "object",
         "description": "Every error response has this shape.",
@@ -555,7 +539,23 @@ PATHS = {
                     "conversation_id": {"type": "integer"},
                 },
             }),
-            "responses": ok(ref("ActionResult")),
+            # Inlined deliberately: naming this schema promoted it to a CRUD
+            # entity called action_result, whose "create" was really "run this
+            # action" — an RPC call, not a resource creation. Inline keeps the
+            # documented response shape without inventing a resource.
+            "responses": ok({
+                "type": "object",
+                "description": "Result of running an integration action.",
+                "properties": {
+                    "ok": {"type": "boolean"},
+                    "result": {"type": "object", "additionalProperties": True},
+                    "blocks": {"type": "array", "items": ref("Block")},
+                    "not_found": {"type": "boolean",
+                                  "description": "A normal no-match, not an error."},
+                    "error": {"type": "string"},
+                },
+                "required": ["ok"],
+            }),
         },
     },
 

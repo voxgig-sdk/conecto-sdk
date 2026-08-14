@@ -1,0 +1,33 @@
+{
+  "existing": {
+    "contact": {
+      "CONTACT00": {
+        "created_at": "s28",
+        "custom_fields": {},
+        "email": "s2a",
+        "id": "CONTACT00"
+      },
+      "CONTACT01": {
+        "created_at": "s50",
+        "custom_fields": {},
+        "email": "s52",
+        "id": "CONTACT01"
+      },
+      "CONTACT02": {
+        "created_at": "s78",
+        "custom_fields": {},
+        "email": "s7a",
+        "id": "CONTACT02"
+      }
+    }
+  },
+  "new": {
+    "contact": {
+      "contact_ref01": {
+        "created_at": "sa0",
+        "custom_fields": {},
+        "email": "sa2"
+      }
+    }
+  }
+}

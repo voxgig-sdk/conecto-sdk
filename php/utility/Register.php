@@ -1,0 +1,70 @@
+<?php
+declare(strict_types=1);
+
+// Conecto SDK utility registration
+
+require_once __DIR__ . '/../core/UtilityType.php';
+require_once __DIR__ . '/Clean.php';
+require_once __DIR__ . '/Done.php';
+require_once __DIR__ . '/MakeError.php';
+require_once __DIR__ . '/FeatureAdd.php';
+require_once __DIR__ . '/FeatureHook.php';
+require_once __DIR__ . '/FeatureInit.php';
+require_once __DIR__ . '/Fetcher.php';
+require_once __DIR__ . '/MakeFetchDef.php';
+require_once __DIR__ . '/MakeContext.php';
+require_once __DIR__ . '/MakeOptions.php';
+require_once __DIR__ . '/MakeRequest.php';
+require_once __DIR__ . '/MakeResponse.php';
+require_once __DIR__ . '/MakeResult.php';
+require_once __DIR__ . '/MakePoint.php';
+require_once __DIR__ . '/MakeSpec.php';
+require_once __DIR__ . '/MakeUrl.php';
+require_once __DIR__ . '/Param.php';
+require_once __DIR__ . '/PrepareAuth.php';
+require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
+require_once __DIR__ . '/PrepareHeaders.php';
+require_once __DIR__ . '/PrepareMethod.php';
+require_once __DIR__ . '/PrepareParams.php';
+require_once __DIR__ . '/PreparePath.php';
+require_once __DIR__ . '/PrepareQuery.php';
+require_once __DIR__ . '/ResultBasic.php';
+require_once __DIR__ . '/ResultBody.php';
+require_once __DIR__ . '/ResultHeaders.php';
+require_once __DIR__ . '/TransformRequest.php';
+require_once __DIR__ . '/TransformResponse.php';
+
+ConectoUtility::setRegistrar(function (ConectoUtility $u): void {
+    $u->clean = [ConectoClean::class, 'call'];
+    $u->done = [ConectoDone::class, 'call'];
+    $u->make_error = [ConectoMakeError::class, 'call'];
+    $u->feature_add = [ConectoFeatureAdd::class, 'call'];
+    $u->feature_hook = [ConectoFeatureHook::class, 'call'];
+    $u->feature_init = [ConectoFeatureInit::class, 'call'];
+    $u->fetcher = [ConectoFetcher::class, 'call'];
+    $u->make_fetch_def = [ConectoMakeFetchDef::class, 'call'];
+    $u->make_context = [ConectoMakeContext::class, 'call'];
+    $u->make_options = [ConectoMakeOptions::class, 'call'];
+    $u->make_request = [ConectoMakeRequest::class, 'call'];
+    $u->make_response = [ConectoMakeResponse::class, 'call'];
+    $u->make_result = [ConectoMakeResult::class, 'call'];
+    $u->make_point = [ConectoMakePoint::class, 'call'];
+    $u->make_spec = [ConectoMakeSpec::class, 'call'];
+    $u->make_url = [ConectoMakeUrl::class, 'call'];
+    $u->param = [ConectoParam::class, 'call'];
+    $u->prepare_auth = [ConectoPrepareAuth::class, 'call'];
+    $u->prepare_body = [ConectoPrepareBody::class, 'call'];
+    $u->prepare_headers = [ConectoPrepareHeaders::class, 'call'];
+    $u->prepare_method = [ConectoPrepareMethod::class, 'call'];
+    $u->prepare_params = [ConectoPrepareParams::class, 'call'];
+    $u->prepare_path = [ConectoPreparePath::class, 'call'];
+    $u->prepare_query = [ConectoPrepareQuery::class, 'call'];
+    $u->graphql_body = [ConectoGraphql::class, 'body'];
+    $u->graphql_errors = [ConectoGraphql::class, 'errors'];
+    $u->result_basic = [ConectoResultBasic::class, 'call'];
+    $u->result_body = [ConectoResultBody::class, 'call'];
+    $u->result_headers = [ConectoResultHeaders::class, 'call'];
+    $u->transform_request = [ConectoTransformRequest::class, 'call'];
+    $u->transform_response = [ConectoTransformResponse::class, 'call'];
+});
