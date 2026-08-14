@@ -1,16 +1,16 @@
-# Conecto SDK ActionResult entity
+# Conecto SDK Action entity
 
 from __future__ import annotations
 
 from conecto_sdk.utility.voxgig_struct import voxgig_struct as vs
 from conecto_sdk.core import helpers
 from conecto_sdk.conecto_types import (
-    ActionResult,
-    ActionResultCreateData,
+    Action,
+    ActionCreateData,
 )
 
 
-class ActionResultEntity:
+class ActionEntity:
 
     def __init__(self, client, entopts=None):
         if entopts is None:
@@ -22,7 +22,7 @@ class ActionResultEntity:
         else:
             entopts["active"] = True
 
-        self._name = "action_result"
+        self._name = "action"
         self._client = client
         self._utility = client.get_utility()
         self._entopts = entopts
@@ -54,14 +54,14 @@ class ActionResultEntity:
         opts = {}
         for k, v in self._entopts.items():
             opts[k] = v
-        return ActionResultEntity(self._client, opts)
+        return ActionEntity(self._client, opts)
 
     def data_set(self, args=None):
         if args is not None:
             self._data = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetData")
 
-    def data_get(self) -> ActionResult:
+    def data_get(self) -> Action:
         self._utility.feature_hook(self._entctx, "GetData")
         return vs.clone(self._data)
 
@@ -70,7 +70,7 @@ class ActionResultEntity:
             self._match = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetMatch")
 
-    def match_get(self) -> ActionResult:
+    def match_get(self) -> Action:
         self._utility.feature_hook(self._entctx, "GetMatch")
         return vs.clone(self._match)
 
@@ -180,7 +180,7 @@ class ActionResultEntity:
     
 
     
-    def create(self, reqdata: ActionResultCreateData, ctrl=None) -> ActionResult:
+    def create(self, reqdata: ActionCreateData, ctrl=None) -> Action:
         utility = self._utility
         ctx = utility.make_context({
             "opname": "create",

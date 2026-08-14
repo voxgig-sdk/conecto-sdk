@@ -20,7 +20,7 @@ declare class Config {
             "content-type": string;
         };
         entity: {
-            action_result: {};
+            action: {};
             contact: {};
             conversation: {};
             credential: {};
@@ -33,7 +33,7 @@ declare class Config {
         };
     };
     entity: {
-        action_result: {
+        action: {
             fields: ({
                 name: string;
                 type: string;

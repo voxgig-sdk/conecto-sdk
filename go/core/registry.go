@@ -6,7 +6,7 @@ var NewBaseFeatureFunc func() Feature
 
 var NewTestFeatureFunc func() Feature
 
-var NewActionResultEntityFunc func(client *ConectoSDK, entopts map[string]any) ConectoEntity
+var NewActionEntityFunc func(client *ConectoSDK, entopts map[string]any) ConectoEntity
 
 var NewContactEntityFunc func(client *ConectoSDK, entopts map[string]any) ConectoEntity
 

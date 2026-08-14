@@ -45,7 +45,7 @@ def make_config():
         "content-type": "application/json",
       },
             "entity": {
-                "action_result": {},
+                "action": {},
                 "contact": {},
                 "conversation": {},
                 "credential": {},
@@ -58,7 +58,7 @@ def make_config():
             },
         },
         "entity": {
-      "action_result": {
+      "action": {
         "fields": [
           {
             "name": "arguments",
@@ -90,7 +90,7 @@ def make_config():
             "type": "`$OBJECT`",
           },
         ],
-        "name": "action_result",
+        "name": "action",
         "op": {
           "create": {
             "input": "data",

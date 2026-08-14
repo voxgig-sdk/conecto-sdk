@@ -28,7 +28,7 @@ func MakeConfig() map[string]any {
 				"content-type": "application/json",
 			},
 			"entity": map[string]any{
-				"action_result": map[string]any{},
+				"action": map[string]any{},
 				"contact": map[string]any{},
 				"conversation": map[string]any{},
 				"credential": map[string]any{},
@@ -41,7 +41,7 @@ func MakeConfig() map[string]any {
 			},
 		},
 		"entity": map[string]any{
-			"action_result": map[string]any{
+			"action": map[string]any{
 				"fields": []any{
 					map[string]any{
 						"name": "arguments",
@@ -73,7 +73,7 @@ func MakeConfig() map[string]any {
 						"type": "`$OBJECT`",
 					},
 				},
-				"name": "action_result",
+				"name": "action",
 				"op": map[string]any{
 					"create": map[string]any{
 						"input": "data",

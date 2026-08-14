@@ -1,17 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ActionResultEntity = void 0;
+exports.ActionEntity = void 0;
 const ConectoEntityBase_1 = require("../ConectoEntityBase");
 // TODO: needs Entity superclass
-class ActionResultEntity extends ConectoEntityBase_1.ConectoEntityBase {
+class ActionEntity extends ConectoEntityBase_1.ConectoEntityBase {
     constructor(client, entopts) {
         super(client, entopts);
-        this.name = 'action_result';
-        this.name_ = 'action_result';
-        this.Name = 'ActionResult';
+        this.name = 'action';
+        this.name_ = 'action';
+        this.Name = 'Action';
     }
     make() {
-        return new ActionResultEntity(this._client, this.entopts());
+        return new ActionEntity(this._client, this.entopts());
     }
     async create(reqdata, ctrl) {
         const utility = this._utility;
@@ -94,11 +94,11 @@ class ActionResultEntity extends ConectoEntityBase_1.ConectoEntityBase {
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<ActionResult> return stays clean under strict null checks.
+                // Promise<Action> return stays clean under strict null checks.
                 return undefined;
             }
         }
     }
 }
-exports.ActionResultEntity = ActionResultEntity;
-//# sourceMappingURL=ActionResultEntity.js.map
+exports.ActionEntity = ActionEntity;
+//# sourceMappingURL=ActionEntity.js.map

@@ -290,10 +290,10 @@ class ConectoSDK:
         return res
 
 
-    def ActionResult(self, data=None) -> "ActionResultEntity":
-        """Entity factory: client.ActionResult().list() / client.ActionResult().load({"id": ...})."""
-        from conecto_sdk.entity.action_result_entity import ActionResultEntity
-        return ActionResultEntity(self, data)
+    def Action(self, data=None) -> "ActionEntity":
+        """Entity factory: client.Action().list() / client.Action().load({"id": ...})."""
+        from conecto_sdk.entity.action_entity import ActionEntity
+        return ActionEntity(self, data)
 
 
     def Contact(self, data=None) -> "ContactEntity":
@@ -377,7 +377,7 @@ class ConectoSDK:
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from conecto_sdk.entity.action_result_entity import ActionResultEntity
+    from conecto_sdk.entity.action_entity import ActionEntity
     from conecto_sdk.entity.contact_entity import ContactEntity
     from conecto_sdk.entity.conversation_entity import ConversationEntity
     from conecto_sdk.entity.credential_entity import CredentialEntity

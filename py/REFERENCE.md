@@ -42,9 +42,9 @@ client = ConectoSDK.test()
 
 ### Instance Methods
 
-#### `ActionResult(data=None)`
+#### `Action(data=None)`
 
-Create a new `ActionResultEntity` instance. Pass `None` for no initial data.
+Create a new `ActionEntity` instance. Pass `None` for no initial data.
 
 #### `Contact(data=None)`
 
@@ -114,10 +114,10 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 
 ---
 
-## ActionResultEntity
+## ActionEntity
 
 ```python
-action_result = client.ActionResult()
+action = client.Action()
 ```
 
 ### Fields
@@ -139,7 +139,7 @@ action_result = client.ActionResult()
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.ActionResult().create({
+result = client.Action().create({
     "id": "example_id",  # str
     "slug": "example_slug",  # str
     "ok": True,  # bool
@@ -166,7 +166,7 @@ Set the entity match criteria.
 
 #### `make() -> Entity`
 
-Create a new `ActionResultEntity` instance with the same options.
+Create a new `ActionEntity` instance with the same options.
 
 #### `get_name() -> str`
 

@@ -4,7 +4,7 @@
 
 The Lua SDK for the Conecto API — an entity-oriented client using Lua conventions.
 
-It exposes the API as capitalised, semantic **Entities** — e.g. `client:ActionResult()` — each with the same small set of operations (`list`, `load`, `create`, `update`, `remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:Action()` — each with the same small set of operations (`list`, `load`, `create`, `update`, `remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -39,7 +39,7 @@ local client = sdk.new({
 
 ```lua
 -- Create
-local created, err = client:ActionResult():create({ id = "example_id", slug = "example_slug", ok = true })
+local created, err = client:Action():create({ id = "example_id", slug = "example_slug", ok = true })
 if err then error(err) end
 
 ```
@@ -190,7 +190,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
-| `ActionResult` | `(data) -> ActionResultEntity` | Create an ActionResult entity instance. |
+| `Action` | `(data) -> ActionEntity` | Create an Action entity instance. |
 | `Contact` | `(data) -> ContactEntity` | Create a Contact entity instance. |
 | `Conversation` | `(data) -> ConversationEntity` | Create a Conversation entity instance. |
 | `Credential` | `(data) -> CredentialEntity` | Create a Credential entity instance. |
@@ -240,7 +240,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 ### Entities
 
-#### ActionResult
+#### Action
 
 | Field | Description |
 | --- | --- |
@@ -377,9 +377,9 @@ API path: `/webhooks/`
 ## Entities
 
 
-### ActionResult
+### Action
 
-Create an instance: `local action_result = client:ActionResult(nil)`
+Create an instance: `local action = client:Action(nil)`
 
 #### Operations
 
@@ -402,7 +402,7 @@ Create an instance: `local action_result = client:ActionResult(nil)`
 #### Example: Create
 
 ```lua
-local action_result, err = client:ActionResult():create({
+local action, err = client:Action():create({
   id = "example_id", -- string
   slug = "example_slug", -- string
   ok = true, -- boolean

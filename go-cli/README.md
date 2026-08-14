@@ -108,7 +108,7 @@ The CLI registers these boru words, each bound to the SDK:
 | `load`   | `load <entity>` · `load <query> <entity>`     | A single record                |
 | `update` | `update <query> <entity>`                     | Update a record, return it     |
 
-- `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `action_result`).
+- `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `action`).
 - `<query>` is either a **Map** (`{id:1}`) or a **Scalar** (`1`, treated as
   `{id:1}`). A scalar is always wrapped as `{id:<value>}`.
 
@@ -151,7 +151,7 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 The 10 entities this SDK exposes (any is valid as `<entity>`):
 
-action_result contact conversation credential integration media message schema visitor webhook
+action contact conversation credential integration media message schema visitor webhook
 
 ## Explanation
 

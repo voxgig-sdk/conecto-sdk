@@ -1,4 +1,4 @@
-export interface ActionResult {
+export interface Action {
     arguments?: Record<string, any>;
     blocks?: any[];
     conversation_id?: number;
@@ -7,7 +7,7 @@ export interface ActionResult {
     ok: boolean;
     result?: Record<string, any>;
 }
-export interface ActionResultCreateData {
+export interface ActionCreateData {
     id: string;
     slug: string;
     arguments?: Record<string, any>;

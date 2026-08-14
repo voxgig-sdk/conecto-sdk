@@ -1,7 +1,7 @@
 {
   "existing": {
-    "action_result": {
-      "ACTION_RESULT00": {
+    "action": {
+      "ACTION00": {
         "arguments": {},
         "blocks": [],
         "conversation_id": "CONVERSATION01",
@@ -10,9 +10,9 @@
         "ok": false,
         "result": {},
         "slug": "SLUG01",
-        "id": "ACTION_RESULT00"
+        "id": "ACTION00"
       },
-      "ACTION_RESULT01": {
+      "ACTION01": {
         "arguments": {},
         "blocks": [],
         "conversation_id": "CONVERSATION01",
@@ -21,9 +21,9 @@
         "ok": false,
         "result": {},
         "slug": "SLUG01",
-        "id": "ACTION_RESULT01"
+        "id": "ACTION01"
       },
-      "ACTION_RESULT02": {
+      "ACTION02": {
         "arguments": {},
         "blocks": [],
         "conversation_id": "CONVERSATION01",
@@ -32,13 +32,13 @@
         "ok": false,
         "result": {},
         "slug": "SLUG01",
-        "id": "ACTION_RESULT02"
+        "id": "ACTION02"
       }
     }
   },
   "new": {
-    "action_result": {
-      "action_result_ref01": {
+    "action": {
+      "action_ref01": {
         "arguments": {},
         "blocks": [],
         "conversation_id": "CONVERSATION01",

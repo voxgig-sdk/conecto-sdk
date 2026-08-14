@@ -31,7 +31,7 @@ class Config {
             "content-type": "application/json"
         },
         entity: {
-            action_result: {},
+            action: {},
             contact: {},
             conversation: {},
             credential: {},
@@ -44,7 +44,7 @@ class Config {
         }
     };
     entity = {
-        "action_result": {
+        "action": {
             "fields": [
                 {
                     "name": "arguments",
@@ -76,7 +76,7 @@ class Config {
                     "type": "`$OBJECT`"
                 }
             ],
-            "name": "action_result",
+            "name": "action",
             "op": {
                 "create": {
                     "input": "data",

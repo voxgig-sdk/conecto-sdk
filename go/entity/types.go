@@ -12,8 +12,8 @@ import (
 	"github.com/voxgig-sdk/conecto-sdk/go/core"
 )
 
-// ActionResult is the typed data model for the action_result entity.
-type ActionResult struct {
+// Action is the typed data model for the action entity.
+type Action struct {
 	Arguments *map[string]any `json:"arguments,omitempty"`
 	Blocks *[]any `json:"blocks,omitempty"`
 	ConversationId *int `json:"conversation_id,omitempty"`
@@ -23,8 +23,8 @@ type ActionResult struct {
 	Result *map[string]any `json:"result,omitempty"`
 }
 
-// ActionResultCreateData is the typed request payload for ActionResult.CreateTyped.
-type ActionResultCreateData struct {
+// ActionCreateData is the typed request payload for Action.CreateTyped.
+type ActionCreateData struct {
 	Id string `json:"id"`
 	Slug string `json:"slug"`
 	Arguments *map[string]any `json:"arguments,omitempty"`

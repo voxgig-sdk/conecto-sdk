@@ -1,4 +1,4 @@
-# ActionResult entity test
+# Action entity test
 
 import json
 import os
@@ -14,21 +14,21 @@ _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
 
 
-class TestActionResultEntity:
+class TestActionEntity:
 
     def test_should_create_instance(self):
         testsdk = ConectoSDK.test(None, None)
-        ent = testsdk.ActionResult(None)
+        ent = testsdk.Action(None)
         assert ent is not None
 
     def test_should_run_basic_flow(self):
-        setup = _action_result_basic_setup(None)
+        setup = _action_basic_setup(None)
         # Per-op sdk-test-control.json skip — basic test exercises a flow with
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
         for _op in ["create"]:
-            _skip, _reason = runner.is_control_skipped("entityOp", "action_result." + _op, "live" if _live else "unit")
+            _skip, _reason = runner.is_control_skipped("entityOp", "action." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
                 return
@@ -36,25 +36,25 @@ class TestActionResultEntity:
         # without an *_ENTID env override, those IDs hit the live API and 4xx.
         if setup.get("synthetic_only"):
             pytest.skip("live entity test uses synthetic IDs from fixture — "
-                        "set CONECTO_TEST_ACTION_RESULT_ENTID JSON to run live")
+                        "set CONECTO_TEST_ACTION_ENTID JSON to run live")
         client = setup["client"]
 
         # CREATE
-        action_result_ref01_ent = client.ActionResult(None)
-        action_result_ref01_data = helpers.to_map(vs.getprop(
-            vs.getpath(setup["data"], "new.action_result"), "action_result_ref01"))
-        action_result_ref01_data["action"] = setup["idmap"]["action01"]
-        action_result_ref01_data["slug"] = setup["idmap"]["slug01"]
+        action_ref01_ent = client.Action(None)
+        action_ref01_data = helpers.to_map(vs.getprop(
+            vs.getpath(setup["data"], "new.action"), "action_ref01"))
+        action_ref01_data["action"] = setup["idmap"]["action01"]
+        action_ref01_data["slug"] = setup["idmap"]["slug01"]
 
-        action_result_ref01_data = helpers.to_map(runner.entity_data(action_result_ref01_ent.create(action_result_ref01_data, None)))
-        assert action_result_ref01_data is not None
+        action_ref01_data = helpers.to_map(runner.entity_data(action_ref01_ent.create(action_ref01_data, None)))
+        assert action_ref01_data is not None
 
 
 
-def _action_result_basic_setup(extra):
+def _action_basic_setup(extra):
     runner.load_env_local()
 
-    entity_data_file = os.path.join(_TEST_DIR, "../../.sdk/test/entity/action_result/ActionResultTestData.json")
+    entity_data_file = os.path.join(_TEST_DIR, "../../.sdk/test/entity/action/ActionTestData.json")
     with open(entity_data_file, "r") as f:
         entity_data_source = f.read()
 
@@ -67,7 +67,7 @@ def _action_result_basic_setup(extra):
 
     # Generate idmap via transform.
     idmap = vs.transform(
-        ["action_result01", "action_result02", "action_result03", "integration01", "integration02", "integration03", "action01", "slug01"],
+        ["action01", "action02", "action03", "integration01", "integration02", "integration03", "slug01"],
         {
             "`$PACK`": ["", {
                 "`$KEY`": "`$COPY`",
@@ -80,18 +80,18 @@ def _action_result_basic_setup(extra):
     # mode is on without a real override, the basic test runs against synthetic
     # IDs from the fixture and 4xx's. We surface this so the test can skip.
     _entid_env_raw = os.environ.get(
-        "CONECTO_TEST_ACTION_RESULT_ENTID")
+        "CONECTO_TEST_ACTION_ENTID")
     _idmap_overridden = _entid_env_raw is not None and _entid_env_raw.strip().startswith("{")
 
     env = runner.env_override({
-        "CONECTO_TEST_ACTION_RESULT_ENTID": idmap,
+        "CONECTO_TEST_ACTION_ENTID": idmap,
         "CONECTO_TEST_LIVE": "FALSE",
         "CONECTO_TEST_EXPLAIN": "FALSE",
         "CONECTO_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
-        env.get("CONECTO_TEST_ACTION_RESULT_ENTID"))
+        env.get("CONECTO_TEST_ACTION_ENTID"))
     if idmap_resolved is None:
         idmap_resolved = helpers.to_map(idmap)
 

@@ -21,7 +21,7 @@ support (`list`, `load`, `create`, `update`, `remove`):
 
 ```ts
 const client = new ConectoSDK()
-const actionresult = await client.ActionResult().create({
+const action = await client.Action().create({
   slug: 'example',
   ok: true,
 })
@@ -162,7 +162,7 @@ The API exposes 10 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **ActionResult** | The ActionResult entity (create). | `/integrations/{slug}/actions/{action}/run/` |
+| **Action** | The Action entity (create). | `/integrations/{slug}/actions/{action}/run/` |
 | **Contact** | The Contact entity (create, list). | `/contacts/` |
 | **Conversation** | The Conversation entity (create, list, load, update). | `/conversations/` |
 | **Credential** | The Credential entity (load). | `/me/` |

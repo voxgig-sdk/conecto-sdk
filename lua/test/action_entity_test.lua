@@ -1,4 +1,4 @@
--- ActionResult entity test
+-- Action entity test
 
 local json = require("dkjson")
 local vs = require("utility.struct.struct")
@@ -8,19 +8,19 @@ local runner = require("test.runner")
 
 local _test_dir = debug.getinfo(1, "S").source:match("^@(.+/)")  or "./"
 
-describe("ActionResultEntity", function()
+describe("ActionEntity", function()
   it("should create instance", function()
     local testsdk = sdk.test(nil, nil)
-    local ent = testsdk:ActionResult(nil)
+    local ent = testsdk:Action(nil)
     assert.is_not_nil(ent)
   end)
 
   it("should run basic flow", function()
-    local setup = action_result_basic_setup(nil)
+    local setup = action_basic_setup(nil)
     -- Per-op sdk-test-control.json skip.
     local _live = setup.live or false
     for _, _op in ipairs({"create"}) do
-      local _should_skip, _reason = runner.is_control_skipped("entityOp", "action_result." .. _op, _live and "live" or "unit")
+      local _should_skip, _reason = runner.is_control_skipped("entityOp", "action." .. _op, _live and "live" or "unit")
       if _should_skip then
         pending(_reason or "skipped via sdk-test-control.json")
         return
@@ -29,33 +29,33 @@ describe("ActionResultEntity", function()
     -- The basic flow consumes synthetic IDs from the fixture. In live mode
     -- without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set CONECTO_TEST_ACTION_RESULT_ENTID JSON to run live")
+      pending("live entity test uses synthetic IDs from fixture — set CONECTO_TEST_ACTION_ENTID JSON to run live")
       return
     end
     local client = setup.client
 
     -- CREATE
-    local action_result_ref01_ent = client:ActionResult(nil)
-    local action_result_ref01_data = helpers.to_map(vs.getprop(
-      vs.getpath(setup.data, "new.action_result"), "action_result_ref01"))
-    action_result_ref01_data["action"] = setup.idmap["action01"]
-    action_result_ref01_data["slug"] = setup.idmap["slug01"]
+    local action_ref01_ent = client:Action(nil)
+    local action_ref01_data = helpers.to_map(vs.getprop(
+      vs.getpath(setup.data, "new.action"), "action_ref01"))
+    action_ref01_data["action"] = setup.idmap["action01"]
+    action_ref01_data["slug"] = setup.idmap["slug01"]
 
-    local action_result_ref01_data_result, err = action_result_ref01_ent:create(action_result_ref01_data, nil)
+    local action_ref01_data_result, err = action_ref01_ent:create(action_ref01_data, nil)
     assert.is_nil(err)
-    action_result_ref01_data = helpers.to_map(type(action_result_ref01_data_result) == 'table' and action_result_ref01_data_result.data_get and action_result_ref01_data_result:data_get() or action_result_ref01_data_result)
-    assert.is_not_nil(action_result_ref01_data)
+    action_ref01_data = helpers.to_map(type(action_ref01_data_result) == 'table' and action_ref01_data_result.data_get and action_ref01_data_result:data_get() or action_ref01_data_result)
+    assert.is_not_nil(action_ref01_data)
 
   end)
 end)
 
-function action_result_basic_setup(extra)
+function action_basic_setup(extra)
   runner.load_env_local()
 
-  local entity_data_file = _test_dir .. "../../.sdk/test/entity/action_result/ActionResultTestData.json"
+  local entity_data_file = _test_dir .. "../../.sdk/test/entity/action/ActionTestData.json"
   local f = io.open(entity_data_file, "r")
   if f == nil then
-    error("failed to read action_result test data: " .. entity_data_file)
+    error("failed to read action test data: " .. entity_data_file)
   end
   local entity_data_source = f:read("*a")
   f:close()
@@ -69,7 +69,7 @@ function action_result_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "action_result01", "action_result02", "action_result03", "integration01", "integration02", "integration03", "action01", "slug01" },
+    { "action01", "action02", "action03", "integration01", "integration02", "integration03", "slug01" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",
@@ -81,18 +81,18 @@ function action_result_basic_setup(extra)
   -- Detect ENTID env override before envOverride consumes it. When live
   -- mode is on without a real override, the basic test runs against synthetic
   -- IDs from the fixture and 4xx's. Surface this so the test can skip.
-  local entid_env_raw = os.getenv("CONECTO_TEST_ACTION_RESULT_ENTID")
+  local entid_env_raw = os.getenv("CONECTO_TEST_ACTION_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 
   local env = runner.env_override({
-    ["CONECTO_TEST_ACTION_RESULT_ENTID"] = idmap,
+    ["CONECTO_TEST_ACTION_ENTID"] = idmap,
     ["CONECTO_TEST_LIVE"] = "FALSE",
     ["CONECTO_TEST_EXPLAIN"] = "FALSE",
     ["CONECTO_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
-    env["CONECTO_TEST_ACTION_RESULT_ENTID"])
+    env["CONECTO_TEST_ACTION_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
   end

@@ -41,9 +41,9 @@ local client = sdk.test()
 
 ### Instance Methods
 
-#### `ActionResult(data)`
+#### `Action(data)`
 
-Create a new `ActionResult` entity instance. Pass `nil` for no initial data.
+Create a new `Action` entity instance. Pass `nil` for no initial data.
 
 #### `Contact(data)`
 
@@ -117,10 +117,10 @@ same parameters as `direct()`.
 
 ---
 
-## ActionResultEntity
+## ActionEntity
 
 ```lua
-local action_result = client:ActionResult(nil)
+local action = client:Action(nil)
 ```
 
 ### Fields
@@ -142,7 +142,7 @@ local action_result = client:ActionResult(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:ActionResult():create({
+local result, err = client:Action():create({
   id = --[[ string ]],
   slug = --[[ string ]],
   ok = --[[ boolean ]],
@@ -169,7 +169,7 @@ Set the entity match criteria.
 
 #### `make() -> Entity`
 
-Create a new `ActionResultEntity` instance with the same client and
+Create a new `ActionEntity` instance with the same client and
 options.
 
 #### `get_name() -> string`

@@ -153,7 +153,7 @@ JSON schemas are emitted by the SDK from the `Args` struct's `json` /
 
 The 10 entities valid as the `entity` argument:
 
-action_result | contact | conversation | credential | integration | media | message | schema | visitor | webhook
+action | contact | conversation | credential | integration | media | message | schema | visitor | webhook
 
 ### Smoke test via HTTP (raw JSON-RPC)
 

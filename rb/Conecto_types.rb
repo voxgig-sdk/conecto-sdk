@@ -8,7 +8,7 @@
 # @voxgig/apidef VALID_CANON). Ruby types are unenforced; these YARD
 # annotations document the shapes. Do not edit by hand.
 
-# ActionResult entity data model.
+# Action entity data model.
 #
 # @!attribute [rw] arguments
 #   @return [Hash, nil]
@@ -30,7 +30,7 @@
 #
 # @!attribute [rw] result
 #   @return [Hash, nil]
-ActionResult = Struct.new(
+Action = Struct.new(
   :arguments,
   :blocks,
   :conversation_id,
@@ -41,7 +41,7 @@ ActionResult = Struct.new(
   keyword_init: true
 )
 
-# Request payload for ActionResult#create.
+# Request payload for Action#create.
 #
 # @!attribute [rw] id
 #   @return [String]
@@ -69,7 +69,7 @@ ActionResult = Struct.new(
 #
 # @!attribute [rw] result
 #   @return [Hash, nil]
-ActionResultCreateData = Struct.new(
+ActionCreateData = Struct.new(
   :id,
   :slug,
   :arguments,

@@ -6,7 +6,7 @@
 -- @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
 -- edit by hand.
 
----@class ActionResult
+---@class Action
 ---@field arguments? table
 ---@field blocks? table
 ---@field conversation_id? number
@@ -15,7 +15,7 @@
 ---@field ok boolean
 ---@field result? table
 
----@class ActionResultCreateData
+---@class ActionCreateData
 ---@field id string
 ---@field slug string
 ---@field arguments? table

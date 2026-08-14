@@ -1,6 +1,6 @@
 # Flows
 
-@"BasicActionResultFlow.aontu"
+@"BasicActionFlow.aontu"
 @"BasicContactFlow.aontu"
 @"BasicConversationFlow.aontu"
 @"BasicCredentialFlow.aontu"

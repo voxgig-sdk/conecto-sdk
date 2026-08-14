@@ -15,30 +15,30 @@ import type {
 } from '../types'
 
 import type {
-  ActionResult,
-  ActionResultCreateData,
+  Action,
+  ActionCreateData,
 } from '../ConectoTypes'
 
 // TODO: needs Entity superclass
-class ActionResultEntity extends ConectoEntityBase<ActionResult> {
+class ActionEntity extends ConectoEntityBase<Action> {
 
   constructor(client: ConectoSDK, entopts: any) {
     super(client, entopts)
-    this.name = 'action_result'
-    this.name_ = 'action_result'
-    this.Name = 'ActionResult'
+    this.name = 'action'
+    this.name_ = 'action'
+    this.Name = 'Action'
   }
 
 
-  make(this: ActionResultEntity) {
-    return new ActionResultEntity(this._client, this.entopts())
+  make(this: ActionEntity) {
+    return new ActionEntity(this._client, this.entopts())
   }
 
 
 
 
 
-  async create(this: any, reqdata?: ActionResultCreateData, ctrl?: Control): Promise<ActionResultEntity> {
+  async create(this: any, reqdata?: ActionCreateData, ctrl?: Control): Promise<ActionEntity> {
 
     const utility = this._utility
     const {
@@ -146,7 +146,7 @@ class ActionResultEntity extends ConectoEntityBase<ActionResult> {
       }
       else {
         // Off-happy-path (throw disabled): typed as any so the method's
-        // Promise<ActionResult> return stays clean under strict null checks.
+        // Promise<Action> return stays clean under strict null checks.
         return undefined as any
       }
     }
@@ -159,5 +159,5 @@ class ActionResultEntity extends ConectoEntityBase<ActionResult> {
 
 
 export {
-  ActionResultEntity
+  ActionEntity
 }

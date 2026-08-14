@@ -5,7 +5,7 @@ guide: {
   metrics: count: path: 19
   metrics: count: method: 25
 
-  entity: action_result: {
+  entity: action: {
     path: "/integrations/{slug}/actions/{action}/run/": {
       action: "run": {}
       rename: param: "action": *"id"

@@ -338,11 +338,11 @@ func (sdk *ConectoSDK) Graphql(
 }
 
 
-// ActionResult returns a ActionResult entity bound to this client.
-// Idiomatic usage: client.ActionResult(nil).List(nil, nil) or
-// client.ActionResult(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ConectoSDK) ActionResult(data map[string]any) ConectoEntity {
-	return NewActionResultEntityFunc(sdk, data)
+// Action returns a Action entity bound to this client.
+// Idiomatic usage: client.Action(nil).List(nil, nil) or
+// client.Action(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ConectoSDK) Action(data map[string]any) ConectoEntity {
+	return NewActionEntityFunc(sdk, data)
 }
 
 

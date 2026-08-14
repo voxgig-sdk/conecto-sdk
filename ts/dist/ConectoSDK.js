@@ -2,7 +2,7 @@
 // Conecto Ts SDK
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SDK = exports.ConectoSDK = exports.ConectoEntityBase = exports.BaseFeature = exports.config = exports.stdutil = void 0;
-const ActionResultEntity_1 = require("./entity/ActionResultEntity");
+const ActionEntity_1 = require("./entity/ActionEntity");
 const ContactEntity_1 = require("./entity/ContactEntity");
 const ConversationEntity_1 = require("./entity/ConversationEntity");
 const CredentialEntity_1 = require("./entity/CredentialEntity");
@@ -227,12 +227,12 @@ class ConectoSDK {
         }
         return res;
     }
-    // Entity access: `client.ActionResult().list()` / `client.ActionResult().load({ id })`.
+    // Entity access: `client.Action().list()` / `client.Action().load({ id })`.
     // The argument is the entity OPTIONS object (passed to the entity
     // constructor as entopts), not initial entity data.
-    ActionResult(entopts) {
+    Action(entopts) {
         const self = this;
-        return new ActionResultEntity_1.ActionResultEntity(self, entopts);
+        return new ActionEntity_1.ActionEntity(self, entopts);
     }
     // Entity access: `client.Contact().list()` / `client.Contact().load({ id })`.
     // The argument is the entity OPTIONS object (passed to the entity

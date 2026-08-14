@@ -20,7 +20,7 @@ local SDK_MODULE = "conecto_sdk"
 -- A test-mode client seeded with a fixture for every entity. The constructor
 -- of each runnable snippet is rewritten to this form so the offline mock has
 -- data to return.
-local TEST_SEED = '{ entity = { ["action_result"] = { ["test01"] = { id = "test01" } }, ["contact"] = { ["test01"] = { id = "test01" } }, ["conversation"] = { ["test01"] = { id = "test01" } }, ["credential"] = { ["test01"] = { id = "test01" } }, ["integration"] = { ["test01"] = { id = "test01" } }, ["media"] = { ["test01"] = { id = "test01" } }, ["message"] = { ["test01"] = { id = "test01" } }, ["schema"] = { ["test01"] = { id = "test01" } }, ["visitor"] = { ["test01"] = { id = "test01" } }, ["webhook"] = { ["test01"] = { id = "test01" } } } }'
+local TEST_SEED = '{ entity = { ["action"] = { ["test01"] = { id = "test01" } }, ["contact"] = { ["test01"] = { id = "test01" } }, ["conversation"] = { ["test01"] = { id = "test01" } }, ["credential"] = { ["test01"] = { id = "test01" } }, ["integration"] = { ["test01"] = { id = "test01" } }, ["media"] = { ["test01"] = { id = "test01" } }, ["message"] = { ["test01"] = { id = "test01" } }, ["schema"] = { ["test01"] = { id = "test01" } }, ["visitor"] = { ["test01"] = { id = "test01" } }, ["webhook"] = { ["test01"] = { id = "test01" } } } }'
 local TEST_CTOR = "sdk.test(" .. TEST_SEED .. ")"
 
 local function script_dir()

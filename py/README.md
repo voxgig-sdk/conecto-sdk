@@ -4,7 +4,7 @@
 
 The Python SDK for the Conecto API — an entity-oriented client following Pythonic conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `client.ActionResult()` — each
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Action()` — each
 carrying a small, uniform set of operations (`list`, `load`, `create`, `update`, `remove`) instead of raw URL
 paths and query strings. You work with named resources and verbs, which
 keeps the cognitive load low.
@@ -43,7 +43,7 @@ client = ConectoSDK({
 
 ```python
 # Create — returns the ENTITY (call data_get() for the record)
-created = client.ActionResult().create({"id": "example_id", "slug": "example_slug", "ok": True})
+created = client.Action().create({"id": "example_id", "slug": "example_slug", "ok": True})
 
 ```
 
@@ -202,7 +202,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
-| `ActionResult` | `(data) -> ActionResultEntity` | Create an ActionResult entity instance. |
+| `Action` | `(data) -> ActionEntity` | Create an Action entity instance. |
 | `Contact` | `(data) -> ContactEntity` | Create a Contact entity instance. |
 | `Conversation` | `(data) -> ConversationEntity` | Create a Conversation entity instance. |
 | `Credential` | `(data) -> CredentialEntity` | Create a Credential entity instance. |
@@ -251,7 +251,7 @@ On error, `ok` is `False` and `err` contains the error value.
 
 ### Entities
 
-#### ActionResult
+#### Action
 
 | Field | Description |
 | --- | --- |
@@ -388,9 +388,9 @@ API path: `/webhooks/`
 ## Entities
 
 
-### ActionResult
+### Action
 
-Create an instance: `action_result = client.ActionResult()`
+Create an instance: `action = client.Action()`
 
 #### Operations
 
@@ -413,7 +413,7 @@ Create an instance: `action_result = client.ActionResult()`
 #### Example: Create
 
 ```python
-action_result = client.ActionResult().create({
+action = client.Action().create({
     "id": "example_id",  # str
     "slug": "example_slug",  # str
     "ok": True,  # bool

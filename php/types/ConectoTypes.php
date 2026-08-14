@@ -12,8 +12,8 @@ declare(strict_types=1);
 // registered on the composer classmap autoload. The SDK boundary exchanges
 // assoc-arrays; these classes name the shapes for tooling and typed callers.
 
-/** ActionResult entity data model. */
-class ActionResult
+/** Action entity data model. */
+class Action
 {
     public ?array $arguments = null;
     public ?array $blocks = null;
@@ -24,8 +24,8 @@ class ActionResult
     public ?array $result = null;
 }
 
-/** Request payload for ActionResult#create. */
-class ActionResultCreateData
+/** Request payload for Action#create. */
+class ActionCreateData
 {
     public string $id;
     public string $slug;

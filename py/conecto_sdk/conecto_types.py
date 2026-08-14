@@ -16,11 +16,11 @@ from __future__ import annotations
 from typing import TypedDict, Any
 
 
-class ActionResultRequired(TypedDict):
+class ActionRequired(TypedDict):
     ok: bool
 
 
-class ActionResult(ActionResultRequired, total=False):
+class Action(ActionRequired, total=False):
     arguments: dict
     blocks: list
     conversation_id: int
@@ -29,13 +29,13 @@ class ActionResult(ActionResultRequired, total=False):
     result: dict
 
 
-class ActionResultCreateDataRequired(TypedDict):
+class ActionCreateDataRequired(TypedDict):
     id: str
     slug: str
     ok: bool
 
 
-class ActionResultCreateData(ActionResultCreateDataRequired, total=False):
+class ActionCreateData(ActionCreateDataRequired, total=False):
     arguments: dict
     blocks: list
     conversation_id: int

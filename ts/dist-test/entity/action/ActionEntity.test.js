@@ -44,19 +44,19 @@ const node_test_1 = require("node:test");
 const node_assert_1 = __importDefault(require("node:assert"));
 const __1 = require("../../..");
 const utility_1 = require("../../utility");
-(0, node_test_1.describe)('ActionResultEntity', async () => {
+(0, node_test_1.describe)('ActionEntity', async () => {
     // Per-test live pacing. Delay is read from sdk-test-control.json's
     // `test.live.delayMs`; only sleeps when CONECTO_TEST_LIVE=TRUE.
     (0, node_test_1.afterEach)((0, utility_1.liveDelay)('CONECTO_TEST_LIVE'));
     (0, node_test_1.test)('instance', async () => {
         const testsdk = __1.ConectoSDK.test();
-        const ent = testsdk.ActionResult();
+        const ent = testsdk.Action();
         (0, node_assert_1.default)(null != ent);
     });
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.CONECTO_TEST_LIVE;
         for (const op of ['create']) {
-            if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'action_result.' + op, live))
+            if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'action.' + op, live))
                 return;
         }
         const setup = basicSetup();
@@ -64,7 +64,7 @@ const utility_1 = require("../../utility");
         // fixture (entity TestData.json). Those don't exist on the live API.
         // Skip live runs unless the user provided a real ENTID env override.
         if (setup.syntheticOnly) {
-            t.skip('live entity test uses synthetic IDs from fixture — set CONECTO_TEST_ACTION_RESULT_ENTID JSON to run live');
+            t.skip('live entity test uses synthetic IDs from fixture — set CONECTO_TEST_ACTION_ENTID JSON to run live');
             return;
         }
         const client = setup.client;
@@ -72,19 +72,19 @@ const utility_1 = require("../../utility");
         const isempty = struct.isempty;
         const select = struct.select;
         // CREATE
-        const action_result_ref01_ent = client.ActionResult();
-        let action_result_ref01_data = setup.data.new.action_result['action_result_ref01'];
-        action_result_ref01_data['action'] = setup.idmap['action01'];
-        action_result_ref01_data['slug'] = setup.idmap['slug01'];
-        action_result_ref01_data = (await action_result_ref01_ent.create(action_result_ref01_data)).data();
-        (0, node_assert_1.default)(null != action_result_ref01_data);
+        const action_ref01_ent = client.Action();
+        let action_ref01_data = setup.data.new.action['action_ref01'];
+        action_ref01_data['action'] = setup.idmap['action01'];
+        action_ref01_data['slug'] = setup.idmap['slug01'];
+        action_ref01_data = (await action_ref01_ent.create(action_ref01_data)).data();
+        (0, node_assert_1.default)(null != action_ref01_data);
     });
 });
 function basicSetup(extra) {
     // TODO: fix test def options
     const options = {}; // null
     // TODO: needs test utility to resolve path
-    const entityDataFile = node_path_1.default.resolve(__dirname, '../../../../.sdk/test/entity/action_result/ActionResultTestData.json');
+    const entityDataFile = node_path_1.default.resolve(__dirname, '../../../../.sdk/test/entity/action/ActionTestData.json');
     // TODO: file ready util needed?
     const entityDataSource = Fs.readFileSync(entityDataFile).toString('utf8');
     // TODO: need a xlang JSON parse utility in voxgig/struct with better error msgs
@@ -94,7 +94,7 @@ function basicSetup(extra) {
     const struct = client.utility().struct;
     const merge = struct.merge;
     const transform = struct.transform;
-    let idmap = transform(['action_result01', 'action_result02', 'action_result03', 'integration01', 'integration02', 'integration03'], {
+    let idmap = transform(['action01', 'action02', 'action03', 'integration01', 'integration02', 'integration03'], {
         '`$PACK`': ['', {
                 '`$KEY`': '`$COPY`',
                 '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']
@@ -104,15 +104,15 @@ function basicSetup(extra) {
     // basic flow consumes synthetic IDs from the fixture file; without an
     // override those synthetic IDs reach the live API and 4xx. Surface this
     // to the test so it can skip rather than fail.
-    const idmapEnvVal = process.env['CONECTO_TEST_ACTION_RESULT_ENTID'];
+    const idmapEnvVal = process.env['CONECTO_TEST_ACTION_ENTID'];
     const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{');
     const env = (0, utility_1.envOverride)({
-        'CONECTO_TEST_ACTION_RESULT_ENTID': idmap,
+        'CONECTO_TEST_ACTION_ENTID': idmap,
         'CONECTO_TEST_LIVE': 'FALSE',
         'CONECTO_TEST_EXPLAIN': 'FALSE',
         'CONECTO_APIKEY': 'NONE',
     });
-    idmap = env['CONECTO_TEST_ACTION_RESULT_ENTID'];
+    idmap = env['CONECTO_TEST_ACTION_ENTID'];
     const live = 'TRUE' === env.CONECTO_TEST_LIVE;
     if (live) {
         client = new __1.ConectoSDK(merge([
@@ -136,4 +136,4 @@ function basicSetup(extra) {
     };
     return setup;
 }
-//# sourceMappingURL=ActionResultEntity.test.js.map
+//# sourceMappingURL=ActionEntity.test.js.map

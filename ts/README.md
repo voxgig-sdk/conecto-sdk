@@ -5,7 +5,7 @@
 The TypeScript SDK for the Conecto API — a type-safe, entity-oriented client with full async/await support.
 
 The API is exposed as capitalised, semantic **Entities** — e.g.
-`client.ActionResult()` — each with a small set of operations (`list`, `load`, `create`, `update`, `remove`)
+`client.Action()` — each with a small set of operations (`list`, `load`, `create`, `update`, `remove`)
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
@@ -38,8 +38,8 @@ const client = new ConectoSDK({
 ### 4. Create, update, and remove
 
 ```ts
-// Create — returns the created ActionResult ENTITY (.data() for the record)
-const created = await client.ActionResult().create({
+// Create — returns the created Action ENTITY (.data() for the record)
+const created = await client.Action().create({
   id: 'example_id',
   slug: 'example_slug',
   ok: true,
@@ -221,7 +221,7 @@ new ConectoSDK(options?: {
 | `utility()` | `Utility` | Deep copy of the SDK utility object. |
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
-| `ActionResult(data?)` | `ActionResultEntity` | Create an ActionResult entity instance. |
+| `Action(data?)` | `ActionEntity` | Create an Action entity instance. |
 | `Contact(data?)` | `ContactEntity` | Create a Contact entity instance. |
 | `Conversation(data?)` | `ConversationEntity` | Create a Conversation entity instance. |
 | `Credential(data?)` | `CredentialEntity` | Create a Credential entity instance. |
@@ -302,7 +302,7 @@ The `prepare()` method returns:
 
 ### Entities
 
-#### ActionResult
+#### Action
 
 | Field | Description |
 | --- | --- |
@@ -439,9 +439,9 @@ API path: `/webhooks/`
 ## Entities
 
 
-### ActionResult
+### Action
 
-Create an instance: `const action_result = client.ActionResult()`
+Create an instance: `const action = client.Action()`
 
 #### Operations
 
@@ -464,7 +464,7 @@ Create an instance: `const action_result = client.ActionResult()`
 #### Example: Create
 
 ```ts
-const action_result = await client.ActionResult().create({
+const action = await client.Action().create({
   id: 'example_id',
   slug: 'example_slug',
   ok: true,

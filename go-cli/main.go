@@ -20,7 +20,7 @@ import (
 const prompt = "conecto"
 
 // entitiesHelp is the space-separated entity list shown by /help.
-const entitiesHelp = "action_result contact conversation credential integration media message schema visitor webhook"
+const entitiesHelp = "action contact conversation credential integration media message schema visitor webhook"
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr))

@@ -50,7 +50,7 @@ class ConectoConfig
           'content-type' => 'application/json',
         ],
                 "entity" => [
-                    "action_result" => [],
+                    "action" => [],
                     "contact" => [],
                     "conversation" => [],
                     "credential" => [],
@@ -63,7 +63,7 @@ class ConectoConfig
                 ],
             ],
             "entity" => [
-        'action_result' => [
+        'action' => [
           'fields' => [
             [
               'name' => 'arguments',
@@ -95,7 +95,7 @@ class ConectoConfig
               'type' => '`$OBJECT`',
             ],
           ],
-          'name' => 'action_result',
+          'name' => 'action',
           'op' => [
             'create' => [
               'input' => 'data',

@@ -42,9 +42,9 @@ $client = ConectoSDK::test();
 
 ### Instance Methods
 
-#### `ActionResult($data = null)`
+#### `Action($data = null)`
 
-Create a new `ActionResultEntity` instance. Pass `null` for no initial data.
+Create a new `ActionEntity` instance. Pass `null` for no initial data.
 
 #### `Contact($data = null)`
 
@@ -119,10 +119,10 @@ Prepare a fetch definition without sending the request. Returns the
 
 ---
 
-## ActionResultEntity
+## ActionEntity
 
 ```php
-$action_result = $client->ActionResult();
+$action = $client->Action();
 ```
 
 ### Fields
@@ -144,7 +144,7 @@ $action_result = $client->ActionResult();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->ActionResult()->create([
+$result = $client->Action()->create([
   "id" => null, // string
   "slug" => null, // string
   "ok" => null, // bool
@@ -169,9 +169,9 @@ Get the entity match criteria.
 
 Set the entity match criteria.
 
-#### `make(): ActionResultEntity`
+#### `make(): ActionEntity`
 
-Create a new `ActionResultEntity` instance with the same client and
+Create a new `ActionEntity` instance with the same client and
 options.
 
 #### `get_name(): string`

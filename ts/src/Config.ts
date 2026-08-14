@@ -48,7 +48,7 @@ class Config {
 
     entity: {
       
-      action_result: {
+      action: {
       },
 
       contact: {
@@ -83,7 +83,7 @@ class Config {
 
 
   entity = {
-    "action_result": {
+    "action": {
       "fields": [
         {
           "name": "arguments",
@@ -115,7 +115,7 @@ class Config {
           "type": "`$OBJECT`"
         }
       ],
-      "name": "action_result",
+      "name": "action",
       "op": {
         "create": {
           "input": "data",

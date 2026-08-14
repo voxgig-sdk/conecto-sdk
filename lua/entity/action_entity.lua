@@ -1,13 +1,13 @@
--- Conecto SDK ActionResult entity
+-- Conecto SDK Action entity
 
 local vs = require("utility.struct.struct")
 local helpers = require("core.helpers")
 
-local ActionResultEntity = {}
-ActionResultEntity.__index = ActionResultEntity
+local ActionEntity = {}
+ActionEntity.__index = ActionEntity
 
 
-function ActionResultEntity.new(client, entopts)
+function ActionEntity.new(client, entopts)
   entopts = entopts or {}
   if entopts["active"] == nil then
     entopts["active"] = true
@@ -17,8 +17,8 @@ function ActionResultEntity.new(client, entopts)
     entopts["active"] = true
   end
 
-  local self = setmetatable({}, ActionResultEntity)
-  self._name = "action_result"
+  local self = setmetatable({}, ActionEntity)
+  self._name = "action"
   self._client = client
   self._utility = client:get_utility()
   self._entopts = entopts
@@ -37,34 +37,34 @@ function ActionResultEntity.new(client, entopts)
 end
 
 
-function ActionResultEntity:get_name()
+function ActionEntity:get_name()
   return self._name
 end
 
 
-function ActionResultEntity:make()
+function ActionEntity:make()
   local opts = {}
   for k, v in pairs(self._entopts) do
     opts[k] = v
   end
-  return ActionResultEntity.new(self._client, opts)
+  return ActionEntity.new(self._client, opts)
 end
 
 
 -- Every operation resolves to the entity; `remove` additionally marks
 -- it. The instance KEEPS the data it held — a caller can still read what
 -- was deleted — but it is no longer a live record. See AGENTS.md.
-function ActionResultEntity:mark_deleted()
+function ActionEntity:mark_deleted()
   self._deleted = true
 end
 
 
-function ActionResultEntity:deleted()
+function ActionEntity:deleted()
   return true == self._deleted
 end
 
 
-function ActionResultEntity:data_set(args)
+function ActionEntity:data_set(args)
   if args ~= nil then
     self._data = helpers.to_map(vs.clone(args)) or {}
     self._utility.feature_hook(self._entctx, "SetData")
@@ -72,13 +72,13 @@ function ActionResultEntity:data_set(args)
 end
 
 
-function ActionResultEntity:data_get()
+function ActionEntity:data_get()
   self._utility.feature_hook(self._entctx, "GetData")
   return vs.clone(self._data)
 end
 
 
-function ActionResultEntity:match_set(args)
+function ActionEntity:match_set(args)
   if args ~= nil then
     self._match = helpers.to_map(vs.clone(args)) or {}
     self._utility.feature_hook(self._entctx, "SetMatch")
@@ -86,7 +86,7 @@ function ActionResultEntity:match_set(args)
 end
 
 
-function ActionResultEntity:match_get()
+function ActionEntity:match_get()
   self._utility.feature_hook(self._entctx, "GetMatch")
   return vs.clone(self._match)
 end
@@ -102,7 +102,7 @@ end
 --   - outbound (upload): an iterable `body` in callopts is attached to the
 --     request so the transport can stream the payload;
 --   - `ctrl` (pipeline control) and `signal` (cancellation) honoured.
-function ActionResultEntity:stream(action, args, callopts)
+function ActionEntity:stream(action, args, callopts)
   local utility = self._utility
   callopts = callopts or {}
   local signal = callopts["signal"]
@@ -234,11 +234,11 @@ end
 
 
 
----@param reqdata ActionResultCreateData
+---@param reqdata ActionCreateData
 ---@param ctrl? table
----@return ActionResult
+---@return Action
 ---@return string? err
-function ActionResultEntity:create(reqdata, ctrl)
+function ActionEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
     opname = "create",
@@ -264,7 +264,7 @@ end
 
 
 
-function ActionResultEntity:_run_op(ctx, post_done)
+function ActionEntity:_run_op(ctx, post_done)
   local utility = self._utility
 
   utility.feature_hook(ctx, "PrePoint")
@@ -341,4 +341,4 @@ function ActionResultEntity:_run_op(ctx, post_done)
 end
 
 
-return ActionResultEntity
+return ActionEntity

@@ -16,7 +16,7 @@ import (
 // reqdata map passed through to the SDK. For load, `query` should be
 // `{"id": <value>}`. For list, omit `query` or pass an empty map.
 type Args struct {
-	Entity string         `json:"entity" jsonschema:"action_result | contact | conversation | credential | integration | media | message | schema | visitor | webhook"`
+	Entity string         `json:"entity" jsonschema:"action | contact | conversation | credential | integration | media | message | schema | visitor | webhook"`
 	Query  map[string]any `json:"query,omitempty" jsonschema:"optional match map e.g. {\"id\":1} for load, omit for list"`
 }
 
@@ -77,8 +77,8 @@ func runOp(client *sdk.ConectoSDK, op string, args Args) (*mcp.CallToolResult, a
 // emits one `case "<name>":` per entity defined in the SDK model.
 func entityFor(client *sdk.ConectoSDK, name string) (sdk.ConectoEntity, error) {
 	switch strings.ToLower(name) {
-	case "action_result":
-		return client.ActionResult(nil), nil
+	case "action":
+		return client.Action(nil), nil
 	case "contact":
 		return client.Contact(nil), nil
 	case "conversation":

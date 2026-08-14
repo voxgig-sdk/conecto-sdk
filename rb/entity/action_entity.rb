@@ -1,9 +1,9 @@
-# Conecto SDK ActionResult entity
+# Conecto SDK Action entity
 
 require_relative '../utility/struct/voxgig_struct'
 require_relative '../core/helpers'
 
-class ActionResultEntity
+class ActionEntity
   def initialize(client, entopts = nil)
     entopts ||= {}
     if entopts["active"].nil?
@@ -14,7 +14,7 @@ class ActionResultEntity
       entopts["active"] = true
     end
 
-    @_name = "action_result"
+    @_name = "action"
     @_client = client
     @_utility = client.get_utility
     @_entopts = entopts
@@ -48,7 +48,7 @@ class ActionResultEntity
 
   def make
     opts = @_entopts.dup
-    ActionResultEntity.new(@_client, opts)
+    ActionEntity.new(@_client, opts)
   end
 
   def data_set(args)
@@ -58,7 +58,7 @@ class ActionResultEntity
     end
   end
 
-  # @return [ActionResult, Hash] the current ActionResult data
+  # @return [Action, Hash] the current Action data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -71,7 +71,7 @@ class ActionResultEntity
     end
   end
 
-  # @return [Hash] the current match filter (any subset of ActionResult fields)
+  # @return [Hash] the current match filter (any subset of Action fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -175,11 +175,11 @@ class ActionResultEntity
   
 
   
-  # Create a new ActionResult.
+  # Create a new Action.
   #
-  # @param reqdata [ActionResultCreateData, Hash, nil] body data
+  # @param reqdata [ActionCreateData, Hash, nil] body data
   # @param ctrl [Object, nil] optional per-call control
-  # @return [ActionResult, Hash] the created ActionResult; raises ConectoError on failure
+  # @return [Action, Hash] the created Action; raises ConectoError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

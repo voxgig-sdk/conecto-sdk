@@ -4,7 +4,7 @@
 
 The Golang SDK for the Conecto API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
-It exposes the API as capitalised, semantic **Entities** — e.g. `client.ActionResult(nil)` — each with the same small set of operations (`List`, `Load`, `Create`, `Update`, `Remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.Action(nil)` — each with the same small set of operations (`List`, `Load`, `Create`, `Update`, `Remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -53,8 +53,8 @@ func main() {
         "apikey": os.Getenv("CONECTO_APIKEY"),
     })
 
-    // Create a actionResult.
-    created, err := client.ActionResult(nil).Create(map[string]any{"id": "example_id", "slug": "example_slug", "ok": true}, nil)
+    // Create a action.
+    created, err := client.Action(nil).Create(map[string]any{"id": "example_id", "slug": "example_slug", "ok": true}, nil)
     if err != nil {
         panic(err)
     }
@@ -223,7 +223,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `GetUtility` | `() *Utility` | Copy of the SDK utility object. |
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
-| `ActionResult` | `(data map[string]any) ConectoEntity` | Create an ActionResult entity instance. |
+| `Action` | `(data map[string]any) ConectoEntity` | Create an Action entity instance. |
 | `Contact` | `(data map[string]any) ConectoEntity` | Create a Contact entity instance. |
 | `Conversation` | `(data map[string]any) ConectoEntity` | Create a Conversation entity instance. |
 | `Credential` | `(data map[string]any) ConectoEntity` | Create a Credential entity instance. |
@@ -264,16 +264,16 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    actionResult, err := client.ActionResult(nil).Create(map[string]any{/* fields */}, nil)
+    action, err := client.Action(nil).Create(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // actionResult is the returned record
+    // action is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
-#### ActionResult
+#### Action
 
 | Field | Description |
 | --- | --- |
@@ -410,9 +410,9 @@ API path: `/webhooks/`
 ## Entities
 
 
-### ActionResult
+### Action
 
-Create an instance: `actionResult := client.ActionResult(nil)`
+Create an instance: `action := client.Action(nil)`
 
 #### Operations
 
@@ -435,7 +435,7 @@ Create an instance: `actionResult := client.ActionResult(nil)`
 #### Example: Create
 
 ```go
-result, err := client.ActionResult(nil).Create(map[string]any{
+result, err := client.Action(nil).Create(map[string]any{
     "id": "example_id",
     "slug": "example_slug",
     "ok": true,

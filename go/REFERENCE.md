@@ -48,9 +48,9 @@ client := sdk.TestSDK(testopts, sdkopts)
 
 ### Instance Methods
 
-#### `ActionResult(data map[string]any) ConectoEntity`
+#### `Action(data map[string]any) ConectoEntity`
 
-Create a new `ActionResult` entity instance. Pass `nil` for no initial data.
+Create a new `Action` entity instance. Pass `nil` for no initial data.
 
 #### `Contact(data map[string]any) ConectoEntity`
 
@@ -124,11 +124,11 @@ same parameters as `Direct()`.
 
 ---
 
-## ActionResultEntity
+## ActionEntity
 
 ```go
-actionResult := client.ActionResult(nil)
-fmt.Println(actionResult.GetName()) // "action_result"
+action := client.Action(nil)
+fmt.Println(action.GetName()) // "action"
 ```
 
 ### Fields
@@ -150,7 +150,7 @@ fmt.Println(actionResult.GetName()) // "action_result"
 Create a new entity with the given data.
 
 ```go
-result, err := client.ActionResult(nil).Create(map[string]any{
+result, err := client.Action(nil).Create(map[string]any{
     "id": "example_id",
     "slug": "example_slug",
     "ok": true,
@@ -175,7 +175,7 @@ Get or set the entity match criteria. Works the same as `Data()`.
 
 #### `Make() Entity`
 
-Create a new `ActionResultEntity` instance with the same client and
+Create a new `ActionEntity` instance with the same client and
 options.
 
 #### `GetName() string`

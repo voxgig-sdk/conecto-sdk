@@ -1,4 +1,4 @@
-import { ActionResultEntity } from './entity/ActionResultEntity';
+import { ActionEntity } from './entity/ActionEntity';
 import { ContactEntity } from './entity/ContactEntity';
 import { ConversationEntity } from './entity/ConversationEntity';
 import { CredentialEntity } from './entity/CredentialEntity';
@@ -53,7 +53,7 @@ declare class ConectoSDK {
         data?: undefined;
     }>;
     graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
-    ActionResult(entopts?: Record<string, any>): ActionResultEntity;
+    Action(entopts?: Record<string, any>): ActionEntity;
     Contact(entopts?: Record<string, any>): ContactEntity;
     Conversation(entopts?: Record<string, any>): ConversationEntity;
     Credential(entopts?: Record<string, any>): CredentialEntity;

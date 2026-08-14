@@ -37,7 +37,7 @@ const SDK_NAME = 'ConectoSDK'
 
 // A fixture for every entity, so list()/load() resolve offline with no
 // network. Snippet client construction is rewritten to seed this.
-const TEST_SEED = {"entity":{"action_result":{"test01":{"id":"test01"}},"contact":{"test01":{"id":"test01"}},"conversation":{"test01":{"id":"test01"}},"credential":{"test01":{"id":"test01"}},"integration":{"test01":{"id":"test01"}},"media":{"test01":{"id":"test01"}},"message":{"test01":{"id":"test01"}},"schema":{"test01":{"id":"test01"}},"visitor":{"test01":{"id":"test01"}},"webhook":{"test01":{"id":"test01"}}}}
+const TEST_SEED = {"entity":{"action":{"test01":{"id":"test01"}},"contact":{"test01":{"id":"test01"}},"conversation":{"test01":{"id":"test01"}},"credential":{"test01":{"id":"test01"}},"integration":{"test01":{"id":"test01"}},"media":{"test01":{"id":"test01"}},"message":{"test01":{"id":"test01"}},"schema":{"test01":{"id":"test01"}},"visitor":{"test01":{"id":"test01"}},"webhook":{"test01":{"id":"test01"}}}}
 const SEED_ARG = JSON.stringify(TEST_SEED)
 const SEEDED_CTOR = SDK_NAME + '.test(' + SEED_ARG + ')'
 

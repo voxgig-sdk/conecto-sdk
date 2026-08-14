@@ -6,7 +6,7 @@ import (
 	vs "github.com/voxgig-sdk/conecto-sdk/go/utility/struct"
 )
 
-type ActionResultEntity struct {
+type ActionEntity struct {
 	name    string
 	client  *core.ConectoSDK
 	utility *core.Utility
@@ -17,7 +17,7 @@ type ActionResultEntity struct {
 	deleted bool
 }
 
-func NewActionResultEntity(client *core.ConectoSDK, entopts map[string]any) *ActionResultEntity {
+func NewActionEntity(client *core.ConectoSDK, entopts map[string]any) *ActionEntity {
 	if entopts == nil {
 		entopts = map[string]any{}
 	}
@@ -29,8 +29,8 @@ func NewActionResultEntity(client *core.ConectoSDK, entopts map[string]any) *Act
 		entopts["active"] = true
 	}
 
-	e := &ActionResultEntity{
-		name:    "action_result",
+	e := &ActionEntity{
+		name:    "action",
 		client:  client,
 		utility: client.GetUtility(),
 		entopts: entopts,
@@ -48,32 +48,32 @@ func NewActionResultEntity(client *core.ConectoSDK, entopts map[string]any) *Act
 	return e
 }
 
-func (e *ActionResultEntity) GetName() string { return e.name }
+func (e *ActionEntity) GetName() string { return e.name }
 
 // Deleted marks this instance as removed. `Remove` resolves to the entity
 // like every other operation, and the instance KEEPS the data it held — a
 // caller can still read what was deleted — but it is no longer a live
 // record. See AGENTS.md "Entity operations return ENTITIES".
-func (e *ActionResultEntity) MarkDeleted() {
+func (e *ActionEntity) MarkDeleted() {
 	e.deleted = true
 }
 
 
 // Deleted reports whether a successful Remove has resolved on this instance.
-func (e *ActionResultEntity) Deleted() bool {
+func (e *ActionEntity) Deleted() bool {
 	return e.deleted
 }
 
 
-func (e *ActionResultEntity) Make() core.Entity {
+func (e *ActionEntity) Make() core.Entity {
 	opts := map[string]any{}
 	for k, v := range e.entopts {
 		opts[k] = v
 	}
-	return NewActionResultEntity(e.client, opts)
+	return NewActionEntity(e.client, opts)
 }
 
-func (e *ActionResultEntity) Data(args ...any) any {
+func (e *ActionEntity) Data(args ...any) any {
 	if len(args) > 0 && args[0] != nil {
 		e.data = core.ToMapAny(vs.Clone(args[0]))
 		if e.data == nil {
@@ -87,7 +87,7 @@ func (e *ActionResultEntity) Data(args ...any) any {
 	return out
 }
 
-func (e *ActionResultEntity) Match(args ...any) any {
+func (e *ActionEntity) Match(args ...any) any {
 	if len(args) > 0 && args[0] != nil {
 		e.match = core.ToMapAny(vs.Clone(args[0]))
 		if e.match == nil {
@@ -102,24 +102,24 @@ func (e *ActionResultEntity) Match(args ...any) any {
 }
 
 // DataTyped is the statically-typed accessor for this entity's data. With no
-// argument it returns the current data as an ActionResult; with an argument it
+// argument it returns the current data as an Action; with an argument it
 // sets the data and returns the stored value. It delegates to the untyped Data
 // (identical runtime) and converts at the typed boundary.
-func (e *ActionResultEntity) DataTyped(data ...ActionResult) ActionResult {
+func (e *ActionEntity) DataTyped(data ...Action) Action {
 	if len(data) > 0 {
-		return typedFrom[ActionResult](e.Data(asMap(data[0])))
+		return typedFrom[Action](e.Data(asMap(data[0])))
 	}
-	return typedFrom[ActionResult](e.Data())
+	return typedFrom[Action](e.Data())
 }
 
 // MatchTyped mirrors DataTyped for the entity's match filter. The match is a
-// partial of the entity, so it round-trips through ActionResult (all fields
+// partial of the entity, so it round-trips through Action (all fields
 // optional at the wire level).
-func (e *ActionResultEntity) MatchTyped(match ...ActionResult) ActionResult {
+func (e *ActionEntity) MatchTyped(match ...Action) Action {
 	if len(match) > 0 {
-		return typedFrom[ActionResult](e.Match(asMap(match[0])))
+		return typedFrom[Action](e.Match(asMap(match[0])))
 	}
-	return typedFrom[ActionResult](e.Match())
+	return typedFrom[Action](e.Match())
 }
 
 // Stream (feature #4). Runs `action` through the full pipeline and returns a
@@ -131,7 +131,7 @@ func (e *ActionResultEntity) MatchTyped(match ...ActionResult) ActionResult {
 //   - outbound (upload): a `body` in callopts is attached to the request so the
 //     transport can stream the payload;
 //   - `ctrl` (pipeline control) and `signal` (a done channel) are honoured.
-func (e *ActionResultEntity) Stream(action string, args map[string]any, callopts map[string]any) <-chan any {
+func (e *ActionEntity) Stream(action string, args map[string]any, callopts map[string]any) <-chan any {
 	out := make(chan any)
 
 	if callopts == nil {
@@ -255,18 +255,18 @@ func (e *ActionResultEntity) Stream(action string, args map[string]any, callopts
 	return out
 }
 
-func (e *ActionResultEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
+func (e *ActionEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("load", e.name)
 }
 
 
-func (e *ActionResultEntity) List(_ map[string]any, _ map[string]any) (any, error) {
+func (e *ActionEntity) List(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("list", e.name)
 }
 
 
 
-func (e *ActionResultEntity) Create(reqdata map[string]any, ctrl map[string]any) (any, error) {
+func (e *ActionEntity) Create(reqdata map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
 	ctx := utility.MakeContext(map[string]any{
 		"opname":  "create",
@@ -289,29 +289,29 @@ func (e *ActionResultEntity) Create(reqdata map[string]any, ctrl map[string]any)
 }
 
 // CreateTyped is the statically-typed variant of Create: it takes an
-// ActionResultCreateData and returns an ActionResult. It delegates to the untyped
+// ActionCreateData and returns an Action. It delegates to the untyped
 // Create (identical runtime) and converts at the typed boundary.
-func (e *ActionResultEntity) CreateTyped(reqdata ActionResultCreateData, ctrl map[string]any) (ActionResult, error) {
+func (e *ActionEntity) CreateTyped(reqdata ActionCreateData, ctrl map[string]any) (Action, error) {
 	res, err := e.Create(asMap(reqdata), ctrl)
 	if err != nil {
-		return ActionResult{}, err
+		return Action{}, err
 	}
-	return typedFrom[ActionResult](res), nil
+	return typedFrom[Action](res), nil
 }
 
 
 
-func (e *ActionResultEntity) Update(_ map[string]any, _ map[string]any) (any, error) {
+func (e *ActionEntity) Update(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("update", e.name)
 }
 
 
-func (e *ActionResultEntity) Remove(_ map[string]any, _ map[string]any) (any, error) {
+func (e *ActionEntity) Remove(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("remove", e.name)
 }
 
 
-func (e *ActionResultEntity) runOp(ctx *core.Context, postDone func()) (any, error) {
+func (e *ActionEntity) runOp(ctx *core.Context, postDone func()) (any, error) {
 	utility := e.utility
 
 	utility.FeatureHook(ctx, "PrePoint")

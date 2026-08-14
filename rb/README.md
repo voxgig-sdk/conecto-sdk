@@ -4,7 +4,7 @@
 
 The Ruby SDK for the Conecto API — an entity-oriented client using idiomatic Ruby conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `client.ActionResult` — with named operations (`list`/`load`/`create`/`update`/`remove`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Action` — with named operations (`list`/`load`/`create`/`update`/`remove`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -35,8 +35,8 @@ client = ConectoSDK.new({
 ### 4. Create, update, and remove
 
 ```ruby
-# create returns the ENTITY — call data_get for the created ActionResult record.
-created = client.ActionResult.create({ "id" => "example_id", "slug" => "example_slug", "ok" => true })
+# create returns the ENTITY — call data_get for the created Action record.
+created = client.Action.create({ "id" => "example_id", "slug" => "example_slug", "ok" => true })
 
 ```
 
@@ -196,7 +196,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
-| `ActionResult` | `(data) -> ActionResultEntity` | Create an ActionResult entity instance. |
+| `Action` | `(data) -> ActionEntity` | Create an Action entity instance. |
 | `Contact` | `(data) -> ContactEntity` | Create a Contact entity instance. |
 | `Conversation` | `(data) -> ConversationEntity` | Create a Conversation entity instance. |
 | `Credential` | `(data) -> CredentialEntity` | Create a Credential entity instance. |
@@ -244,7 +244,7 @@ returns a result `Hash` with these keys:
 
 ### Entities
 
-#### ActionResult
+#### Action
 
 | Field | Description |
 | --- | --- |
@@ -381,9 +381,9 @@ API path: `/webhooks/`
 ## Entities
 
 
-### ActionResult
+### Action
 
-Create an instance: `action_result = client.ActionResult`
+Create an instance: `action = client.Action`
 
 #### Operations
 
@@ -406,7 +406,7 @@ Create an instance: `action_result = client.ActionResult`
 #### Example: Create
 
 ```ruby
-action_result = client.ActionResult.create({
+action = client.Action.create({
   "id" => "example_id", # String
   "slug" => "example_slug", # String
   "ok" => true, # Boolean

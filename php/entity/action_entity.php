@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-// Conecto SDK ActionResult entity
+// Conecto SDK Action entity
 
 require_once __DIR__ . '/../utility/struct/Struct.php';
 require_once __DIR__ . '/../core/Helpers.php';
 
 use Voxgig\Struct\Struct;
 
-class ActionResultEntity
+class ActionEntity
 {
     private string $_name;
     private $_client;
@@ -30,7 +30,7 @@ class ActionResultEntity
             $entopts["active"] = true;
         }
 
-        $this->_name = "action_result";
+        $this->_name = "action";
         $this->_client = $client;
         $this->_utility = $client->get_utility();
         $this->_entopts = $entopts;
@@ -74,11 +74,11 @@ class ActionResultEntity
     public function make(): self
     {
         $opts = $this->_entopts;
-        return new ActionResultEntity($this->_client, $opts);
+        return new ActionEntity($this->_client, $opts);
     }
 
     /**
-     * @param ActionResult|array $args ActionResult data (assoc-array) to store.
+     * @param Action|array $args Action data (assoc-array) to store.
      */
     public function data_set($args): void
     {
@@ -89,7 +89,7 @@ class ActionResultEntity
     }
 
     /**
-     * @return ActionResult|array The current ActionResult data as an assoc-array.
+     * @return Action|array The current Action data as an assoc-array.
      */
     public function data_get()
     {
@@ -98,7 +98,7 @@ class ActionResultEntity
     }
 
     /**
-     * @param array $args Match filter (any subset of ActionResult fields).
+     * @param array $args Match filter (any subset of Action fields).
      */
     public function match_set($args): void
     {
@@ -109,7 +109,7 @@ class ActionResultEntity
     }
 
     /**
-     * @return array The current match filter (any subset of ActionResult fields).
+     * @return array The current match filter (any subset of Action fields).
      */
     public function match_get()
     {
@@ -247,12 +247,12 @@ class ActionResultEntity
 
     
     /**
-     * Create a new ActionResult.
+     * Create a new Action.
      *
-     * @param ActionResultCreateData|array|null $reqdata Body data as an assoc-array;
-     *   a typed ActionResultCreateData names the shape.
+     * @param ActionCreateData|array|null $reqdata Body data as an assoc-array;
+     *   a typed ActionCreateData names the shape.
      * @param mixed $ctrl Optional per-call control overrides.
-     * @return ActionResult|array The created ActionResult as an assoc-array at the
+     * @return Action|array The created Action as an assoc-array at the
      *   SDK boundary; throws ConectoError on failure (item-5 convention).
      */
     public function create(?array $reqdata = null, $ctrl = null): mixed

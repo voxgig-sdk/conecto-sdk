@@ -1,6 +1,6 @@
-# Entity: action_result
+# Entity: action
 
-main: kit: entity: action_result: {
+main: kit: entity: action: {
 
   alias: field: {}
 
@@ -42,7 +42,7 @@ main: kit: entity: action_result: {
     }
   ]
 
-  name: "action_result"
+  name: "action"
   op: {
     create: {
       name: "create"

@@ -42,9 +42,9 @@ client = ConectoSDK.test
 
 ### Instance Methods
 
-#### `ActionResult(data = nil)`
+#### `Action(data = nil)`
 
-Create a new `ActionResult` entity instance. Pass `nil` for no initial data.
+Create a new `Action` entity instance. Pass `nil` for no initial data.
 
 #### `Contact(data = nil)`
 
@@ -120,10 +120,10 @@ same parameters as `direct()`. Raises on error.
 
 ---
 
-## ActionResultEntity
+## ActionEntity
 
 ```ruby
-action_result = client.ActionResult
+action = client.Action
 ```
 
 ### Fields
@@ -145,7 +145,7 @@ action_result = client.ActionResult
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.ActionResult.create({
+result = client.Action.create({
   "id" => "example_id", # String
   "slug" => "example_slug", # String
   "ok" => true, # Boolean
@@ -172,7 +172,7 @@ Set the entity match criteria.
 
 #### `make -> Entity`
 
-Create a new `ActionResultEntity` instance with the same client and
+Create a new `ActionEntity` instance with the same client and
 options.
 
 #### `get_name -> String`

@@ -89,8 +89,8 @@ func runOp(client *sdk.ConectoSDK, op string, query *eng.Value, entityAtom eng.V
 // emits one `case "<name>":` per entity defined in the SDK model.
 func entityFor(client *sdk.ConectoSDK, name string) (sdk.ConectoEntity, error) {
 	switch strings.ToLower(name) {
-	case "action_result":
-		return client.ActionResult(nil), nil
+	case "action":
+		return client.Action(nil), nil
 	case "contact":
 		return client.Contact(nil), nil
 	case "conversation":

@@ -1,6 +1,6 @@
 // Conecto Ts SDK
 
-import { ActionResultEntity } from './entity/ActionResultEntity'
+import { ActionEntity } from './entity/ActionEntity'
 import { ContactEntity } from './entity/ContactEntity'
 import { ConversationEntity } from './entity/ConversationEntity'
 import { CredentialEntity } from './entity/CredentialEntity'
@@ -292,12 +292,12 @@ class ConectoSDK {
 
 
 
-  // Entity access: `client.ActionResult().list()` / `client.ActionResult().load({ id })`.
+  // Entity access: `client.Action().list()` / `client.Action().load({ id })`.
   // The argument is the entity OPTIONS object (passed to the entity
   // constructor as entopts), not initial entity data.
-  ActionResult(entopts?: Record<string, any>) {
+  Action(entopts?: Record<string, any>) {
     const self = this
-    return new ActionResultEntity(self, entopts)
+    return new ActionEntity(self, entopts)
   }
 
 

@@ -49,9 +49,9 @@ const client = ConectoSDK.test()
 
 ### Instance Methods
 
-#### `ActionResult(data?: object)`
+#### `Action(data?: object)`
 
-Create a new `ActionResult` entity instance.
+Create a new `Action` entity instance.
 
 **Parameters:**
 
@@ -59,7 +59,7 @@ Create a new `ActionResult` entity instance.
 | --- | --- | --- |
 | `data` | `object` | Initial entity data. |
 
-**Returns:** `ActionResultEntity` instance.
+**Returns:** `ActionEntity` instance.
 
 #### `Contact(data?: object)`
 
@@ -215,10 +215,10 @@ Alias for `ConectoSDK.test()`.
 
 ---
 
-## ActionResultEntity
+## ActionEntity
 
 ```ts
-const action_result = client.ActionResult()
+const action = client.Action()
 ```
 
 ### Fields
@@ -241,13 +241,13 @@ remaining keys are sent as that action's payload.
 
 | Action | Route | Call |
 | --- | --- | --- |
-| `run` | `/integrations/{slug}/actions/{action}/run/` | `client.ActionResult().create({ $action: 'run', ... })` |
+| `run` | `/integrations/{slug}/actions/{action}/run/` | `client.Action().create({ $action: 'run', ... })` |
 
 An action returns that action's OWN response, which is not necessarily a
-ActionResult record — check the API definition for its shape.
+Action record — check the API definition for its shape.
 
 ```ts
-const result = await client.ActionResult().create({
+const result = await client.Action().create({
   $action: 'run',
   /* ...the action's own arguments */
 })
@@ -260,7 +260,7 @@ const result = await client.ActionResult().create({
 Create a new entity with the given data.
 
 ```ts
-const result = await client.ActionResult().create({
+const result = await client.Action().create({
   id: 'example_id',
   slug: 'example_slug',
   ok: true,
@@ -281,7 +281,7 @@ Get or set the entity match criteria. Works the same as `data()`.
 
 #### `make()`
 
-Create a new `ActionResultEntity` instance with the same client and
+Create a new `ActionEntity` instance with the same client and
 options.
 
 #### `client()`

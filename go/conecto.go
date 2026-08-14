@@ -32,8 +32,8 @@ func init() {
 	core.NewTestFeatureFunc = func() core.Feature {
 		return feature.NewTestFeature()
 	}
-	core.NewActionResultEntityFunc = func(client *core.ConectoSDK, entopts map[string]any) core.ConectoEntity {
-		return entity.NewActionResultEntity(client, entopts)
+	core.NewActionEntityFunc = func(client *core.ConectoSDK, entopts map[string]any) core.ConectoEntity {
+		return entity.NewActionEntity(client, entopts)
 	}
 	core.NewContactEntityFunc = func(client *core.ConectoSDK, entopts map[string]any) core.ConectoEntity {
 		return entity.NewContactEntity(client, entopts)

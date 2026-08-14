@@ -5,7 +5,7 @@
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
-export interface ActionResult {
+export interface Action {
   arguments?: Record<string, any>
   blocks?: any[]
   conversation_id?: number
@@ -15,7 +15,7 @@ export interface ActionResult {
   result?: Record<string, any>
 }
 
-export interface ActionResultCreateData {
+export interface ActionCreateData {
   id: string
   slug: string
   arguments?: Record<string, any>

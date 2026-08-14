@@ -25,7 +25,7 @@
       },
       "contributor": {},
       "entity": {
-        "action_result": {
+        "action": {
           "active": true,
           "alias": {
             "field": {}
@@ -74,7 +74,7 @@
               "type": "`$OBJECT`"
             }
           ],
-          "name": "action_result",
+          "name": "action",
           "op": {
             "create": {
               "input": "data",
@@ -1488,19 +1488,19 @@
         }
       },
       "flow": {
-        "BasicActionResultFlow": {
+        "BasicActionFlow": {
           "active": true,
-          "entity": "action_result",
-          "key$": "BasicActionResultFlow",
+          "entity": "action",
+          "key$": "BasicActionFlow",
           "kind": "basic",
-          "name": "BasicActionResultFlow",
+          "name": "BasicActionFlow",
           "param": {},
           "step": [
             {
               "active": true,
               "data": {},
               "input": {
-                "ref": "action_result_ref01"
+                "ref": "action_ref01"
               },
               "match": {
                 "action": "action01",

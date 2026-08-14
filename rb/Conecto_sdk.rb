@@ -289,10 +289,10 @@ class ConectoSDK
   end
 
 
-  # Canonical facade: client.ActionResult.list / client.ActionResult.load({ "id" => ... })
-  def ActionResult(data = nil)
-    require_relative 'entity/action_result_entity'
-    ActionResultEntity.new(self, data)
+  # Canonical facade: client.Action.list / client.Action.load({ "id" => ... })
+  def Action(data = nil)
+    require_relative 'entity/action_entity'
+    ActionEntity.new(self, data)
   end
 
 

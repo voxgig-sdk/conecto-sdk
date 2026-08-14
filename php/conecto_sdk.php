@@ -324,21 +324,21 @@ class ConectoSDK
     }
 
 
-    private $_action_result = null;
+    private $_action = null;
 
-    // Canonical facade: $client->ActionResult()->list() / ->load(["id" => ...]).
-    // PHP method names are case-insensitive, so lowercase $client->action_result()
+    // Canonical facade: $client->Action()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->action()
     // resolves here too.
-    public function ActionResult($data = null)
+    public function Action($data = null)
     {
-        require_once __DIR__ . '/entity/action_result_entity.php';
+        require_once __DIR__ . '/entity/action_entity.php';
         if ($data === null) {
-            if ($this->_action_result === null) {
-                $this->_action_result = new ActionResultEntity($this, null);
+            if ($this->_action === null) {
+                $this->_action = new ActionEntity($this, null);
             }
-            return $this->_action_result;
+            return $this->_action;
         }
-        return new ActionResultEntity($this, $data);
+        return new ActionEntity($this, $data);
     }
 
 

@@ -336,15 +336,15 @@ end
 
 
 
--- Idiomatic facade: client:ActionResult():list() / client:ActionResult():load({ id = ... })
+-- Idiomatic facade: client:Action():list() / client:Action():load({ id = ... })
 -- Entity access is capitalised (PascalCase) for parity with the other SDKs.
-function ConectoSDK:ActionResult(data)
-  local EntityMod = require("entity.action_result_entity")
+function ConectoSDK:Action(data)
+  local EntityMod = require("entity.action_entity")
   if data == nil then
-    if self._action_result == nil then
-      self._action_result = EntityMod.new(self, nil)
+    if self._action == nil then
+      self._action = EntityMod.new(self, nil)
     end
-    return self._action_result
+    return self._action
   end
   return EntityMod.new(self, data)
 end
