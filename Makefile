@@ -11,6 +11,7 @@
 #   go       tag-only
 #   go-cli   tag-only
 #   go-mcp   tag-only
+#   js       npm (publish pending: deploy publishes the git tag only) https://registry.npmjs.org
 #   lua      luarocks (publish pending: deploy publishes the git tag only) https://luarocks.org
 #   php      packagist (publish pending: deploy publishes the git tag only) https://packagist.org
 #   py       pypi (publish pending: deploy publishes the git tag only) https://pypi.org
@@ -32,17 +33,17 @@
 SHELL := /bin/bash
 
 GITHUB_ALIAS ?= github
+NPM_ALIAS ?= npm
 LUAROCKS_ALIAS ?= luarocks
 PACKAGIST_ALIAS ?= packagist
 PYPI_ALIAS ?= pypi
 RUBYGEMS_ALIAS ?= gem
-NPM_ALIAS ?= npm
 
 # Lockstep SDK version, read from the canonical ts manifest.
 VERSION := $(shell node -p "require('./ts/package.json').version" 2>/dev/null || echo 0.0.0)
 BORU_DRY_RUN_FILLER := BORU-DRY-RUN-FILLER-NOT-A-REAL-SECRET
 
-TARGETS := go go-cli go-mcp lua php py rb ts
+TARGETS := go go-cli go-mcp js lua php py rb ts
 
 .PHONY: deploy deploy-dry \
   $(addprefix deploy-,$(TARGETS)) $(addprefix deploy-dry-,$(TARGETS)) \
@@ -55,6 +56,7 @@ deploy:
 	@echo "  deploy-go       tag-only"
 	@echo "  deploy-go-cli   tag-only"
 	@echo "  deploy-go-mcp   tag-only"
+	@echo "  deploy-js       npm publish pending (deploy = git tag only)"
 	@echo "  deploy-lua      luarocks publish pending (deploy = git tag only)"
 	@echo "  deploy-php      packagist publish pending (deploy = git tag only)"
 	@echo "  deploy-py       pypi publish pending (deploy = git tag only)"
@@ -112,6 +114,27 @@ tag-push-go-mcp:
 	hdr="AUTHORIZATION: basic $$(printf 'x-access-token:%s' "$$token" | base64 | tr -d '\n')"; \
 	git -c http.extraheader="$$hdr" push "$$url" "$$tag"; \
 	echo "pushed $$tag (tag-only port)"
+
+deploy-js:
+	@echo "deploy-js: npm publication is pending — publishing the git tag only."
+	boru vault exec --for=github=$(GITHUB_ALIAS) -- $(MAKE) tag-push-js
+
+deploy-dry-js:
+	boru vault exec --dry-run --for=github=$(GITHUB_ALIAS) -- $(MAKE) tag-push-js
+
+tag-push-js:
+	@set -e; tag="js/v$(VERSION)"; \
+	token="$${GITHUB_TOKEN:-$$GH_TOKEN}"; \
+	if [ "$$token" = "$(BORU_DRY_RUN_FILLER)" ]; then \
+	  echo "[dry-run] boru filler token detected: would create (if missing) and push tag $$tag; nothing pushed."; exit 0; fi; \
+	if [ -z "$$token" ]; then echo "tag-push-js: no GITHUB_TOKEN in env — run via make deploy-js (boru vault exec)"; exit 1; fi; \
+	if git rev-parse -q --verify "refs/tags/$$tag" >/dev/null; then \
+	  echo "tag $$tag already exists — pushing existing tag"; \
+	else git tag -a "$$tag" -m "Release $$tag"; fi; \
+	url=$$(git remote get-url origin | sed -E 's#^git@github.com:#https://github.com/#'); \
+	hdr="AUTHORIZATION: basic $$(printf 'x-access-token:%s' "$$token" | base64 | tr -d '\n')"; \
+	git -c http.extraheader="$$hdr" push "$$url" "$$tag"; \
+	echo "pushed $$tag (npm publication pending — tag-only deploy)"
 
 deploy-lua:
 	@echo "deploy-lua: luarocks publication is pending — publishing the git tag only."

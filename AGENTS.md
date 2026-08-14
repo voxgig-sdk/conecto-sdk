@@ -12,13 +12,14 @@ There are companion guides deeper in the tree: one per language
 
 ## Project map
 
-**Targets** (8):
+**Targets** (9):
 
 | Target | Directory | Build guide |
 | --- | --- | --- |
 | `go` | `go/` | [`go/AGENTS.md`](./go/AGENTS.md) |
 | `go-cli` | `go-cli/` — A CLI surface, not an SDK client library. | [`go-cli/AGENTS.md`](./go-cli/AGENTS.md) |
 | `go-mcp` | `go-mcp/` — An MCP server surface for AI agents, not an SDK client library. | [`go-mcp/AGENTS.md`](./go-mcp/AGENTS.md) |
+| `js` | `js/` | [`js/AGENTS.md`](./js/AGENTS.md) |
 | `lua` | `lua/` | [`lua/AGENTS.md`](./lua/AGENTS.md) |
 | `php` | `php/` | [`php/AGENTS.md`](./php/AGENTS.md) |
 | `py` | `py/` | [`py/AGENTS.md`](./py/AGENTS.md) |

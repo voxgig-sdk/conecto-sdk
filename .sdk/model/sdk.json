@@ -1467,6 +1467,9 @@
             "go-mcp": {
               "deps": {}
             },
+            "js": {
+              "deps": {}
+            },
             "lua": {
               "deps": {}
             },
@@ -2135,6 +2138,66 @@
             "version": "0.0.1"
           },
           "title": "Go MCP server"
+        },
+        "js": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "comment": {
+            "line": "//"
+          },
+          "deps": {
+            "dotenv": {
+              "active": true,
+              "kind": "dev",
+              "version": "^17.4.2"
+            }
+          },
+          "ext": "js",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "conecto",
+            "package": "",
+            "path": ""
+          },
+          "name": "js",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "npm",
+              "package": "",
+              "state": "pending",
+              "url": "https://registry.npmjs.org",
+              "vault": {
+                "alias": "npm",
+                "env": "",
+                "recipe": "npm"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "title": "JavaScript"
         },
         "lua": {
           "active": true,
