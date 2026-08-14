@@ -22,6 +22,7 @@ support (`list`, `load`, `create`, `update`, `remove`):
 ```ts
 const client = new ConectoSDK()
 const action = await client.Action().create({
+  id: 'example',
   slug: 'example',
   ok: true,
 })
