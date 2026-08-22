@@ -12,7 +12,7 @@ func MakeConfig() map[string]any {
 		"main": map[string]any{
 			"name": "Conecto",
 			"slug": "conecto",
-			"version": "0.0.1",
+			"version": "0.1.1",
 			"target": "go",
 		},
 		"feature": map[string]any{

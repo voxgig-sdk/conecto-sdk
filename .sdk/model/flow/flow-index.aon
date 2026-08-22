@@ -1,0 +1,12 @@
+# Flows
+
+@"BasicActionFlow.aon"
+@"BasicContactFlow.aon"
+@"BasicConversationFlow.aon"
+@"BasicCredentialFlow.aon"
+@"BasicIntegrationFlow.aon"
+@"BasicMediaFlow.aon"
+@"BasicMessageFlow.aon"
+@"BasicSchemaFlow.aon"
+@"BasicVisitorFlow.aon"
+@"BasicWebhookFlow.aon"
