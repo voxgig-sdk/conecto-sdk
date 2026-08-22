@@ -316,7 +316,7 @@ The `prepare()` method returns:
 | `blocks` |  |
 | `conversation_id` |  |
 | `error` |  |
-| `not_found` |  |
+| `not_found` | A normal no-match, not an error. |
 | `ok` |  |
 | `result` |  |
 
@@ -329,9 +329,9 @@ API path: `/integrations/{slug}/actions/{action}/run/`
 | Field | Description |
 | --- | --- |
 | `created_at` |  |
-| `custom_fields` |  |
+| `custom_fields` | Workspace-defined fields. |
 | `email` |  |
-| `id` |  |
+| `id` | Contact id. |
 
 Operations: create, list.
 
@@ -341,14 +341,14 @@ API path: `/contacts/`
 
 | Field | Description |
 | --- | --- |
-| `body` |  |
+| `body` | Opening message. |
 | `created_at` |  |
-| `id` |  |
-| `messages` |  |
-| `session` |  |
-| `status` |  |
+| `id` | Conversation id. |
+| `messages` | Visitor-facing messages, oldest first. |
+| `session` | Visitor browser session key. |
+| `status` | Lifecycle state. |
 | `user_id` |  |
-| `widget_id` |  |
+| `widget_id` | Widget the conversation belongs to. |
 
 Operations: create, list, load, update.
 
@@ -358,7 +358,7 @@ API path: `/conversations/{id}/assign/`
 
 | Field | Description |
 | --- | --- |
-| `widget_id` |  |
+| `widget_id` | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` |  |
 
 Operations: load.
@@ -369,13 +369,13 @@ API path: `/me/`
 
 | Field | Description |
 | --- | --- |
-| `actions` |  |
-| `auth_type` |  |
-| `base_url` |  |
+| `actions` | Actions this integration exposes. |
+| `auth_type` | How Conecto authenticates to base_url. |
+| `base_url` | Root URL Conecto POSTs actions to. |
 | `credential` |  |
-| `name` |  |
-| `signing_secret` |  |
-| `slug` |  |
+| `name` | Human-readable name. |
+| `signing_secret` | Secret used to sign action calls. |
+| `slug` | Stable identifier, used in the path. |
 | `widget_ids` |  |
 
 Operations: create, list, load.
@@ -395,13 +395,13 @@ API path: `/media/`
 
 | Field | Description |
 | --- | --- |
-| `ask_email` |  |
-| `blocks` |  |
+| `ask_email` | Prompt the visitor for an email address. |
+| `blocks` | At most 10. |
 | `body` |  |
 | `buttons` |  |
-| `internal` |  |
+| `internal` | Internal note, not shown to the visitor. |
 | `products` |  |
-| `ticket_form` |  |
+| `ticket_form` | Show the ticket form. |
 
 Operations: create.
 
@@ -432,9 +432,9 @@ API path: `/widgets/{id}/visitors/{session}/identify/`
 | Field | Description |
 | --- | --- |
 | `created_at` |  |
-| `events` |  |
-| `id` |  |
-| `url` |  |
+| `events` | Event names subscribed to. |
+| `id` | Webhook id. |
+| `url` | HTTPS endpoint that receives the event POST. |
 
 Operations: create, list, load, remove.
 
@@ -463,7 +463,7 @@ Create an instance: `const action = client.Action()`
 | `blocks` | `Array` |  |
 | `conversation_id` | `number` |  |
 | `error` | `string` |  |
-| `not_found` | `boolean` |  |
+| `not_found` | `boolean` | A normal no-match, not an error. |
 | `ok` | `boolean` |  |
 | `result` | `Object` |  |
 
@@ -494,9 +494,9 @@ Create an instance: `const contact = client.Contact()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `string` |  |
-| `custom_fields` | `Object` |  |
+| `custom_fields` | `Object` | Workspace-defined fields. |
 | `email` | `string` |  |
-| `id` | `number` |  |
+| `id` | `number` | Contact id. |
 
 #### Example: List
 
@@ -530,14 +530,14 @@ Create an instance: `const conversation = client.Conversation()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | `string` |  |
+| `body` | `string` | Opening message. |
 | `created_at` | `string` |  |
-| `id` | `number` |  |
-| `messages` | `Array` |  |
-| `session` | `string` |  |
-| `status` | `string` |  |
+| `id` | `number` | Conversation id. |
+| `messages` | `Array` | Visitor-facing messages, oldest first. |
+| `session` | `string` | Visitor browser session key. |
+| `status` | `string` | Lifecycle state. |
 | `user_id` | `number` |  |
-| `widget_id` | `number` |  |
+| `widget_id` | `number` | Widget the conversation belongs to. |
 
 #### Example: Load
 
@@ -576,7 +576,7 @@ Create an instance: `const credential = client.Credential()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `widget_id` | `number` |  |
+| `widget_id` | `number` | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` | `number` |  |
 
 #### Example: Load
@@ -602,13 +602,13 @@ Create an instance: `const integration = client.Integration()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `actions` | `Array` |  |
-| `auth_type` | `string` |  |
-| `base_url` | `string` |  |
+| `actions` | `Array` | Actions this integration exposes. |
+| `auth_type` | `string` | How Conecto authenticates to base_url. |
+| `base_url` | `string` | Root URL Conecto POSTs actions to. |
 | `credential` | `string` |  |
-| `name` | `string` |  |
-| `signing_secret` | `string` |  |
-| `slug` | `string` |  |
+| `name` | `string` | Human-readable name. |
+| `signing_secret` | `string` | Secret used to sign action calls. |
+| `slug` | `string` | Stable identifier, used in the path. |
 | `widget_ids` | `Array` |  |
 
 #### Example: Load
@@ -666,18 +666,19 @@ Create an instance: `const message = client.Message()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `ask_email` | `boolean` |  |
-| `blocks` | `Array` |  |
+| `ask_email` | `boolean` | Prompt the visitor for an email address. |
+| `blocks` | `Array` | At most 10. |
 | `body` | `string` |  |
 | `buttons` | `Array` |  |
-| `internal` | `boolean` |  |
+| `internal` | `boolean` | Internal note, not shown to the visitor. |
 | `products` | `Array` |  |
-| `ticket_form` | `boolean` |  |
+| `ticket_form` | `boolean` | Show the ticket form. |
 
 #### Example: Create
 
 ```ts
 const message = await client.Message().create({
+  conversation_id: 1,
 })
 ```
 
@@ -744,9 +745,9 @@ Create an instance: `const webhook = client.Webhook()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `string` |  |
-| `events` | `Array` |  |
-| `id` | `number` |  |
-| `url` | `string` |  |
+| `events` | `Array` | Event names subscribed to. |
+| `id` | `number` | Webhook id. |
+| `url` | `string` | HTTPS endpoint that receives the event POST. |
 
 #### Example: Load
 

@@ -259,7 +259,7 @@ On error, `ok` is `False` and `err` contains the error value.
 | `blocks` |  |
 | `conversation_id` |  |
 | `error` |  |
-| `not_found` |  |
+| `not_found` | A normal no-match, not an error. |
 | `ok` |  |
 | `result` |  |
 
@@ -272,9 +272,9 @@ API path: `/integrations/{slug}/actions/{action}/run/`
 | Field | Description |
 | --- | --- |
 | `created_at` |  |
-| `custom_fields` |  |
+| `custom_fields` | Workspace-defined fields. |
 | `email` |  |
-| `id` |  |
+| `id` | Contact id. |
 
 Operations: Create, List.
 
@@ -284,14 +284,14 @@ API path: `/contacts/`
 
 | Field | Description |
 | --- | --- |
-| `body` |  |
+| `body` | Opening message. |
 | `created_at` |  |
-| `id` |  |
-| `messages` |  |
-| `session` |  |
-| `status` |  |
+| `id` | Conversation id. |
+| `messages` | Visitor-facing messages, oldest first. |
+| `session` | Visitor browser session key. |
+| `status` | Lifecycle state. |
 | `user_id` |  |
-| `widget_id` |  |
+| `widget_id` | Widget the conversation belongs to. |
 
 Operations: Create, List, Load, Update.
 
@@ -301,7 +301,7 @@ API path: `/conversations/{id}/assign/`
 
 | Field | Description |
 | --- | --- |
-| `widget_id` |  |
+| `widget_id` | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` |  |
 
 Operations: Load.
@@ -312,13 +312,13 @@ API path: `/me/`
 
 | Field | Description |
 | --- | --- |
-| `actions` |  |
-| `auth_type` |  |
-| `base_url` |  |
+| `actions` | Actions this integration exposes. |
+| `auth_type` | How Conecto authenticates to base_url. |
+| `base_url` | Root URL Conecto POSTs actions to. |
 | `credential` |  |
-| `name` |  |
-| `signing_secret` |  |
-| `slug` |  |
+| `name` | Human-readable name. |
+| `signing_secret` | Secret used to sign action calls. |
+| `slug` | Stable identifier, used in the path. |
 | `widget_ids` |  |
 
 Operations: Create, List, Load.
@@ -338,13 +338,13 @@ API path: `/media/`
 
 | Field | Description |
 | --- | --- |
-| `ask_email` |  |
-| `blocks` |  |
+| `ask_email` | Prompt the visitor for an email address. |
+| `blocks` | At most 10. |
 | `body` |  |
 | `buttons` |  |
-| `internal` |  |
+| `internal` | Internal note, not shown to the visitor. |
 | `products` |  |
-| `ticket_form` |  |
+| `ticket_form` | Show the ticket form. |
 
 Operations: Create.
 
@@ -375,9 +375,9 @@ API path: `/widgets/{id}/visitors/{session}/identify/`
 | Field | Description |
 | --- | --- |
 | `created_at` |  |
-| `events` |  |
-| `id` |  |
-| `url` |  |
+| `events` | Event names subscribed to. |
+| `id` | Webhook id. |
+| `url` | HTTPS endpoint that receives the event POST. |
 
 Operations: Create, List, Load, Remove.
 
@@ -406,7 +406,7 @@ Create an instance: `action = client.Action()`
 | `blocks` | `list` |  |
 | `conversation_id` | `int` |  |
 | `error` | `str` |  |
-| `not_found` | `bool` |  |
+| `not_found` | `bool` | A normal no-match, not an error. |
 | `ok` | `bool` |  |
 | `result` | `dict` |  |
 
@@ -437,9 +437,9 @@ Create an instance: `contact = client.Contact()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `str` |  |
-| `custom_fields` | `dict` |  |
+| `custom_fields` | `dict` | Workspace-defined fields. |
 | `email` | `str` |  |
-| `id` | `int` |  |
+| `id` | `int` | Contact id. |
 
 #### Example: List
 
@@ -473,14 +473,14 @@ Create an instance: `conversation = client.Conversation()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | `str` |  |
+| `body` | `str` | Opening message. |
 | `created_at` | `str` |  |
-| `id` | `int` |  |
-| `messages` | `list` |  |
-| `session` | `str` |  |
-| `status` | `str` |  |
+| `id` | `int` | Conversation id. |
+| `messages` | `list` | Visitor-facing messages, oldest first. |
+| `session` | `str` | Visitor browser session key. |
+| `status` | `str` | Lifecycle state. |
 | `user_id` | `int` |  |
-| `widget_id` | `int` |  |
+| `widget_id` | `int` | Widget the conversation belongs to. |
 
 #### Example: Load
 
@@ -519,7 +519,7 @@ Create an instance: `credential = client.Credential()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `widget_id` | `int` |  |
+| `widget_id` | `int` | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` | `int` |  |
 
 #### Example: Load
@@ -545,13 +545,13 @@ Create an instance: `integration = client.Integration()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `actions` | `list` |  |
-| `auth_type` | `str` |  |
-| `base_url` | `str` |  |
+| `actions` | `list` | Actions this integration exposes. |
+| `auth_type` | `str` | How Conecto authenticates to base_url. |
+| `base_url` | `str` | Root URL Conecto POSTs actions to. |
 | `credential` | `str` |  |
-| `name` | `str` |  |
-| `signing_secret` | `str` |  |
-| `slug` | `str` |  |
+| `name` | `str` | Human-readable name. |
+| `signing_secret` | `str` | Secret used to sign action calls. |
+| `slug` | `str` | Stable identifier, used in the path. |
 | `widget_ids` | `list` |  |
 
 #### Example: Load
@@ -609,18 +609,19 @@ Create an instance: `message = client.Message()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `ask_email` | `bool` |  |
-| `blocks` | `list` |  |
+| `ask_email` | `bool` | Prompt the visitor for an email address. |
+| `blocks` | `list` | At most 10. |
 | `body` | `str` |  |
 | `buttons` | `list` |  |
-| `internal` | `bool` |  |
+| `internal` | `bool` | Internal note, not shown to the visitor. |
 | `products` | `list` |  |
-| `ticket_form` | `bool` |  |
+| `ticket_form` | `bool` | Show the ticket form. |
 
 #### Example: Create
 
 ```python
 message = client.Message().create({
+    "conversation_id": 1,  # int
 })
 ```
 
@@ -687,9 +688,9 @@ Create an instance: `webhook = client.Webhook()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `str` |  |
-| `events` | `list` |  |
-| `id` | `int` |  |
-| `url` | `str` |  |
+| `events` | `list` | Event names subscribed to. |
+| `id` | `int` | Webhook id. |
+| `url` | `str` | HTTPS endpoint that receives the event POST. |
 
 #### Example: Load
 

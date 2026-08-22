@@ -6,7 +6,7 @@ The Golang SDK for the Conecto API — an entity-oriented client using standard 
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Action(nil)` — each with the same small set of operations (`List`, `Load`, `Create`, `Update`, `Remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `js`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -281,7 +281,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | `"blocks"` |  |
 | `"conversation_id"` |  |
 | `"error"` |  |
-| `"not_found"` |  |
+| `"not_found"` | A normal no-match, not an error. |
 | `"ok"` |  |
 | `"result"` |  |
 
@@ -294,9 +294,9 @@ API path: `/integrations/{slug}/actions/{action}/run/`
 | Field | Description |
 | --- | --- |
 | `"created_at"` |  |
-| `"custom_fields"` |  |
+| `"custom_fields"` | Workspace-defined fields. |
 | `"email"` |  |
-| `"id"` |  |
+| `"id"` | Contact id. |
 
 Operations: Create, List.
 
@@ -306,14 +306,14 @@ API path: `/contacts/`
 
 | Field | Description |
 | --- | --- |
-| `"body"` |  |
+| `"body"` | Opening message. |
 | `"created_at"` |  |
-| `"id"` |  |
-| `"messages"` |  |
-| `"session"` |  |
-| `"status"` |  |
+| `"id"` | Conversation id. |
+| `"messages"` | Visitor-facing messages, oldest first. |
+| `"session"` | Visitor browser session key. |
+| `"status"` | Lifecycle state. |
 | `"user_id"` |  |
-| `"widget_id"` |  |
+| `"widget_id"` | Widget the conversation belongs to. |
 
 Operations: Create, List, Load, Update.
 
@@ -323,7 +323,7 @@ API path: `/conversations/{id}/assign/`
 
 | Field | Description |
 | --- | --- |
-| `"widget_id"` |  |
+| `"widget_id"` | Set when the credential is widget-scoped rather than workspace-wide. |
 | `"workspace_id"` |  |
 
 Operations: Load.
@@ -334,13 +334,13 @@ API path: `/me/`
 
 | Field | Description |
 | --- | --- |
-| `"actions"` |  |
-| `"auth_type"` |  |
-| `"base_url"` |  |
+| `"actions"` | Actions this integration exposes. |
+| `"auth_type"` | How Conecto authenticates to base_url. |
+| `"base_url"` | Root URL Conecto POSTs actions to. |
 | `"credential"` |  |
-| `"name"` |  |
-| `"signing_secret"` |  |
-| `"slug"` |  |
+| `"name"` | Human-readable name. |
+| `"signing_secret"` | Secret used to sign action calls. |
+| `"slug"` | Stable identifier, used in the path. |
 | `"widget_ids"` |  |
 
 Operations: Create, List, Load.
@@ -360,13 +360,13 @@ API path: `/media/`
 
 | Field | Description |
 | --- | --- |
-| `"ask_email"` |  |
-| `"blocks"` |  |
+| `"ask_email"` | Prompt the visitor for an email address. |
+| `"blocks"` | At most 10. |
 | `"body"` |  |
 | `"buttons"` |  |
-| `"internal"` |  |
+| `"internal"` | Internal note, not shown to the visitor. |
 | `"products"` |  |
-| `"ticket_form"` |  |
+| `"ticket_form"` | Show the ticket form. |
 
 Operations: Create.
 
@@ -397,9 +397,9 @@ API path: `/widgets/{id}/visitors/{session}/identify/`
 | Field | Description |
 | --- | --- |
 | `"created_at"` |  |
-| `"events"` |  |
-| `"id"` |  |
-| `"url"` |  |
+| `"events"` | Event names subscribed to. |
+| `"id"` | Webhook id. |
+| `"url"` | HTTPS endpoint that receives the event POST. |
 
 Operations: Create, List, Load, Remove.
 
@@ -428,7 +428,7 @@ Create an instance: `action := client.Action(nil)`
 | `blocks` | `[]any` |  |
 | `conversation_id` | `int` |  |
 | `error` | `string` |  |
-| `not_found` | `bool` |  |
+| `not_found` | `bool` | A normal no-match, not an error. |
 | `ok` | `bool` |  |
 | `result` | `map[string]any` |  |
 
@@ -463,9 +463,9 @@ Create an instance: `contact := client.Contact(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `string` |  |
-| `custom_fields` | `map[string]any` |  |
+| `custom_fields` | `map[string]any` | Workspace-defined fields. |
 | `email` | `string` |  |
-| `id` | `int` |  |
+| `id` | `int` | Contact id. |
 
 #### Example: List
 
@@ -507,14 +507,14 @@ Create an instance: `conversation := client.Conversation(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | `string` |  |
+| `body` | `string` | Opening message. |
 | `created_at` | `string` |  |
-| `id` | `int` |  |
-| `messages` | `[]any` |  |
-| `session` | `string` |  |
-| `status` | `string` |  |
+| `id` | `int` | Conversation id. |
+| `messages` | `[]any` | Visitor-facing messages, oldest first. |
+| `session` | `string` | Visitor browser session key. |
+| `status` | `string` | Lifecycle state. |
 | `user_id` | `int` |  |
-| `widget_id` | `int` |  |
+| `widget_id` | `int` | Widget the conversation belongs to. |
 
 #### Example: Load
 
@@ -565,7 +565,7 @@ Create an instance: `credential := client.Credential(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `widget_id` | `int` |  |
+| `widget_id` | `int` | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` | `int` |  |
 
 #### Example: Load
@@ -595,13 +595,13 @@ Create an instance: `integration := client.Integration(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `actions` | `[]any` |  |
-| `auth_type` | `string` |  |
-| `base_url` | `string` |  |
+| `actions` | `[]any` | Actions this integration exposes. |
+| `auth_type` | `string` | How Conecto authenticates to base_url. |
+| `base_url` | `string` | Root URL Conecto POSTs actions to. |
 | `credential` | `string` |  |
-| `name` | `string` |  |
-| `signing_secret` | `string` |  |
-| `slug` | `string` |  |
+| `name` | `string` | Human-readable name. |
+| `signing_secret` | `string` | Secret used to sign action calls. |
+| `slug` | `string` | Stable identifier, used in the path. |
 | `widget_ids` | `[]any` |  |
 
 #### Example: Load
@@ -675,18 +675,19 @@ Create an instance: `message := client.Message(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `ask_email` | `bool` |  |
-| `blocks` | `[]any` |  |
+| `ask_email` | `bool` | Prompt the visitor for an email address. |
+| `blocks` | `[]any` | At most 10. |
 | `body` | `string` |  |
 | `buttons` | `[]any` |  |
-| `internal` | `bool` |  |
+| `internal` | `bool` | Internal note, not shown to the visitor. |
 | `products` | `[]any` |  |
-| `ticket_form` | `bool` |  |
+| `ticket_form` | `bool` | Show the ticket form. |
 
 #### Example: Create
 
 ```go
 result, err := client.Message(nil).Create(map[string]any{
+    "conversation_id": 1,
 }, nil)
 if err != nil {
     panic(err)
@@ -765,9 +766,9 @@ Create an instance: `webhook := client.Webhook(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `string` |  |
-| `events` | `[]any` |  |
-| `id` | `int` |  |
-| `url` | `string` |  |
+| `events` | `[]any` | Event names subscribed to. |
+| `id` | `int` | Webhook id. |
+| `url` | `string` | HTTPS endpoint that receives the event POST. |
 
 #### Example: Load
 

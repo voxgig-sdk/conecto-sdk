@@ -13,16 +13,19 @@ main: kit: entity: webhook: {
     {
       name: "events"
       req: true
+      short: "Event names subscribed to."
       type: "`$ARRAY`"
     }
     {
       name: "id"
       req: true
+      short: "Webhook id."
       type: "`$INTEGER`"
     }
     {
       name: "url"
       req: true
+      short: "HTTPS endpoint that receives the event POST."
       type: "`$STRING`"
     }
   ]

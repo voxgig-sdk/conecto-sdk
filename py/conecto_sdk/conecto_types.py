@@ -199,10 +199,11 @@ class Message(TypedDict, total=False):
     ticket_form: bool
 
 
-class MessageCreateData(TypedDict, total=False):
-    session: str
-    widget_id: int
+class MessageCreateDataRequired(TypedDict):
     conversation_id: int
+
+
+class MessageCreateData(MessageCreateDataRequired, total=False):
     ask_email: bool
     blocks: list
     body: str

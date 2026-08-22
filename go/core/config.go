@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "Conecto",
+			"slug": "conecto",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -61,6 +64,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "not_found",
+						"short": "A normal no-match, not an error.",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
@@ -144,6 +148,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "custom_fields",
+						"short": "Workspace-defined fields.",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
@@ -153,6 +158,7 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "id",
 						"req": true,
+						"short": "Contact id.",
 						"type": "`$INTEGER`",
 					},
 				},
@@ -241,6 +247,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "body",
+						"short": "Opening message.",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -250,19 +257,23 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "id",
 						"req": true,
+						"short": "Conversation id.",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "messages",
+						"short": "Visitor-facing messages, oldest first.",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "session",
+						"short": "Visitor browser session key.",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "status",
 						"req": true,
+						"short": "Lifecycle state.",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -272,6 +283,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "widget_id",
+						"short": "Widget the conversation belongs to.",
 						"type": "`$INTEGER`",
 					},
 				},
@@ -524,6 +536,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "widget_id",
+						"short": "Set when the credential is widget-scoped rather than workspace-wide.",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
@@ -562,15 +575,18 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "actions",
+						"short": "Actions this integration exposes.",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "auth_type",
+						"short": "How Conecto authenticates to base_url.",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "base_url",
 						"req": true,
+						"short": "Root URL Conecto POSTs actions to.",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -580,15 +596,18 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "name",
 						"req": true,
+						"short": "Human-readable name.",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "signing_secret",
+						"short": "Secret used to sign action calls.",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "slug",
 						"req": true,
+						"short": "Stable identifier, used in the path.",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -782,10 +801,12 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "ask_email",
+						"short": "Prompt the visitor for an email address.",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
 						"name": "blocks",
+						"short": "At most 10.",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
@@ -798,6 +819,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "internal",
+						"short": "Internal note, not shown to the visitor.",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
@@ -806,6 +828,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "ticket_form",
+						"short": "Show the ticket form.",
 						"type": "`$BOOLEAN`",
 					},
 				},
@@ -1087,16 +1110,19 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "events",
 						"req": true,
+						"short": "Event names subscribed to.",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "id",
 						"req": true,
+						"short": "Webhook id.",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "url",
 						"req": true,
+						"short": "HTTPS endpoint that receives the event POST.",
 						"type": "`$STRING`",
 					},
 				},

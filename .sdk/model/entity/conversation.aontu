@@ -8,6 +8,7 @@ main: kit: entity: conversation: {
     {
       name: "body"
       req: false
+      short: "Opening message."
       type: "`$STRING`"
     }
     {
@@ -18,21 +19,25 @@ main: kit: entity: conversation: {
     {
       name: "id"
       req: true
+      short: "Conversation id."
       type: "`$INTEGER`"
     }
     {
       name: "messages"
       req: false
+      short: "Visitor-facing messages, oldest first."
       type: "`$ARRAY`"
     }
     {
       name: "session"
       req: false
+      short: "Visitor browser session key."
       type: "`$STRING`"
     }
     {
       name: "status"
       req: true
+      short: "Lifecycle state."
       type: "`$STRING`"
     }
     {
@@ -43,6 +48,7 @@ main: kit: entity: conversation: {
     {
       name: "widget_id"
       req: false
+      short: "Widget the conversation belongs to."
       type: "`$INTEGER`"
     }
   ]

@@ -181,9 +181,7 @@
 
 /**
  * @typedef {Object} MessageCreateData
- * @property {string} [session]
- * @property {number} [widget_id]
- * @property {number} [conversation_id]
+ * @property {number} conversation_id
  * @property {boolean} [ask_email]
  * @property {Array} [blocks]
  * @property {string} [body]

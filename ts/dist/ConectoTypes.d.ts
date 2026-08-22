@@ -142,9 +142,7 @@ export interface Message {
     ticket_form?: boolean;
 }
 export interface MessageCreateData {
-    session?: string;
-    widget_id?: number;
-    conversation_id?: number;
+    conversation_id: number;
     ask_email?: boolean;
     blocks?: any[];
     body?: string;

@@ -19,6 +19,9 @@ module ConectoConfig
     {
       "main" => {
         "name" => "Conecto",
+        "slug" => "conecto",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {
@@ -69,6 +72,7 @@ module ConectoConfig
             },
             {
               "name" => "not_found",
+              "short" => "A normal no-match, not an error.",
               "type" => "`$BOOLEAN`",
             },
             {
@@ -152,6 +156,7 @@ module ConectoConfig
             },
             {
               "name" => "custom_fields",
+              "short" => "Workspace-defined fields.",
               "type" => "`$OBJECT`",
             },
             {
@@ -161,6 +166,7 @@ module ConectoConfig
             {
               "name" => "id",
               "req" => true,
+              "short" => "Contact id.",
               "type" => "`$INTEGER`",
             },
           ],
@@ -249,6 +255,7 @@ module ConectoConfig
           "fields" => [
             {
               "name" => "body",
+              "short" => "Opening message.",
               "type" => "`$STRING`",
             },
             {
@@ -258,19 +265,23 @@ module ConectoConfig
             {
               "name" => "id",
               "req" => true,
+              "short" => "Conversation id.",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "messages",
+              "short" => "Visitor-facing messages, oldest first.",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "session",
+              "short" => "Visitor browser session key.",
               "type" => "`$STRING`",
             },
             {
               "name" => "status",
               "req" => true,
+              "short" => "Lifecycle state.",
               "type" => "`$STRING`",
             },
             {
@@ -280,6 +291,7 @@ module ConectoConfig
             },
             {
               "name" => "widget_id",
+              "short" => "Widget the conversation belongs to.",
               "type" => "`$INTEGER`",
             },
           ],
@@ -532,6 +544,7 @@ module ConectoConfig
           "fields" => [
             {
               "name" => "widget_id",
+              "short" => "Set when the credential is widget-scoped rather than workspace-wide.",
               "type" => "`$INTEGER`",
             },
             {
@@ -570,15 +583,18 @@ module ConectoConfig
           "fields" => [
             {
               "name" => "actions",
+              "short" => "Actions this integration exposes.",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "auth_type",
+              "short" => "How Conecto authenticates to base_url.",
               "type" => "`$STRING`",
             },
             {
               "name" => "base_url",
               "req" => true,
+              "short" => "Root URL Conecto POSTs actions to.",
               "type" => "`$STRING`",
             },
             {
@@ -588,15 +604,18 @@ module ConectoConfig
             {
               "name" => "name",
               "req" => true,
+              "short" => "Human-readable name.",
               "type" => "`$STRING`",
             },
             {
               "name" => "signing_secret",
+              "short" => "Secret used to sign action calls.",
               "type" => "`$STRING`",
             },
             {
               "name" => "slug",
               "req" => true,
+              "short" => "Stable identifier, used in the path.",
               "type" => "`$STRING`",
             },
             {
@@ -790,10 +809,12 @@ module ConectoConfig
           "fields" => [
             {
               "name" => "ask_email",
+              "short" => "Prompt the visitor for an email address.",
               "type" => "`$BOOLEAN`",
             },
             {
               "name" => "blocks",
+              "short" => "At most 10.",
               "type" => "`$ARRAY`",
             },
             {
@@ -806,6 +827,7 @@ module ConectoConfig
             },
             {
               "name" => "internal",
+              "short" => "Internal note, not shown to the visitor.",
               "type" => "`$BOOLEAN`",
             },
             {
@@ -814,6 +836,7 @@ module ConectoConfig
             },
             {
               "name" => "ticket_form",
+              "short" => "Show the ticket form.",
               "type" => "`$BOOLEAN`",
             },
           ],
@@ -1095,16 +1118,19 @@ module ConectoConfig
             {
               "name" => "events",
               "req" => true,
+              "short" => "Event names subscribed to.",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "id",
               "req" => true,
+              "short" => "Webhook id.",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "url",
               "req" => true,
+              "short" => "HTTPS endpoint that receives the event POST.",
               "type" => "`$STRING`",
             },
           ],

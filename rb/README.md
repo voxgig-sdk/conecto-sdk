@@ -252,7 +252,7 @@ returns a result `Hash` with these keys:
 | `blocks` |  |
 | `conversation_id` |  |
 | `error` |  |
-| `not_found` |  |
+| `not_found` | A normal no-match, not an error. |
 | `ok` |  |
 | `result` |  |
 
@@ -265,9 +265,9 @@ API path: `/integrations/{slug}/actions/{action}/run/`
 | Field | Description |
 | --- | --- |
 | `created_at` |  |
-| `custom_fields` |  |
+| `custom_fields` | Workspace-defined fields. |
 | `email` |  |
-| `id` |  |
+| `id` | Contact id. |
 
 Operations: Create, List.
 
@@ -277,14 +277,14 @@ API path: `/contacts/`
 
 | Field | Description |
 | --- | --- |
-| `body` |  |
+| `body` | Opening message. |
 | `created_at` |  |
-| `id` |  |
-| `messages` |  |
-| `session` |  |
-| `status` |  |
+| `id` | Conversation id. |
+| `messages` | Visitor-facing messages, oldest first. |
+| `session` | Visitor browser session key. |
+| `status` | Lifecycle state. |
 | `user_id` |  |
-| `widget_id` |  |
+| `widget_id` | Widget the conversation belongs to. |
 
 Operations: Create, List, Load, Update.
 
@@ -294,7 +294,7 @@ API path: `/conversations/{id}/assign/`
 
 | Field | Description |
 | --- | --- |
-| `widget_id` |  |
+| `widget_id` | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` |  |
 
 Operations: Load.
@@ -305,13 +305,13 @@ API path: `/me/`
 
 | Field | Description |
 | --- | --- |
-| `actions` |  |
-| `auth_type` |  |
-| `base_url` |  |
+| `actions` | Actions this integration exposes. |
+| `auth_type` | How Conecto authenticates to base_url. |
+| `base_url` | Root URL Conecto POSTs actions to. |
 | `credential` |  |
-| `name` |  |
-| `signing_secret` |  |
-| `slug` |  |
+| `name` | Human-readable name. |
+| `signing_secret` | Secret used to sign action calls. |
+| `slug` | Stable identifier, used in the path. |
 | `widget_ids` |  |
 
 Operations: Create, List, Load.
@@ -331,13 +331,13 @@ API path: `/media/`
 
 | Field | Description |
 | --- | --- |
-| `ask_email` |  |
-| `blocks` |  |
+| `ask_email` | Prompt the visitor for an email address. |
+| `blocks` | At most 10. |
 | `body` |  |
 | `buttons` |  |
-| `internal` |  |
+| `internal` | Internal note, not shown to the visitor. |
 | `products` |  |
-| `ticket_form` |  |
+| `ticket_form` | Show the ticket form. |
 
 Operations: Create.
 
@@ -368,9 +368,9 @@ API path: `/widgets/{id}/visitors/{session}/identify/`
 | Field | Description |
 | --- | --- |
 | `created_at` |  |
-| `events` |  |
-| `id` |  |
-| `url` |  |
+| `events` | Event names subscribed to. |
+| `id` | Webhook id. |
+| `url` | HTTPS endpoint that receives the event POST. |
 
 Operations: Create, List, Load, Remove.
 
@@ -399,7 +399,7 @@ Create an instance: `action = client.Action`
 | `blocks` | `Array` |  |
 | `conversation_id` | `Integer` |  |
 | `error` | `String` |  |
-| `not_found` | `Boolean` |  |
+| `not_found` | `Boolean` | A normal no-match, not an error. |
 | `ok` | `Boolean` |  |
 | `result` | `Hash` |  |
 
@@ -430,9 +430,9 @@ Create an instance: `contact = client.Contact`
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `String` |  |
-| `custom_fields` | `Hash` |  |
+| `custom_fields` | `Hash` | Workspace-defined fields. |
 | `email` | `String` |  |
-| `id` | `Integer` |  |
+| `id` | `Integer` | Contact id. |
 
 #### Example: List
 
@@ -467,14 +467,14 @@ Create an instance: `conversation = client.Conversation`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | `String` |  |
+| `body` | `String` | Opening message. |
 | `created_at` | `String` |  |
-| `id` | `Integer` |  |
-| `messages` | `Array` |  |
-| `session` | `String` |  |
-| `status` | `String` |  |
+| `id` | `Integer` | Conversation id. |
+| `messages` | `Array` | Visitor-facing messages, oldest first. |
+| `session` | `String` | Visitor browser session key. |
+| `status` | `String` | Lifecycle state. |
 | `user_id` | `Integer` |  |
-| `widget_id` | `Integer` |  |
+| `widget_id` | `Integer` | Widget the conversation belongs to. |
 
 #### Example: Load
 
@@ -515,7 +515,7 @@ Create an instance: `credential = client.Credential`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `widget_id` | `Integer` |  |
+| `widget_id` | `Integer` | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` | `Integer` |  |
 
 #### Example: Load
@@ -542,13 +542,13 @@ Create an instance: `integration = client.Integration`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `actions` | `Array` |  |
-| `auth_type` | `String` |  |
-| `base_url` | `String` |  |
+| `actions` | `Array` | Actions this integration exposes. |
+| `auth_type` | `String` | How Conecto authenticates to base_url. |
+| `base_url` | `String` | Root URL Conecto POSTs actions to. |
 | `credential` | `String` |  |
-| `name` | `String` |  |
-| `signing_secret` | `String` |  |
-| `slug` | `String` |  |
+| `name` | `String` | Human-readable name. |
+| `signing_secret` | `String` | Secret used to sign action calls. |
+| `slug` | `String` | Stable identifier, used in the path. |
 | `widget_ids` | `Array` |  |
 
 #### Example: Load
@@ -608,18 +608,19 @@ Create an instance: `message = client.Message`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `ask_email` | `Boolean` |  |
-| `blocks` | `Array` |  |
+| `ask_email` | `Boolean` | Prompt the visitor for an email address. |
+| `blocks` | `Array` | At most 10. |
 | `body` | `String` |  |
 | `buttons` | `Array` |  |
-| `internal` | `Boolean` |  |
+| `internal` | `Boolean` | Internal note, not shown to the visitor. |
 | `products` | `Array` |  |
-| `ticket_form` | `Boolean` |  |
+| `ticket_form` | `Boolean` | Show the ticket form. |
 
 #### Example: Create
 
 ```ruby
 message = client.Message.create({
+  "conversation_id" => 1, # Integer
 })
 ```
 
@@ -687,9 +688,9 @@ Create an instance: `webhook = client.Webhook`
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `String` |  |
-| `events` | `Array` |  |
-| `id` | `Integer` |  |
-| `url` | `String` |  |
+| `events` | `Array` | Event names subscribed to. |
+| `id` | `Integer` | Webhook id. |
+| `url` | `String` | HTTPS endpoint that receives the event POST. |
 
 #### Example: Load
 

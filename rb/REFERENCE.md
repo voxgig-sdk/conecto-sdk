@@ -134,7 +134,7 @@ action = client.Action
 | `blocks` | `Array` | No |  |
 | `conversation_id` | `Integer` | No |  |
 | `error` | `String` | No |  |
-| `not_found` | `Boolean` | No |  |
+| `not_found` | `Boolean` | No | A normal no-match, not an error. |
 | `ok` | `Boolean` | Yes |  |
 | `result` | `Hash` | No |  |
 
@@ -193,9 +193,9 @@ contact = client.Contact
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `String` | No |  |
-| `custom_fields` | `Hash` | No |  |
+| `custom_fields` | `Hash` | No | Workspace-defined fields. |
 | `email` | `String` | No |  |
-| `id` | `Integer` | Yes |  |
+| `id` | `Integer` | Yes | Contact id. |
 
 ### Operations
 
@@ -257,14 +257,14 @@ conversation = client.Conversation
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | `String` | No |  |
+| `body` | `String` | No | Opening message. |
 | `created_at` | `String` | No |  |
-| `id` | `Integer` | Yes |  |
-| `messages` | `Array` | No |  |
-| `session` | `String` | No |  |
-| `status` | `String` | Yes |  |
+| `id` | `Integer` | Yes | Conversation id. |
+| `messages` | `Array` | No | Visitor-facing messages, oldest first. |
+| `session` | `String` | No | Visitor browser session key. |
+| `status` | `String` | Yes | Lifecycle state. |
 | `user_id` | `Integer` | Yes |  |
-| `widget_id` | `Integer` | No |  |
+| `widget_id` | `Integer` | No | Widget the conversation belongs to. |
 
 ### Operations
 
@@ -347,7 +347,7 @@ credential = client.Credential
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `widget_id` | `Integer` | No |  |
+| `widget_id` | `Integer` | No | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` | `Integer` | No |  |
 
 ### Operations
@@ -400,13 +400,13 @@ integration = client.Integration
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `actions` | `Array` | No |  |
-| `auth_type` | `String` | No |  |
-| `base_url` | `String` | Yes |  |
+| `actions` | `Array` | No | Actions this integration exposes. |
+| `auth_type` | `String` | No | How Conecto authenticates to base_url. |
+| `base_url` | `String` | Yes | Root URL Conecto POSTs actions to. |
 | `credential` | `String` | No |  |
-| `name` | `String` | Yes |  |
-| `signing_secret` | `String` | No |  |
-| `slug` | `String` | Yes |  |
+| `name` | `String` | Yes | Human-readable name. |
+| `signing_secret` | `String` | No | Secret used to sign action calls. |
+| `slug` | `String` | Yes | Stable identifier, used in the path. |
 | `widget_ids` | `Array` | No |  |
 
 ### Operations
@@ -526,13 +526,13 @@ message = client.Message
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `ask_email` | `Boolean` | No |  |
-| `blocks` | `Array` | No |  |
+| `ask_email` | `Boolean` | No | Prompt the visitor for an email address. |
+| `blocks` | `Array` | No | At most 10. |
 | `body` | `String` | No |  |
 | `buttons` | `Array` | No |  |
-| `internal` | `Boolean` | No |  |
+| `internal` | `Boolean` | No | Internal note, not shown to the visitor. |
 | `products` | `Array` | No |  |
-| `ticket_form` | `Boolean` | No |  |
+| `ticket_form` | `Boolean` | No | Show the ticket form. |
 
 ### Operations
 
@@ -542,6 +542,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Message.create({
+  "conversation_id" => 1, # Integer
 })
 ```
 
@@ -688,9 +689,9 @@ webhook = client.Webhook
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `String` | No |  |
-| `events` | `Array` | Yes |  |
-| `id` | `Integer` | Yes |  |
-| `url` | `String` | Yes |  |
+| `events` | `Array` | Yes | Event names subscribed to. |
+| `id` | `Integer` | Yes | Webhook id. |
+| `url` | `String` | Yes | HTTPS endpoint that receives the event POST. |
 
 ### Operations
 

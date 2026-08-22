@@ -128,7 +128,7 @@ action = client.Action()
 | `blocks` | `list` | No |  |
 | `conversation_id` | `int` | No |  |
 | `error` | `str` | No |  |
-| `not_found` | `bool` | No |  |
+| `not_found` | `bool` | No | A normal no-match, not an error. |
 | `ok` | `bool` | Yes |  |
 | `result` | `dict` | No |  |
 
@@ -186,9 +186,9 @@ contact = client.Contact()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `str` | No |  |
-| `custom_fields` | `dict` | No |  |
+| `custom_fields` | `dict` | No | Workspace-defined fields. |
 | `email` | `str` | No |  |
-| `id` | `int` | Yes |  |
+| `id` | `int` | Yes | Contact id. |
 
 ### Operations
 
@@ -251,14 +251,14 @@ conversation = client.Conversation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | `str` | No |  |
+| `body` | `str` | No | Opening message. |
 | `created_at` | `str` | No |  |
-| `id` | `int` | Yes |  |
-| `messages` | `list` | No |  |
-| `session` | `str` | No |  |
-| `status` | `str` | Yes |  |
+| `id` | `int` | Yes | Conversation id. |
+| `messages` | `list` | No | Visitor-facing messages, oldest first. |
+| `session` | `str` | No | Visitor browser session key. |
+| `status` | `str` | Yes | Lifecycle state. |
 | `user_id` | `int` | Yes |  |
-| `widget_id` | `int` | No |  |
+| `widget_id` | `int` | No | Widget the conversation belongs to. |
 
 ### Operations
 
@@ -342,7 +342,7 @@ credential = client.Credential()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `widget_id` | `int` | No |  |
+| `widget_id` | `int` | No | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` | `int` | No |  |
 
 ### Operations
@@ -394,13 +394,13 @@ integration = client.Integration()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `actions` | `list` | No |  |
-| `auth_type` | `str` | No |  |
-| `base_url` | `str` | Yes |  |
+| `actions` | `list` | No | Actions this integration exposes. |
+| `auth_type` | `str` | No | How Conecto authenticates to base_url. |
+| `base_url` | `str` | Yes | Root URL Conecto POSTs actions to. |
 | `credential` | `str` | No |  |
-| `name` | `str` | Yes |  |
-| `signing_secret` | `str` | No |  |
-| `slug` | `str` | Yes |  |
+| `name` | `str` | Yes | Human-readable name. |
+| `signing_secret` | `str` | No | Secret used to sign action calls. |
+| `slug` | `str` | Yes | Stable identifier, used in the path. |
 | `widget_ids` | `list` | No |  |
 
 ### Operations
@@ -520,13 +520,13 @@ message = client.Message()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `ask_email` | `bool` | No |  |
-| `blocks` | `list` | No |  |
+| `ask_email` | `bool` | No | Prompt the visitor for an email address. |
+| `blocks` | `list` | No | At most 10. |
 | `body` | `str` | No |  |
 | `buttons` | `list` | No |  |
-| `internal` | `bool` | No |  |
+| `internal` | `bool` | No | Internal note, not shown to the visitor. |
 | `products` | `list` | No |  |
-| `ticket_form` | `bool` | No |  |
+| `ticket_form` | `bool` | No | Show the ticket form. |
 
 ### Operations
 
@@ -536,6 +536,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Message().create({
+    "conversation_id": 1,  # int
 })
 ```
 
@@ -679,9 +680,9 @@ webhook = client.Webhook()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `str` | No |  |
-| `events` | `list` | Yes |  |
-| `id` | `int` | Yes |  |
-| `url` | `str` | Yes |  |
+| `events` | `list` | Yes | Event names subscribed to. |
+| `id` | `int` | Yes | Webhook id. |
+| `url` | `str` | Yes | HTTPS endpoint that receives the event POST. |
 
 ### Operations
 

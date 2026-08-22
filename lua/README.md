@@ -248,7 +248,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | `blocks` |  |
 | `conversation_id` |  |
 | `error` |  |
-| `not_found` |  |
+| `not_found` | A normal no-match, not an error. |
 | `ok` |  |
 | `result` |  |
 
@@ -261,9 +261,9 @@ API path: `/integrations/{slug}/actions/{action}/run/`
 | Field | Description |
 | --- | --- |
 | `created_at` |  |
-| `custom_fields` |  |
+| `custom_fields` | Workspace-defined fields. |
 | `email` |  |
-| `id` |  |
+| `id` | Contact id. |
 
 Operations: Create, List.
 
@@ -273,14 +273,14 @@ API path: `/contacts/`
 
 | Field | Description |
 | --- | --- |
-| `body` |  |
+| `body` | Opening message. |
 | `created_at` |  |
-| `id` |  |
-| `messages` |  |
-| `session` |  |
-| `status` |  |
+| `id` | Conversation id. |
+| `messages` | Visitor-facing messages, oldest first. |
+| `session` | Visitor browser session key. |
+| `status` | Lifecycle state. |
 | `user_id` |  |
-| `widget_id` |  |
+| `widget_id` | Widget the conversation belongs to. |
 
 Operations: Create, List, Load, Update.
 
@@ -290,7 +290,7 @@ API path: `/conversations/{id}/assign/`
 
 | Field | Description |
 | --- | --- |
-| `widget_id` |  |
+| `widget_id` | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` |  |
 
 Operations: Load.
@@ -301,13 +301,13 @@ API path: `/me/`
 
 | Field | Description |
 | --- | --- |
-| `actions` |  |
-| `auth_type` |  |
-| `base_url` |  |
+| `actions` | Actions this integration exposes. |
+| `auth_type` | How Conecto authenticates to base_url. |
+| `base_url` | Root URL Conecto POSTs actions to. |
 | `credential` |  |
-| `name` |  |
-| `signing_secret` |  |
-| `slug` |  |
+| `name` | Human-readable name. |
+| `signing_secret` | Secret used to sign action calls. |
+| `slug` | Stable identifier, used in the path. |
 | `widget_ids` |  |
 
 Operations: Create, List, Load.
@@ -327,13 +327,13 @@ API path: `/media/`
 
 | Field | Description |
 | --- | --- |
-| `ask_email` |  |
-| `blocks` |  |
+| `ask_email` | Prompt the visitor for an email address. |
+| `blocks` | At most 10. |
 | `body` |  |
 | `buttons` |  |
-| `internal` |  |
+| `internal` | Internal note, not shown to the visitor. |
 | `products` |  |
-| `ticket_form` |  |
+| `ticket_form` | Show the ticket form. |
 
 Operations: Create.
 
@@ -364,9 +364,9 @@ API path: `/widgets/{id}/visitors/{session}/identify/`
 | Field | Description |
 | --- | --- |
 | `created_at` |  |
-| `events` |  |
-| `id` |  |
-| `url` |  |
+| `events` | Event names subscribed to. |
+| `id` | Webhook id. |
+| `url` | HTTPS endpoint that receives the event POST. |
 
 Operations: Create, List, Load, Remove.
 
@@ -395,7 +395,7 @@ Create an instance: `local action = client:Action(nil)`
 | `blocks` | `table` |  |
 | `conversation_id` | `number` |  |
 | `error` | `string` |  |
-| `not_found` | `boolean` |  |
+| `not_found` | `boolean` | A normal no-match, not an error. |
 | `ok` | `boolean` |  |
 | `result` | `table` |  |
 
@@ -426,9 +426,9 @@ Create an instance: `local contact = client:Contact(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `string` |  |
-| `custom_fields` | `table` |  |
+| `custom_fields` | `table` | Workspace-defined fields. |
 | `email` | `string` |  |
-| `id` | `number` |  |
+| `id` | `number` | Contact id. |
 
 #### Example: List
 
@@ -462,14 +462,14 @@ Create an instance: `local conversation = client:Conversation(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | `string` |  |
+| `body` | `string` | Opening message. |
 | `created_at` | `string` |  |
-| `id` | `number` |  |
-| `messages` | `table` |  |
-| `session` | `string` |  |
-| `status` | `string` |  |
+| `id` | `number` | Conversation id. |
+| `messages` | `table` | Visitor-facing messages, oldest first. |
+| `session` | `string` | Visitor browser session key. |
+| `status` | `string` | Lifecycle state. |
 | `user_id` | `number` |  |
-| `widget_id` | `number` |  |
+| `widget_id` | `number` | Widget the conversation belongs to. |
 
 #### Example: Load
 
@@ -508,7 +508,7 @@ Create an instance: `local credential = client:Credential(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `widget_id` | `number` |  |
+| `widget_id` | `number` | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` | `number` |  |
 
 #### Example: Load
@@ -534,13 +534,13 @@ Create an instance: `local integration = client:Integration(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `actions` | `table` |  |
-| `auth_type` | `string` |  |
-| `base_url` | `string` |  |
+| `actions` | `table` | Actions this integration exposes. |
+| `auth_type` | `string` | How Conecto authenticates to base_url. |
+| `base_url` | `string` | Root URL Conecto POSTs actions to. |
 | `credential` | `string` |  |
-| `name` | `string` |  |
-| `signing_secret` | `string` |  |
-| `slug` | `string` |  |
+| `name` | `string` | Human-readable name. |
+| `signing_secret` | `string` | Secret used to sign action calls. |
+| `slug` | `string` | Stable identifier, used in the path. |
 | `widget_ids` | `table` |  |
 
 #### Example: Load
@@ -598,18 +598,19 @@ Create an instance: `local message = client:Message(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `ask_email` | `boolean` |  |
-| `blocks` | `table` |  |
+| `ask_email` | `boolean` | Prompt the visitor for an email address. |
+| `blocks` | `table` | At most 10. |
 | `body` | `string` |  |
 | `buttons` | `table` |  |
-| `internal` | `boolean` |  |
+| `internal` | `boolean` | Internal note, not shown to the visitor. |
 | `products` | `table` |  |
-| `ticket_form` | `boolean` |  |
+| `ticket_form` | `boolean` | Show the ticket form. |
 
 #### Example: Create
 
 ```lua
 local message, err = client:Message():create({
+  conversation_id = 1, -- number
 })
 ```
 
@@ -676,9 +677,9 @@ Create an instance: `local webhook = client:Webhook(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `string` |  |
-| `events` | `table` |  |
-| `id` | `number` |  |
-| `url` | `string` |  |
+| `events` | `table` | Event names subscribed to. |
+| `id` | `number` | Webhook id. |
+| `url` | `string` | HTTPS endpoint that receives the event POST. |
 
 #### Example: Load
 

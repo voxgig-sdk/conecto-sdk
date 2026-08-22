@@ -8,16 +8,19 @@ main: kit: entity: integration: {
     {
       name: "actions"
       req: false
+      short: "Actions this integration exposes."
       type: "`$ARRAY`"
     }
     {
       name: "auth_type"
       req: false
+      short: "How Conecto authenticates to base_url."
       type: "`$STRING`"
     }
     {
       name: "base_url"
       req: true
+      short: "Root URL Conecto POSTs actions to."
       type: "`$STRING`"
     }
     {
@@ -28,16 +31,19 @@ main: kit: entity: integration: {
     {
       name: "name"
       req: true
+      short: "Human-readable name."
       type: "`$STRING`"
     }
     {
       name: "signing_secret"
       req: false
+      short: "Secret used to sign action calls."
       type: "`$STRING`"
     }
     {
       name: "slug"
       req: true
+      short: "Stable identifier, used in the path."
       type: "`$STRING`"
     }
     {

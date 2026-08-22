@@ -491,14 +491,8 @@ Message = Struct.new(
 
 # Request payload for Message#create.
 #
-# @!attribute [rw] session
-#   @return [String, nil]
-#
-# @!attribute [rw] widget_id
-#   @return [Integer, nil]
-#
 # @!attribute [rw] conversation_id
-#   @return [Integer, nil]
+#   @return [Integer]
 #
 # @!attribute [rw] ask_email
 #   @return [Boolean, nil]
@@ -521,8 +515,6 @@ Message = Struct.new(
 # @!attribute [rw] ticket_form
 #   @return [Boolean, nil]
 MessageCreateData = Struct.new(
-  :session,
-  :widget_id,
   :conversation_id,
   :ask_email,
   :blocks,

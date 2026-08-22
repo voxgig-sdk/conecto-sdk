@@ -24,6 +24,7 @@
         "repr": "auto"
       },
       "contributor": {},
+      "docs": {},
       "entity": {
         "action": {
           "active": true,
@@ -59,6 +60,7 @@
               "active": true,
               "name": "not_found",
               "req": false,
+              "short": "A normal no-match, not an error.",
               "type": "`$BOOLEAN`"
             },
             {
@@ -156,6 +158,7 @@
               "active": true,
               "name": "custom_fields",
               "req": false,
+              "short": "Workspace-defined fields.",
               "type": "`$OBJECT`"
             },
             {
@@ -168,6 +171,7 @@
               "active": true,
               "name": "id",
               "req": true,
+              "short": "Contact id.",
               "type": "`$INTEGER`"
             }
           ],
@@ -274,6 +278,7 @@
               "active": true,
               "name": "body",
               "req": false,
+              "short": "Opening message.",
               "type": "`$STRING`"
             },
             {
@@ -286,24 +291,28 @@
               "active": true,
               "name": "id",
               "req": true,
+              "short": "Conversation id.",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "messages",
               "req": false,
+              "short": "Visitor-facing messages, oldest first.",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "session",
               "req": false,
+              "short": "Visitor browser session key.",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "status",
               "req": true,
+              "short": "Lifecycle state.",
               "type": "`$STRING`"
             },
             {
@@ -316,6 +325,7 @@
               "active": true,
               "name": "widget_id",
               "req": false,
+              "short": "Widget the conversation belongs to.",
               "type": "`$INTEGER`"
             }
           ],
@@ -602,6 +612,7 @@
               "active": true,
               "name": "widget_id",
               "req": false,
+              "short": "Set when the credential is widget-scoped rather than workspace-wide.",
               "type": "`$INTEGER`"
             },
             {
@@ -649,18 +660,21 @@
               "active": true,
               "name": "actions",
               "req": false,
+              "short": "Actions this integration exposes.",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "auth_type",
               "req": false,
+              "short": "How Conecto authenticates to base_url.",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "base_url",
               "req": true,
+              "short": "Root URL Conecto POSTs actions to.",
               "type": "`$STRING`"
             },
             {
@@ -673,18 +687,21 @@
               "active": true,
               "name": "name",
               "req": true,
+              "short": "Human-readable name.",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "signing_secret",
               "req": false,
+              "short": "Secret used to sign action calls.",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "slug",
               "req": true,
+              "short": "Stable identifier, used in the path.",
               "type": "`$STRING`"
             },
             {
@@ -899,12 +916,14 @@
               "active": true,
               "name": "ask_email",
               "req": false,
+              "short": "Prompt the visitor for an email address.",
               "type": "`$BOOLEAN`"
             },
             {
               "active": true,
               "name": "blocks",
               "req": false,
+              "short": "At most 10.",
               "type": "`$ARRAY`"
             },
             {
@@ -923,6 +942,7 @@
               "active": true,
               "name": "internal",
               "req": false,
+              "short": "Internal note, not shown to the visitor.",
               "type": "`$BOOLEAN`"
             },
             {
@@ -935,6 +955,7 @@
               "active": true,
               "name": "ticket_form",
               "req": false,
+              "short": "Show the ticket form.",
               "type": "`$BOOLEAN`"
             }
           ],
@@ -1251,18 +1272,21 @@
               "active": true,
               "name": "events",
               "req": true,
+              "short": "Event names subscribed to.",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "id",
               "req": true,
+              "short": "Webhook id.",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "url",
               "req": true,
+              "short": "HTTPS endpoint that receives the event POST.",
               "type": "`$STRING`"
             }
           ],
@@ -1397,6 +1421,7 @@
       "feature": {
         "test": {
           "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "config": {
             "options": {
               "active": false
@@ -1457,6 +1482,8 @@
             }
           },
           "name": "test",
+          "origname": "",
+          "package": "@voxgig/sdkgen",
           "target": {
             "go": {
               "deps": {}
@@ -1946,6 +1973,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -1964,12 +1992,14 @@
             "path": ""
           },
           "name": "go",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2003,6 +2033,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -2019,12 +2050,14 @@
             "path": ""
           },
           "name": "go-cli",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "phase": {
             "agentguide": {
               "active": false
@@ -2074,6 +2107,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -2090,12 +2124,14 @@
             "path": ""
           },
           "name": "go-mcp",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "phase": {
             "agentguide": {
               "active": false
@@ -2145,6 +2181,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -2167,12 +2204,14 @@
             "path": ""
           },
           "name": "js",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2205,6 +2244,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "--"
           },
@@ -2227,12 +2267,14 @@
             "path": ""
           },
           "name": "lua",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2266,6 +2308,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -2282,12 +2325,14 @@
             "path": ""
           },
           "name": "php",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2321,6 +2366,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "#"
           },
@@ -2343,12 +2389,14 @@
             "path": ""
           },
           "name": "py",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2382,6 +2430,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "#"
           },
@@ -2409,12 +2458,14 @@
             "path": ""
           },
           "name": "rb",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2481,12 +2532,14 @@
             "path": ""
           },
           "name": "ts",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,

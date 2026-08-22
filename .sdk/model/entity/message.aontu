@@ -8,11 +8,13 @@ main: kit: entity: message: {
     {
       name: "ask_email"
       req: false
+      short: "Prompt the visitor for an email address."
       type: "`$BOOLEAN`"
     }
     {
       name: "blocks"
       req: false
+      short: "At most 10."
       type: "`$ARRAY`"
     }
     {
@@ -28,6 +30,7 @@ main: kit: entity: message: {
     {
       name: "internal"
       req: false
+      short: "Internal note, not shown to the visitor."
       type: "`$BOOLEAN`"
     }
     {
@@ -38,6 +41,7 @@ main: kit: entity: message: {
     {
       name: "ticket_form"
       req: false
+      short: "Show the ticket form."
       type: "`$BOOLEAN`"
     }
   ]

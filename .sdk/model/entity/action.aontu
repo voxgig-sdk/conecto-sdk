@@ -28,6 +28,7 @@ main: kit: entity: action: {
     {
       name: "not_found"
       req: false
+      short: "A normal no-match, not an error."
       type: "`$BOOLEAN`"
     }
     {

@@ -139,7 +139,7 @@ fmt.Println(action.GetName()) // "action"
 | `blocks` | `[]any` | No |  |
 | `conversation_id` | `int` | No |  |
 | `error` | `string` | No |  |
-| `not_found` | `bool` | No |  |
+| `not_found` | `bool` | No | A normal no-match, not an error. |
 | `ok` | `bool` | Yes |  |
 | `result` | `map[string]any` | No |  |
 
@@ -197,9 +197,9 @@ fmt.Println(contact.GetName()) // "contact"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
-| `custom_fields` | `map[string]any` | No |  |
+| `custom_fields` | `map[string]any` | No | Workspace-defined fields. |
 | `email` | `string` | No |  |
-| `id` | `int` | Yes |  |
+| `id` | `int` | Yes | Contact id. |
 
 ### Operations
 
@@ -264,14 +264,14 @@ fmt.Println(conversation.GetName()) // "conversation"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | `string` | No |  |
+| `body` | `string` | No | Opening message. |
 | `created_at` | `string` | No |  |
-| `id` | `int` | Yes |  |
-| `messages` | `[]any` | No |  |
-| `session` | `string` | No |  |
-| `status` | `string` | Yes |  |
+| `id` | `int` | Yes | Conversation id. |
+| `messages` | `[]any` | No | Visitor-facing messages, oldest first. |
+| `session` | `string` | No | Visitor browser session key. |
+| `status` | `string` | Yes | Lifecycle state. |
 | `user_id` | `int` | Yes |  |
-| `widget_id` | `int` | No |  |
+| `widget_id` | `int` | No | Widget the conversation belongs to. |
 
 ### Operations
 
@@ -365,7 +365,7 @@ fmt.Println(credential.GetName()) // "credential"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `widget_id` | `int` | No |  |
+| `widget_id` | `int` | No | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` | `int` | No |  |
 
 ### Operations
@@ -417,13 +417,13 @@ fmt.Println(integration.GetName()) // "integration"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `actions` | `[]any` | No |  |
-| `auth_type` | `string` | No |  |
-| `base_url` | `string` | Yes |  |
+| `actions` | `[]any` | No | Actions this integration exposes. |
+| `auth_type` | `string` | No | How Conecto authenticates to base_url. |
+| `base_url` | `string` | Yes | Root URL Conecto POSTs actions to. |
 | `credential` | `string` | No |  |
-| `name` | `string` | Yes |  |
-| `signing_secret` | `string` | No |  |
-| `slug` | `string` | Yes |  |
+| `name` | `string` | Yes | Human-readable name. |
+| `signing_secret` | `string` | No | Secret used to sign action calls. |
+| `slug` | `string` | Yes | Stable identifier, used in the path. |
 | `widget_ids` | `[]any` | No |  |
 
 ### Operations
@@ -549,13 +549,13 @@ fmt.Println(message.GetName()) // "message"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `ask_email` | `bool` | No |  |
-| `blocks` | `[]any` | No |  |
+| `ask_email` | `bool` | No | Prompt the visitor for an email address. |
+| `blocks` | `[]any` | No | At most 10. |
 | `body` | `string` | No |  |
 | `buttons` | `[]any` | No |  |
-| `internal` | `bool` | No |  |
+| `internal` | `bool` | No | Internal note, not shown to the visitor. |
 | `products` | `[]any` | No |  |
-| `ticket_form` | `bool` | No |  |
+| `ticket_form` | `bool` | No | Show the ticket form. |
 
 ### Operations
 
@@ -565,6 +565,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Message(nil).Create(map[string]any{
+    "conversation_id": 1,
 }, nil)
 if err != nil {
     panic(err)
@@ -708,9 +709,9 @@ fmt.Println(webhook.GetName()) // "webhook"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
-| `events` | `[]any` | Yes |  |
-| `id` | `int` | Yes |  |
-| `url` | `string` | Yes |  |
+| `events` | `[]any` | Yes | Event names subscribed to. |
+| `id` | `int` | Yes | Webhook id. |
+| `url` | `string` | Yes | HTTPS endpoint that receives the event POST. |
 
 ### Operations
 

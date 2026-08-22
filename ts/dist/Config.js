@@ -12,8 +12,17 @@ class Config {
         // TODO: errors etc
         return fi;
     }
+    // False for a feature added at runtime via options.extend (station's
+    // adopt path) - the constructor uses this to skip makeFeature for names
+    // no generated class backs.
+    hasFeature(fn) {
+        return null != FEATURE_CLASS[fn];
+    }
     main = {
         name: 'Conecto',
+        slug: "conecto",
+        version: "0.0.1",
+        target: "ts",
     };
     feature = {
         test: {
@@ -64,6 +73,7 @@ class Config {
                 },
                 {
                     "name": "not_found",
+                    "short": "A normal no-match, not an error.",
                     "type": "`$BOOLEAN`"
                 },
                 {
@@ -147,6 +157,7 @@ class Config {
                 },
                 {
                     "name": "custom_fields",
+                    "short": "Workspace-defined fields.",
                     "type": "`$OBJECT`"
                 },
                 {
@@ -156,6 +167,7 @@ class Config {
                 {
                     "name": "id",
                     "req": true,
+                    "short": "Contact id.",
                     "type": "`$INTEGER`"
                 }
             ],
@@ -244,6 +256,7 @@ class Config {
             "fields": [
                 {
                     "name": "body",
+                    "short": "Opening message.",
                     "type": "`$STRING`"
                 },
                 {
@@ -253,19 +266,23 @@ class Config {
                 {
                     "name": "id",
                     "req": true,
+                    "short": "Conversation id.",
                     "type": "`$INTEGER`"
                 },
                 {
                     "name": "messages",
+                    "short": "Visitor-facing messages, oldest first.",
                     "type": "`$ARRAY`"
                 },
                 {
                     "name": "session",
+                    "short": "Visitor browser session key.",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "status",
                     "req": true,
+                    "short": "Lifecycle state.",
                     "type": "`$STRING`"
                 },
                 {
@@ -275,6 +292,7 @@ class Config {
                 },
                 {
                     "name": "widget_id",
+                    "short": "Widget the conversation belongs to.",
                     "type": "`$INTEGER`"
                 }
             ],
@@ -527,6 +545,7 @@ class Config {
             "fields": [
                 {
                     "name": "widget_id",
+                    "short": "Set when the credential is widget-scoped rather than workspace-wide.",
                     "type": "`$INTEGER`"
                 },
                 {
@@ -565,15 +584,18 @@ class Config {
             "fields": [
                 {
                     "name": "actions",
+                    "short": "Actions this integration exposes.",
                     "type": "`$ARRAY`"
                 },
                 {
                     "name": "auth_type",
+                    "short": "How Conecto authenticates to base_url.",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "base_url",
                     "req": true,
+                    "short": "Root URL Conecto POSTs actions to.",
                     "type": "`$STRING`"
                 },
                 {
@@ -583,15 +605,18 @@ class Config {
                 {
                     "name": "name",
                     "req": true,
+                    "short": "Human-readable name.",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "signing_secret",
+                    "short": "Secret used to sign action calls.",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "slug",
                     "req": true,
+                    "short": "Stable identifier, used in the path.",
                     "type": "`$STRING`"
                 },
                 {
@@ -785,10 +810,12 @@ class Config {
             "fields": [
                 {
                     "name": "ask_email",
+                    "short": "Prompt the visitor for an email address.",
                     "type": "`$BOOLEAN`"
                 },
                 {
                     "name": "blocks",
+                    "short": "At most 10.",
                     "type": "`$ARRAY`"
                 },
                 {
@@ -801,6 +828,7 @@ class Config {
                 },
                 {
                     "name": "internal",
+                    "short": "Internal note, not shown to the visitor.",
                     "type": "`$BOOLEAN`"
                 },
                 {
@@ -809,6 +837,7 @@ class Config {
                 },
                 {
                     "name": "ticket_form",
+                    "short": "Show the ticket form.",
                     "type": "`$BOOLEAN`"
                 }
             ],
@@ -1090,16 +1119,19 @@ class Config {
                 {
                     "name": "events",
                     "req": true,
+                    "short": "Event names subscribed to.",
                     "type": "`$ARRAY`"
                 },
                 {
                     "name": "id",
                     "req": true,
+                    "short": "Webhook id.",
                     "type": "`$INTEGER`"
                 },
                 {
                     "name": "url",
                     "req": true,
+                    "short": "HTTPS endpoint that receives the event POST.",
                     "type": "`$STRING`"
                 }
             ],

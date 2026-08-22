@@ -131,7 +131,7 @@ local action = client:Action(nil)
 | `blocks` | `table` | No |  |
 | `conversation_id` | `number` | No |  |
 | `error` | `string` | No |  |
-| `not_found` | `boolean` | No |  |
+| `not_found` | `boolean` | No | A normal no-match, not an error. |
 | `ok` | `boolean` | Yes |  |
 | `result` | `table` | No |  |
 
@@ -190,9 +190,9 @@ local contact = client:Contact(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
-| `custom_fields` | `table` | No |  |
+| `custom_fields` | `table` | No | Workspace-defined fields. |
 | `email` | `string` | No |  |
-| `id` | `number` | Yes |  |
+| `id` | `number` | Yes | Contact id. |
 
 ### Operations
 
@@ -254,14 +254,14 @@ local conversation = client:Conversation(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | `string` | No |  |
+| `body` | `string` | No | Opening message. |
 | `created_at` | `string` | No |  |
-| `id` | `number` | Yes |  |
-| `messages` | `table` | No |  |
-| `session` | `string` | No |  |
-| `status` | `string` | Yes |  |
+| `id` | `number` | Yes | Conversation id. |
+| `messages` | `table` | No | Visitor-facing messages, oldest first. |
+| `session` | `string` | No | Visitor browser session key. |
+| `status` | `string` | Yes | Lifecycle state. |
 | `user_id` | `number` | Yes |  |
-| `widget_id` | `number` | No |  |
+| `widget_id` | `number` | No | Widget the conversation belongs to. |
 
 ### Operations
 
@@ -344,7 +344,7 @@ local credential = client:Credential(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `widget_id` | `number` | No |  |
+| `widget_id` | `number` | No | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` | `number` | No |  |
 
 ### Operations
@@ -397,13 +397,13 @@ local integration = client:Integration(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `actions` | `table` | No |  |
-| `auth_type` | `string` | No |  |
-| `base_url` | `string` | Yes |  |
+| `actions` | `table` | No | Actions this integration exposes. |
+| `auth_type` | `string` | No | How Conecto authenticates to base_url. |
+| `base_url` | `string` | Yes | Root URL Conecto POSTs actions to. |
 | `credential` | `string` | No |  |
-| `name` | `string` | Yes |  |
-| `signing_secret` | `string` | No |  |
-| `slug` | `string` | Yes |  |
+| `name` | `string` | Yes | Human-readable name. |
+| `signing_secret` | `string` | No | Secret used to sign action calls. |
+| `slug` | `string` | Yes | Stable identifier, used in the path. |
 | `widget_ids` | `table` | No |  |
 
 ### Operations
@@ -523,13 +523,13 @@ local message = client:Message(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `ask_email` | `boolean` | No |  |
-| `blocks` | `table` | No |  |
+| `ask_email` | `boolean` | No | Prompt the visitor for an email address. |
+| `blocks` | `table` | No | At most 10. |
 | `body` | `string` | No |  |
 | `buttons` | `table` | No |  |
-| `internal` | `boolean` | No |  |
+| `internal` | `boolean` | No | Internal note, not shown to the visitor. |
 | `products` | `table` | No |  |
-| `ticket_form` | `boolean` | No |  |
+| `ticket_form` | `boolean` | No | Show the ticket form. |
 
 ### Operations
 
@@ -539,6 +539,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Message():create({
+  conversation_id = --[[ number ]],
 })
 ```
 
@@ -685,9 +686,9 @@ local webhook = client:Webhook(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
-| `events` | `table` | Yes |  |
-| `id` | `number` | Yes |  |
-| `url` | `string` | Yes |  |
+| `events` | `table` | Yes | Event names subscribed to. |
+| `id` | `number` | Yes | Webhook id. |
+| `url` | `string` | Yes | HTTPS endpoint that receives the event POST. |
 
 ### Operations
 

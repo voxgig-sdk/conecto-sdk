@@ -1,8 +1,12 @@
 import { BaseFeature } from './feature/base/BaseFeature';
 declare class Config {
     makeFeature(this: any, fn: string): BaseFeature;
+    hasFeature(this: any, fn: string): boolean;
     main: {
         name: string;
+        slug: string;
+        version: string;
+        target: string;
     };
     feature: {
         test: {
@@ -37,11 +41,18 @@ declare class Config {
             fields: ({
                 name: string;
                 type: string;
+                short?: undefined;
+                req?: undefined;
+            } | {
+                name: string;
+                short: string;
+                type: string;
                 req?: undefined;
             } | {
                 name: string;
                 req: boolean;
                 type: string;
+                short?: undefined;
             })[];
             name: string;
             op: {
@@ -86,10 +97,17 @@ declare class Config {
             fields: ({
                 name: string;
                 type: string;
+                short?: undefined;
+                req?: undefined;
+            } | {
+                name: string;
+                short: string;
+                type: string;
                 req?: undefined;
             } | {
                 name: string;
                 req: boolean;
+                short: string;
                 type: string;
             })[];
             name: string;
@@ -159,12 +177,24 @@ declare class Config {
         conversation: {
             fields: ({
                 name: string;
+                short: string;
                 type: string;
                 req?: undefined;
             } | {
                 name: string;
+                type: string;
+                short?: undefined;
+                req?: undefined;
+            } | {
+                name: string;
+                req: boolean;
+                short: string;
+                type: string;
+            } | {
+                name: string;
                 req: boolean;
                 type: string;
+                short?: undefined;
             })[];
             name: string;
             op: {
@@ -315,10 +345,15 @@ declare class Config {
             };
         };
         credential: {
-            fields: {
+            fields: ({
+                name: string;
+                short: string;
+                type: string;
+            } | {
                 name: string;
                 type: string;
-            }[];
+                short?: undefined;
+            })[];
             name: string;
             op: {
                 load: {
@@ -345,12 +380,19 @@ declare class Config {
         integration: {
             fields: ({
                 name: string;
+                short: string;
                 type: string;
                 req?: undefined;
             } | {
                 name: string;
                 req: boolean;
+                short: string;
                 type: string;
+            } | {
+                name: string;
+                type: string;
+                short?: undefined;
+                req?: undefined;
             })[];
             name: string;
             op: {
@@ -475,10 +517,15 @@ declare class Config {
             };
         };
         message: {
-            fields: {
+            fields: ({
+                name: string;
+                short: string;
+                type: string;
+            } | {
                 name: string;
                 type: string;
-            }[];
+                short?: undefined;
+            })[];
             name: string;
             op: {
                 create: {
@@ -597,9 +644,11 @@ declare class Config {
                 name: string;
                 type: string;
                 req?: undefined;
+                short?: undefined;
             } | {
                 name: string;
                 req: boolean;
+                short: string;
                 type: string;
             })[];
             name: string;

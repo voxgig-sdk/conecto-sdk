@@ -133,7 +133,7 @@ $action = $client->Action();
 | `blocks` | `array` | No |  |
 | `conversation_id` | `int` | No |  |
 | `error` | `string` | No |  |
-| `not_found` | `bool` | No |  |
+| `not_found` | `bool` | No | A normal no-match, not an error. |
 | `ok` | `bool` | Yes |  |
 | `result` | `array` | No |  |
 
@@ -192,9 +192,9 @@ $contact = $client->Contact();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
-| `custom_fields` | `array` | No |  |
+| `custom_fields` | `array` | No | Workspace-defined fields. |
 | `email` | `string` | No |  |
-| `id` | `int` | Yes |  |
+| `id` | `int` | Yes | Contact id. |
 
 ### Operations
 
@@ -256,14 +256,14 @@ $conversation = $client->Conversation();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | `string` | No |  |
+| `body` | `string` | No | Opening message. |
 | `created_at` | `string` | No |  |
-| `id` | `int` | Yes |  |
-| `messages` | `array` | No |  |
-| `session` | `string` | No |  |
-| `status` | `string` | Yes |  |
+| `id` | `int` | Yes | Conversation id. |
+| `messages` | `array` | No | Visitor-facing messages, oldest first. |
+| `session` | `string` | No | Visitor browser session key. |
+| `status` | `string` | Yes | Lifecycle state. |
 | `user_id` | `int` | Yes |  |
-| `widget_id` | `int` | No |  |
+| `widget_id` | `int` | No | Widget the conversation belongs to. |
 
 ### Operations
 
@@ -346,7 +346,7 @@ $credential = $client->Credential();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `widget_id` | `int` | No |  |
+| `widget_id` | `int` | No | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` | `int` | No |  |
 
 ### Operations
@@ -399,13 +399,13 @@ $integration = $client->Integration();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `actions` | `array` | No |  |
-| `auth_type` | `string` | No |  |
-| `base_url` | `string` | Yes |  |
+| `actions` | `array` | No | Actions this integration exposes. |
+| `auth_type` | `string` | No | How Conecto authenticates to base_url. |
+| `base_url` | `string` | Yes | Root URL Conecto POSTs actions to. |
 | `credential` | `string` | No |  |
-| `name` | `string` | Yes |  |
-| `signing_secret` | `string` | No |  |
-| `slug` | `string` | Yes |  |
+| `name` | `string` | Yes | Human-readable name. |
+| `signing_secret` | `string` | No | Secret used to sign action calls. |
+| `slug` | `string` | Yes | Stable identifier, used in the path. |
 | `widget_ids` | `array` | No |  |
 
 ### Operations
@@ -525,13 +525,13 @@ $message = $client->Message();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `ask_email` | `bool` | No |  |
-| `blocks` | `array` | No |  |
+| `ask_email` | `bool` | No | Prompt the visitor for an email address. |
+| `blocks` | `array` | No | At most 10. |
 | `body` | `string` | No |  |
 | `buttons` | `array` | No |  |
-| `internal` | `bool` | No |  |
+| `internal` | `bool` | No | Internal note, not shown to the visitor. |
 | `products` | `array` | No |  |
-| `ticket_form` | `bool` | No |  |
+| `ticket_form` | `bool` | No | Show the ticket form. |
 
 ### Operations
 
@@ -541,6 +541,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Message()->create([
+  "conversation_id" => null, // int
 ]);
 ```
 
@@ -687,9 +688,9 @@ $webhook = $client->Webhook();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
-| `events` | `array` | Yes |  |
-| `id` | `int` | Yes |  |
-| `url` | `string` | Yes |  |
+| `events` | `array` | Yes | Event names subscribed to. |
+| `id` | `int` | Yes | Webhook id. |
+| `url` | `string` | Yes | HTTPS endpoint that receives the event POST. |
 
 ### Operations
 

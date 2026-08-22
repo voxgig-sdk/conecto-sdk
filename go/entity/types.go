@@ -187,9 +187,7 @@ type Message struct {
 
 // MessageCreateData is the typed request payload for Message.CreateTyped.
 type MessageCreateData struct {
-	Session *string `json:"session,omitempty"`
-	WidgetId *int `json:"widget_id,omitempty"`
-	ConversationId *int `json:"conversation_id,omitempty"`
+	ConversationId int `json:"conversation_id"`
 	AskEmail *bool `json:"ask_email,omitempty"`
 	Blocks *[]any `json:"blocks,omitempty"`
 	Body *string `json:"body,omitempty"`

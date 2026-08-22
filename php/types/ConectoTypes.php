@@ -207,9 +207,7 @@ class Message
 /** Request payload for Message#create. */
 class MessageCreateData
 {
-    public ?string $session = null;
-    public ?int $widget_id = null;
-    public ?int $conversation_id = null;
+    public int $conversation_id;
     public ?bool $ask_email = null;
     public ?array $blocks = null;
     public ?string $body = null;

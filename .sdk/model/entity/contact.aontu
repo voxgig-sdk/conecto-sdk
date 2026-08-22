@@ -13,6 +13,7 @@ main: kit: entity: contact: {
     {
       name: "custom_fields"
       req: false
+      short: "Workspace-defined fields."
       type: "`$OBJECT`"
     }
     {
@@ -23,6 +24,7 @@ main: kit: entity: contact: {
     {
       name: "id"
       req: true
+      short: "Contact id."
       type: "`$INTEGER`"
     }
   ]

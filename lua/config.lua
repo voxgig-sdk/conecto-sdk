@@ -7,6 +7,9 @@ local function make_config()
   return {
     main = {
       name = "Conecto",
+      slug = "conecto",
+      version = "0.0.1",
+      target = "lua",
     },
     feature = {
       ["test"] = {
@@ -57,6 +60,7 @@ local function make_config()
           },
           {
             ["name"] = "not_found",
+            ["short"] = "A normal no-match, not an error.",
             ["type"] = "`$BOOLEAN`",
           },
           {
@@ -140,6 +144,7 @@ local function make_config()
           },
           {
             ["name"] = "custom_fields",
+            ["short"] = "Workspace-defined fields.",
             ["type"] = "`$OBJECT`",
           },
           {
@@ -149,6 +154,7 @@ local function make_config()
           {
             ["name"] = "id",
             ["req"] = true,
+            ["short"] = "Contact id.",
             ["type"] = "`$INTEGER`",
           },
         },
@@ -237,6 +243,7 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "body",
+            ["short"] = "Opening message.",
             ["type"] = "`$STRING`",
           },
           {
@@ -246,19 +253,23 @@ local function make_config()
           {
             ["name"] = "id",
             ["req"] = true,
+            ["short"] = "Conversation id.",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "messages",
+            ["short"] = "Visitor-facing messages, oldest first.",
             ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "session",
+            ["short"] = "Visitor browser session key.",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "status",
             ["req"] = true,
+            ["short"] = "Lifecycle state.",
             ["type"] = "`$STRING`",
           },
           {
@@ -268,6 +279,7 @@ local function make_config()
           },
           {
             ["name"] = "widget_id",
+            ["short"] = "Widget the conversation belongs to.",
             ["type"] = "`$INTEGER`",
           },
         },
@@ -520,6 +532,7 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "widget_id",
+            ["short"] = "Set when the credential is widget-scoped rather than workspace-wide.",
             ["type"] = "`$INTEGER`",
           },
           {
@@ -558,15 +571,18 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "actions",
+            ["short"] = "Actions this integration exposes.",
             ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "auth_type",
+            ["short"] = "How Conecto authenticates to base_url.",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "base_url",
             ["req"] = true,
+            ["short"] = "Root URL Conecto POSTs actions to.",
             ["type"] = "`$STRING`",
           },
           {
@@ -576,15 +592,18 @@ local function make_config()
           {
             ["name"] = "name",
             ["req"] = true,
+            ["short"] = "Human-readable name.",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "signing_secret",
+            ["short"] = "Secret used to sign action calls.",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "slug",
             ["req"] = true,
+            ["short"] = "Stable identifier, used in the path.",
             ["type"] = "`$STRING`",
           },
           {
@@ -778,10 +797,12 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "ask_email",
+            ["short"] = "Prompt the visitor for an email address.",
             ["type"] = "`$BOOLEAN`",
           },
           {
             ["name"] = "blocks",
+            ["short"] = "At most 10.",
             ["type"] = "`$ARRAY`",
           },
           {
@@ -794,6 +815,7 @@ local function make_config()
           },
           {
             ["name"] = "internal",
+            ["short"] = "Internal note, not shown to the visitor.",
             ["type"] = "`$BOOLEAN`",
           },
           {
@@ -802,6 +824,7 @@ local function make_config()
           },
           {
             ["name"] = "ticket_form",
+            ["short"] = "Show the ticket form.",
             ["type"] = "`$BOOLEAN`",
           },
         },
@@ -1083,16 +1106,19 @@ local function make_config()
           {
             ["name"] = "events",
             ["req"] = true,
+            ["short"] = "Event names subscribed to.",
             ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "id",
             ["req"] = true,
+            ["short"] = "Webhook id.",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "url",
             ["req"] = true,
+            ["short"] = "HTTPS endpoint that receives the event POST.",
             ["type"] = "`$STRING`",
           },
         },

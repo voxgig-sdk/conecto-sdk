@@ -142,9 +142,7 @@
 ---@field ticket_form? boolean
 
 ---@class MessageCreateData
----@field session? string
----@field widget_id? number
----@field conversation_id? number
+---@field conversation_id number
 ---@field ask_email? boolean
 ---@field blocks? table
 ---@field body? string

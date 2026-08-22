@@ -229,7 +229,7 @@ const action = client.Action()
 | `blocks` | `any[]` | No |  |
 | `conversation_id` | `number` | No |  |
 | `error` | `string` | No |  |
-| `not_found` | `boolean` | No |  |
+| `not_found` | `boolean` | No | A normal no-match, not an error. |
 | `ok` | `boolean` | Yes |  |
 | `result` | `Record<string, any>` | No |  |
 
@@ -306,9 +306,9 @@ const contact = client.Contact()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
-| `custom_fields` | `Record<string, any>` | No |  |
+| `custom_fields` | `Record<string, any>` | No | Workspace-defined fields. |
 | `email` | `string` | No |  |
-| `id` | `number` | Yes |  |
+| `id` | `number` | Yes | Contact id. |
 
 ### Operations
 
@@ -368,14 +368,14 @@ const conversation = client.Conversation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | `string` | No |  |
+| `body` | `string` | No | Opening message. |
 | `created_at` | `string` | No |  |
-| `id` | `number` | Yes |  |
-| `messages` | `any[]` | No |  |
-| `session` | `string` | No |  |
-| `status` | `string` | Yes |  |
+| `id` | `number` | Yes | Conversation id. |
+| `messages` | `any[]` | No | Visitor-facing messages, oldest first. |
+| `session` | `string` | No | Visitor browser session key. |
+| `status` | `string` | Yes | Lifecycle state. |
 | `user_id` | `number` | Yes |  |
-| `widget_id` | `number` | No |  |
+| `widget_id` | `number` | No | Widget the conversation belongs to. |
 
 ### Actions
 
@@ -478,7 +478,7 @@ const credential = client.Credential()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `widget_id` | `number` | No |  |
+| `widget_id` | `number` | No | Set when the credential is widget-scoped rather than workspace-wide. |
 | `workspace_id` | `number` | No |  |
 
 ### Operations
@@ -529,13 +529,13 @@ const integration = client.Integration()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `actions` | `any[]` | No |  |
-| `auth_type` | `string` | No |  |
-| `base_url` | `string` | Yes |  |
+| `actions` | `any[]` | No | Actions this integration exposes. |
+| `auth_type` | `string` | No | How Conecto authenticates to base_url. |
+| `base_url` | `string` | Yes | Root URL Conecto POSTs actions to. |
 | `credential` | `string` | No |  |
-| `name` | `string` | Yes |  |
-| `signing_secret` | `string` | No |  |
-| `slug` | `string` | Yes |  |
+| `name` | `string` | Yes | Human-readable name. |
+| `signing_secret` | `string` | No | Secret used to sign action calls. |
+| `slug` | `string` | Yes | Stable identifier, used in the path. |
 | `widget_ids` | `any[]` | No |  |
 
 ### Actions
@@ -672,13 +672,13 @@ const message = client.Message()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `ask_email` | `boolean` | No |  |
-| `blocks` | `any[]` | No |  |
+| `ask_email` | `boolean` | No | Prompt the visitor for an email address. |
+| `blocks` | `any[]` | No | At most 10. |
 | `body` | `string` | No |  |
 | `buttons` | `any[]` | No |  |
-| `internal` | `boolean` | No |  |
+| `internal` | `boolean` | No | Internal note, not shown to the visitor. |
 | `products` | `any[]` | No |  |
-| `ticket_form` | `boolean` | No |  |
+| `ticket_form` | `boolean` | No | Show the ticket form. |
 
 ### Operations
 
@@ -688,6 +688,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Message().create({
+  conversation_id: 1,
 })
 ```
 
@@ -849,9 +850,9 @@ const webhook = client.Webhook()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
-| `events` | `any[]` | Yes |  |
-| `id` | `number` | Yes |  |
-| `url` | `string` | Yes |  |
+| `events` | `any[]` | Yes | Event names subscribed to. |
+| `id` | `number` | Yes | Webhook id. |
+| `url` | `string` | Yes | HTTPS endpoint that receives the event POST. |
 
 ### Operations
 
