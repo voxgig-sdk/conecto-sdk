@@ -42,6 +42,7 @@ class ConectoConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
