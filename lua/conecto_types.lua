@@ -11,6 +11,7 @@
 ---@field blocks? table
 ---@field conversation_id? number
 ---@field error? string
+---@field id? string
 ---@field not_found? boolean
 ---@field ok boolean
 ---@field result? table
@@ -100,6 +101,7 @@
 ---@field auth_type? string
 ---@field base_url string
 ---@field credential? string
+---@field id? string
 ---@field name string
 ---@field signing_secret? string
 ---@field slug string
@@ -113,6 +115,7 @@
 ---@field auth_type? string
 ---@field base_url? string
 ---@field credential? string
+---@field id? string
 ---@field name? string
 ---@field signing_secret? string
 ---@field slug? string
@@ -123,6 +126,7 @@
 ---@field auth_type? string
 ---@field base_url string
 ---@field credential? string
+---@field id? string
 ---@field name string
 ---@field signing_secret? string
 ---@field slug string

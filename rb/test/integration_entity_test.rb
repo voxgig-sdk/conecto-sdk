@@ -75,6 +75,7 @@ class IntegrationEntityTest < Minitest::Test
     integration_ref01_data_result = integration_ref01_ent.create(integration_ref01_data, nil)
     integration_ref01_data = Helpers.to_map(integration_ref01_data_result.respond_to?(:data_get) ? integration_ref01_data_result.data_get : integration_ref01_data_result)
     assert !integration_ref01_data.nil?
+    assert !integration_ref01_data["id"].nil?
 
     # LIST
     integration_ref01_match = {}
@@ -82,10 +83,19 @@ class IntegrationEntityTest < Minitest::Test
     integration_ref01_list_result = integration_ref01_ent.list(integration_ref01_match, nil)
     assert integration_ref01_list_result.is_a?(Array)
 
+    found_item = Vs.select(
+      Runner.entity_list_to_data(integration_ref01_list_result),
+      { "id" => integration_ref01_data["id"] })
+    assert !Vs.isempty(found_item)
+
     # LOAD
-    integration_ref01_match_dt0 = {}
+    integration_ref01_match_dt0 = {
+      "id" => integration_ref01_data["id"],
+    }
     integration_ref01_data_dt0_loaded = integration_ref01_ent.load(integration_ref01_match_dt0, nil)
-    assert !integration_ref01_data_dt0_loaded.nil?
+    integration_ref01_data_dt0_load_result = Helpers.to_map(integration_ref01_data_dt0_loaded.respond_to?(:data_get) ? integration_ref01_data_dt0_loaded.data_get : integration_ref01_data_dt0_loaded)
+    assert !integration_ref01_data_dt0_load_result.nil?
+    assert_equal integration_ref01_data_dt0_load_result["id"], integration_ref01_data["id"]
 
   end
 end

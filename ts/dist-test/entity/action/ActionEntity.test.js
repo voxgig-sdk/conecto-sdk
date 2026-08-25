@@ -77,7 +77,7 @@ const utility_1 = require("../../utility");
         action_ref01_data['action'] = setup.idmap['action01'];
         action_ref01_data['slug'] = setup.idmap['slug01'];
         action_ref01_data = (await action_ref01_ent.create(action_ref01_data)).data();
-        (0, node_assert_1.default)(null != action_ref01_data);
+        (0, node_assert_1.default)(null != action_ref01_data.id);
     });
 });
 function basicSetup(extra) {

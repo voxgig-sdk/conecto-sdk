@@ -45,6 +45,7 @@ describe("ActionEntity", function()
     assert.is_nil(err)
     action_ref01_data = helpers.to_map(type(action_ref01_data_result) == 'table' and action_ref01_data_result.data_get and action_ref01_data_result:data_get() or action_ref01_data_result)
     assert.is_not_nil(action_ref01_data)
+    assert.is_not_nil(action_ref01_data["id"])
 
   end)
 end)

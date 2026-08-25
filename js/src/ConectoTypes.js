@@ -12,6 +12,7 @@
  * @property {Array} [blocks]
  * @property {number} [conversation_id]
  * @property {string} [error]
+ * @property {string} [id]
  * @property {boolean} [not_found]
  * @property {boolean} ok
  * @property {Object} [result]
@@ -125,6 +126,7 @@
  * @property {string} [auth_type]
  * @property {string} base_url
  * @property {string} [credential]
+ * @property {string} [id]
  * @property {string} name
  * @property {string} [signing_secret]
  * @property {string} slug
@@ -142,6 +144,7 @@
  * @property {string} [auth_type]
  * @property {string} [base_url]
  * @property {string} [credential]
+ * @property {string} [id]
  * @property {string} [name]
  * @property {string} [signing_secret]
  * @property {string} [slug]
@@ -154,6 +157,7 @@
  * @property {string} [auth_type]
  * @property {string} base_url
  * @property {string} [credential]
+ * @property {string} [id]
  * @property {string} name
  * @property {string} [signing_secret]
  * @property {string} slug

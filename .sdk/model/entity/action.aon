@@ -26,6 +26,11 @@ main: kit: entity: action: {
       type: "`$STRING`"
     }
     {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
       name: "not_found"
       req: false
       short: "A normal no-match, not an error."
@@ -42,6 +47,11 @@ main: kit: entity: action: {
       type: "`$OBJECT`"
     }
   ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
 
   name: "action"
   op: {

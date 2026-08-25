@@ -3,36 +3,36 @@
     "integration": {
       "INTEGRATION00": {
         "actions": [],
-        "auth_type": "s51",
-        "base_url": "s52",
-        "credential": "s53",
-        "name": "s54",
-        "signing_secret": "s55",
-        "slug": "s56",
-        "widget_ids": [],
-        "id": "INTEGRATION00"
+        "auth_type": "s5b",
+        "base_url": "s5c",
+        "credential": "s5d",
+        "id": "INTEGRATION00",
+        "name": "s5f",
+        "signing_secret": "s60",
+        "slug": "s61",
+        "widget_ids": []
       },
       "INTEGRATION01": {
         "actions": [],
-        "auth_type": "sa1",
-        "base_url": "sa2",
-        "credential": "sa3",
-        "name": "sa4",
-        "signing_secret": "sa5",
-        "slug": "sa6",
-        "widget_ids": [],
-        "id": "INTEGRATION01"
+        "auth_type": "sb5",
+        "base_url": "sb6",
+        "credential": "sb7",
+        "id": "INTEGRATION01",
+        "name": "sb9",
+        "signing_secret": "sba",
+        "slug": "sbb",
+        "widget_ids": []
       },
       "INTEGRATION02": {
         "actions": [],
-        "auth_type": "sf1",
-        "base_url": "sf2",
-        "credential": "sf3",
-        "name": "sf4",
-        "signing_secret": "sf5",
-        "slug": "sf6",
-        "widget_ids": [],
-        "id": "INTEGRATION02"
+        "auth_type": "s10f",
+        "base_url": "s110",
+        "credential": "s111",
+        "id": "INTEGRATION02",
+        "name": "s113",
+        "signing_secret": "s114",
+        "slug": "s115",
+        "widget_ids": []
       }
     }
   },
@@ -40,12 +40,12 @@
     "integration": {
       "integration_ref01": {
         "actions": [],
-        "auth_type": "s141",
-        "base_url": "s142",
-        "credential": "s143",
-        "name": "s144",
-        "signing_secret": "s145",
-        "slug": "s146",
+        "auth_type": "s169",
+        "base_url": "s16a",
+        "credential": "s16b",
+        "name": "s16d",
+        "signing_secret": "s16e",
+        "slug": "s16f",
         "widget_ids": []
       }
     }

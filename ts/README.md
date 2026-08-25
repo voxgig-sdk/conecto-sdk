@@ -310,6 +310,7 @@ The `prepare()` method returns:
 | `blocks` |  |
 | `conversation_id` |  |
 | `error` |  |
+| `id` |  |
 | `not_found` | A normal no-match, not an error. |
 | `ok` |  |
 | `result` |  |
@@ -367,6 +368,7 @@ API path: `/me/`
 | `auth_type` | How Conecto authenticates to base_url. |
 | `base_url` | Root URL Conecto POSTs actions to. |
 | `credential` |  |
+| `id` |  |
 | `name` | Human-readable name. |
 | `signing_secret` | Secret used to sign action calls. |
 | `slug` | Stable identifier, used in the path. |
@@ -457,6 +459,7 @@ Create an instance: `const action = client.Action()`
 | `blocks` | `any[]` |  |
 | `conversation_id` | `number` |  |
 | `error` | `string` |  |
+| `id` | `string` |  |
 | `not_found` | `boolean` | A normal no-match, not an error. |
 | `ok` | `boolean` |  |
 | `result` | `Record<string, any>` |  |
@@ -600,6 +603,7 @@ Create an instance: `const integration = client.Integration()`
 | `auth_type` | `string` | How Conecto authenticates to base_url. |
 | `base_url` | `string` | Root URL Conecto POSTs actions to. |
 | `credential` | `string` |  |
+| `id` | `string` |  |
 | `name` | `string` | Human-readable name. |
 | `signing_secret` | `string` | Secret used to sign action calls. |
 | `slug` | `string` | Stable identifier, used in the path. |

@@ -85,6 +85,7 @@ class IntegrationEntityTest extends TestCase
         $integration_ref01_data_result = $integration_ref01_ent->create($integration_ref01_data, null);
         $integration_ref01_data = Helpers::to_map(is_object($integration_ref01_data_result) && method_exists($integration_ref01_data_result, 'data_get') ? $integration_ref01_data_result->data_get() : $integration_ref01_data_result);
         $this->assertNotNull($integration_ref01_data);
+        $this->assertNotNull($integration_ref01_data["id"]);
 
         // LIST
         $integration_ref01_match = [];
@@ -92,10 +93,19 @@ class IntegrationEntityTest extends TestCase
         $integration_ref01_list_result = $integration_ref01_ent->list($integration_ref01_match, null);
         $this->assertIsArray($integration_ref01_list_result);
 
+        $found_item = sdk_select(
+            Runner::entity_list_to_data($integration_ref01_list_result),
+            ["id" => $integration_ref01_data["id"]]);
+        $this->assertNotEmpty($found_item);
+
         // LOAD
-        $integration_ref01_match_dt0 = [];
+        $integration_ref01_match_dt0 = [
+            "id" => $integration_ref01_data["id"],
+        ];
         $integration_ref01_data_dt0_loaded = $integration_ref01_ent->load($integration_ref01_match_dt0, null);
-        $this->assertNotNull($integration_ref01_data_dt0_loaded);
+        $integration_ref01_data_dt0_load_result = Helpers::to_map(is_object($integration_ref01_data_dt0_loaded) && method_exists($integration_ref01_data_dt0_loaded, 'data_get') ? $integration_ref01_data_dt0_loaded->data_get() : $integration_ref01_data_dt0_loaded);
+        $this->assertNotNull($integration_ref01_data_dt0_load_result);
+        $this->assertEquals($integration_ref01_data_dt0_load_result["id"], $integration_ref01_data["id"]);
 
     }
 }

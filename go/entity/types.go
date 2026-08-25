@@ -18,6 +18,7 @@ type Action struct {
 	Blocks *[]any `json:"blocks,omitempty"`
 	ConversationId *int `json:"conversation_id,omitempty"`
 	Error *string `json:"error,omitempty"`
+	Id *string `json:"id,omitempty"`
 	NotFound *bool `json:"not_found,omitempty"`
 	Ok bool `json:"ok"`
 	Result *map[string]any `json:"result,omitempty"`
@@ -131,6 +132,7 @@ type Integration struct {
 	AuthType *string `json:"auth_type,omitempty"`
 	BaseUrl string `json:"base_url"`
 	Credential *string `json:"credential,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Name string `json:"name"`
 	SigningSecret *string `json:"signing_secret,omitempty"`
 	Slug string `json:"slug"`
@@ -148,6 +150,7 @@ type IntegrationListMatch struct {
 	AuthType *string `json:"auth_type,omitempty"`
 	BaseUrl *string `json:"base_url,omitempty"`
 	Credential *string `json:"credential,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	SigningSecret *string `json:"signing_secret,omitempty"`
 	Slug *string `json:"slug,omitempty"`
@@ -160,6 +163,7 @@ type IntegrationCreateData struct {
 	AuthType *string `json:"auth_type,omitempty"`
 	BaseUrl string `json:"base_url"`
 	Credential *string `json:"credential,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Name string `json:"name"`
 	SigningSecret *string `json:"signing_secret,omitempty"`
 	Slug string `json:"slug"`

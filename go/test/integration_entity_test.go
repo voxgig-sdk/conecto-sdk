@@ -110,6 +110,9 @@ func TestIntegrationEntity(t *testing.T) {
 		if integrationRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
+		if integrationRef01Data["id"] == nil {
+			t.Fatal("expected created entity to have an id")
+		}
 
 		// LIST
 		integrationRef01Match := map[string]any{}
@@ -118,19 +121,30 @@ func TestIntegrationEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("list failed: %v", err)
 		}
-		_, integrationRef01ListOk := integrationRef01ListResult.([]any)
+		integrationRef01List, integrationRef01ListOk := integrationRef01ListResult.([]any)
 		if !integrationRef01ListOk {
 			t.Fatalf("expected list result to be an array, got %T", integrationRef01ListResult)
 		}
 
+		foundItem := vs.Select(entityListToData(integrationRef01List), map[string]any{"id": integrationRef01Data["id"]})
+		if vs.IsEmpty(foundItem) {
+			t.Fatal("expected to find created entity in list")
+		}
+
 		// LOAD
-		integrationRef01MatchDt0 := map[string]any{}
+		integrationRef01MatchDt0 := map[string]any{
+			"id": integrationRef01Data["id"],
+		}
 		integrationRef01DataDt0Loaded, err := integrationRef01Ent.Load(integrationRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if integrationRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		integrationRef01DataDt0LoadResult := core.ToMapAny(entityData(integrationRef01DataDt0Loaded))
+		if integrationRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if integrationRef01DataDt0LoadResult["id"] != integrationRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

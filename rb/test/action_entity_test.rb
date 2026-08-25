@@ -41,6 +41,7 @@ class ActionEntityTest < Minitest::Test
     action_ref01_data_result = action_ref01_ent.create(action_ref01_data, nil)
     action_ref01_data = Helpers.to_map(action_ref01_data_result.respond_to?(:data_get) ? action_ref01_data_result.data_get : action_ref01_data_result)
     assert !action_ref01_data.nil?
+    assert !action_ref01_data["id"].nil?
 
   end
 end

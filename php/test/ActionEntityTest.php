@@ -48,6 +48,7 @@ class ActionEntityTest extends TestCase
         $action_ref01_data_result = $action_ref01_ent->create($action_ref01_data, null);
         $action_ref01_data = Helpers::to_map(is_object($action_ref01_data_result) && method_exists($action_ref01_data_result, 'data_get') ? $action_ref01_data_result->data_get() : $action_ref01_data_result);
         $this->assertNotNull($action_ref01_data);
+        $this->assertNotNull($action_ref01_data["id"]);
 
     }
 }

@@ -5,34 +5,34 @@
         "arguments": {},
         "blocks": [],
         "conversation_id": "CONVERSATION01",
-        "error": "s49",
-        "not_found": true,
-        "ok": false,
+        "error": "s53",
+        "id": "ACTION00",
+        "not_found": false,
+        "ok": true,
         "result": {},
-        "slug": "SLUG01",
-        "id": "ACTION00"
+        "slug": "SLUG01"
       },
       "ACTION01": {
         "arguments": {},
         "blocks": [],
         "conversation_id": "CONVERSATION01",
-        "error": "s8f",
-        "not_found": true,
-        "ok": false,
+        "error": "sa3",
+        "id": "ACTION01",
+        "not_found": false,
+        "ok": true,
         "result": {},
-        "slug": "SLUG01",
-        "id": "ACTION01"
+        "slug": "SLUG01"
       },
       "ACTION02": {
         "arguments": {},
         "blocks": [],
         "conversation_id": "CONVERSATION01",
-        "error": "sd5",
-        "not_found": true,
-        "ok": false,
+        "error": "sf3",
+        "id": "ACTION02",
+        "not_found": false,
+        "ok": true,
         "result": {},
-        "slug": "SLUG01",
-        "id": "ACTION02"
+        "slug": "SLUG01"
       }
     }
   },
@@ -42,9 +42,9 @@
         "arguments": {},
         "blocks": [],
         "conversation_id": "CONVERSATION01",
-        "error": "s11b",
-        "not_found": true,
-        "ok": false,
+        "error": "s143",
+        "not_found": false,
+        "ok": true,
         "result": {}
       }
     }

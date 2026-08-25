@@ -229,6 +229,7 @@ const action = client.Action()
 | `blocks` | `any[]` | No |  |
 | `conversation_id` | `number` | No |  |
 | `error` | `string` | No |  |
+| `id` | `string` | No |  |
 | `not_found` | `boolean` | No | A normal no-match, not an error. |
 | `ok` | `boolean` | Yes |  |
 | `result` | `Record<string, any>` | No |  |
@@ -533,6 +534,7 @@ const integration = client.Integration()
 | `auth_type` | `string` | No | How Conecto authenticates to base_url. |
 | `base_url` | `string` | Yes | Root URL Conecto POSTs actions to. |
 | `credential` | `string` | No |  |
+| `id` | `string` | No |  |
 | `name` | `string` | Yes | Human-readable name. |
 | `signing_secret` | `string` | No | Secret used to sign action calls. |
 | `slug` | `string` | Yes | Stable identifier, used in the path. |

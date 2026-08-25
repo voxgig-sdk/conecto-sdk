@@ -63,7 +63,7 @@ describe('IntegrationEntity', async () => {
     let integration_ref01_data = setup.data.new.integration['integration_ref01']
 
     integration_ref01_data = (await integration_ref01_ent.create(integration_ref01_data)).data()
-    assert(null != integration_ref01_data)
+    assert(null != integration_ref01_data.id)
 
 
     // LIST
@@ -71,6 +71,14 @@ describe('IntegrationEntity', async () => {
 
     const integration_ref01_list = (await integration_ref01_ent.list(integration_ref01_match)).map((e: any) => e.data())
 
+    assert(!isempty(select(integration_ref01_list, { id: integration_ref01_data.id })))
+
+
+    // LOAD
+    const integration_ref01_match_dt0: any = {}
+    integration_ref01_match_dt0.id = integration_ref01_data.id
+    const integration_ref01_data_dt0 = (await integration_ref01_ent.load(integration_ref01_match_dt0)).data()
+    assert(integration_ref01_data_dt0.id === integration_ref01_data.id)
 
 
   })

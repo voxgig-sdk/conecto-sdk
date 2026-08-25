@@ -259,6 +259,7 @@ On error, `ok` is `False` and `err` contains the error value.
 | `blocks` |  |
 | `conversation_id` |  |
 | `error` |  |
+| `id` |  |
 | `not_found` | A normal no-match, not an error. |
 | `ok` |  |
 | `result` |  |
@@ -316,6 +317,7 @@ API path: `/me/`
 | `auth_type` | How Conecto authenticates to base_url. |
 | `base_url` | Root URL Conecto POSTs actions to. |
 | `credential` |  |
+| `id` |  |
 | `name` | Human-readable name. |
 | `signing_secret` | Secret used to sign action calls. |
 | `slug` | Stable identifier, used in the path. |
@@ -406,6 +408,7 @@ Create an instance: `action = client.Action()`
 | `blocks` | `list` |  |
 | `conversation_id` | `int` |  |
 | `error` | `str` |  |
+| `id` | `str` |  |
 | `not_found` | `bool` | A normal no-match, not an error. |
 | `ok` | `bool` |  |
 | `result` | `dict` |  |
@@ -549,6 +552,7 @@ Create an instance: `integration = client.Integration()`
 | `auth_type` | `str` | How Conecto authenticates to base_url. |
 | `base_url` | `str` | Root URL Conecto POSTs actions to. |
 | `credential` | `str` |  |
+| `id` | `str` |  |
 | `name` | `str` | Human-readable name. |
 | `signing_secret` | `str` | Secret used to sign action calls. |
 | `slug` | `str` | Stable identifier, used in the path. |

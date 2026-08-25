@@ -29,6 +29,11 @@ main: kit: entity: integration: {
       type: "`$STRING`"
     }
     {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
       name: "name"
       req: true
       short: "Human-readable name."
@@ -52,6 +57,11 @@ main: kit: entity: integration: {
       type: "`$ARRAY`"
     }
   ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
 
   name: "integration"
   op: {

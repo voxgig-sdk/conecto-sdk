@@ -48,6 +48,7 @@ class TestActionEntity:
 
         action_ref01_data = helpers.to_map(runner.entity_data(action_ref01_ent.create(action_ref01_data, None)))
         assert action_ref01_data is not None
+        assert action_ref01_data["id"] is not None
 
 
 

@@ -25,6 +25,7 @@ class Action(ActionRequired, total=False):
     blocks: list
     conversation_id: int
     error: str
+    id: str
     not_found: bool
     result: dict
 
@@ -148,6 +149,7 @@ class Integration(IntegrationRequired, total=False):
     actions: list
     auth_type: str
     credential: str
+    id: str
     signing_secret: str
     widget_ids: list
 
@@ -161,6 +163,7 @@ class IntegrationListMatch(TypedDict, total=False):
     auth_type: str
     base_url: str
     credential: str
+    id: str
     name: str
     signing_secret: str
     slug: str
@@ -177,6 +180,7 @@ class IntegrationCreateData(IntegrationCreateDataRequired, total=False):
     actions: list
     auth_type: str
     credential: str
+    id: str
     signing_secret: str
     widget_ids: list
 

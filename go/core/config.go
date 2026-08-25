@@ -64,6 +64,10 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"name": "id",
+						"type": "`$STRING`",
+					},
+					map[string]any{
 						"name": "not_found",
 						"short": "A normal no-match, not an error.",
 						"type": "`$BOOLEAN`",
@@ -592,6 +596,10 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "credential",
+						"type": "`$STRING`",
+					},
+					map[string]any{
+						"name": "id",
 						"type": "`$STRING`",
 					},
 					map[string]any{

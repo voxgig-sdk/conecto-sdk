@@ -19,6 +19,7 @@ class Action
     public ?array $blocks = null;
     public ?int $conversation_id = null;
     public ?string $error = null;
+    public ?string $id = null;
     public ?bool $not_found = null;
     public bool $ok;
     public ?array $result = null;
@@ -144,6 +145,7 @@ class Integration
     public ?string $auth_type = null;
     public string $base_url;
     public ?string $credential = null;
+    public ?string $id = null;
     public string $name;
     public ?string $signing_secret = null;
     public string $slug;
@@ -163,6 +165,7 @@ class IntegrationListMatch
     public ?string $auth_type = null;
     public ?string $base_url = null;
     public ?string $credential = null;
+    public ?string $id = null;
     public ?string $name = null;
     public ?string $signing_secret = null;
     public ?string $slug = null;
@@ -176,6 +179,7 @@ class IntegrationCreateData
     public ?string $auth_type = null;
     public string $base_url;
     public ?string $credential = null;
+    public ?string $id = null;
     public string $name;
     public ?string $signing_secret = null;
     public string $slug;

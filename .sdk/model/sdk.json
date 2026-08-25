@@ -58,6 +58,12 @@
             },
             {
               "active": true,
+              "name": "id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
               "name": "not_found",
               "req": false,
               "short": "A normal no-match, not an error.",
@@ -76,6 +82,10 @@
               "type": "`$OBJECT`"
             }
           ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
           "name": "action",
           "op": {
             "create": {
@@ -685,6 +695,12 @@
             },
             {
               "active": true,
+              "name": "id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
               "name": "name",
               "req": true,
               "short": "Human-readable name.",
@@ -711,6 +727,10 @@
               "type": "`$ARRAY`"
             }
           ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
           "name": "integration",
           "op": {
             "create": {

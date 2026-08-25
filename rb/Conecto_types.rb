@@ -22,6 +22,9 @@
 # @!attribute [rw] error
 #   @return [String, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] not_found
 #   @return [Boolean, nil]
 #
@@ -35,6 +38,7 @@ Action = Struct.new(
   :blocks,
   :conversation_id,
   :error,
+  :id,
   :not_found,
   :ok,
   :result,
@@ -342,6 +346,9 @@ CredentialLoadMatch = Struct.new(
 # @!attribute [rw] credential
 #   @return [String, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] name
 #   @return [String]
 #
@@ -358,6 +365,7 @@ Integration = Struct.new(
   :auth_type,
   :base_url,
   :credential,
+  :id,
   :name,
   :signing_secret,
   :slug,
@@ -388,6 +396,9 @@ IntegrationLoadMatch = Struct.new(
 # @!attribute [rw] credential
 #   @return [String, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] name
 #   @return [String, nil]
 #
@@ -404,6 +415,7 @@ IntegrationListMatch = Struct.new(
   :auth_type,
   :base_url,
   :credential,
+  :id,
   :name,
   :signing_secret,
   :slug,
@@ -425,6 +437,9 @@ IntegrationListMatch = Struct.new(
 # @!attribute [rw] credential
 #   @return [String, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] name
 #   @return [String]
 #
@@ -441,6 +456,7 @@ IntegrationCreateData = Struct.new(
   :auth_type,
   :base_url,
   :credential,
+  :id,
   :name,
   :signing_secret,
   :slug,

@@ -64,6 +64,9 @@ func TestActionEntity(t *testing.T) {
 		if actionRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
+		if actionRef01Data["id"] == nil {
+			t.Fatal("expected created entity to have an id")
+		}
 
 	})
 }

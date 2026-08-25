@@ -128,6 +128,7 @@ action = client.Action()
 | `blocks` | `list` | No |  |
 | `conversation_id` | `int` | No |  |
 | `error` | `str` | No |  |
+| `id` | `str` | No |  |
 | `not_found` | `bool` | No | A normal no-match, not an error. |
 | `ok` | `bool` | Yes |  |
 | `result` | `dict` | No |  |
@@ -398,6 +399,7 @@ integration = client.Integration()
 | `auth_type` | `str` | No | How Conecto authenticates to base_url. |
 | `base_url` | `str` | Yes | Root URL Conecto POSTs actions to. |
 | `credential` | `str` | No |  |
+| `id` | `str` | No |  |
 | `name` | `str` | Yes | Human-readable name. |
 | `signing_secret` | `str` | No | Secret used to sign action calls. |
 | `slug` | `str` | Yes | Stable identifier, used in the path. |

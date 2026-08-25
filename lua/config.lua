@@ -60,6 +60,10 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
+          },
+          {
             ["name"] = "not_found",
             ["short"] = "A normal no-match, not an error.",
             ["type"] = "`$BOOLEAN`",
@@ -588,6 +592,10 @@ local function make_config()
           },
           {
             ["name"] = "credential",
+            ["type"] = "`$STRING`",
+          },
+          {
+            ["name"] = "id",
             ["type"] = "`$STRING`",
           },
           {

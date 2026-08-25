@@ -65,7 +65,7 @@ describe('ActionEntity', async () => {
     action_ref01_data['slug'] = setup.idmap['slug01']
 
     action_ref01_data = (await action_ref01_ent.create(action_ref01_data)).data()
-    assert(null != action_ref01_data)
+    assert(null != action_ref01_data.id)
 
 
   })

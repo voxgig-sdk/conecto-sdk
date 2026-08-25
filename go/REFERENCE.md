@@ -139,6 +139,7 @@ fmt.Println(action.GetName()) // "action"
 | `blocks` | `[]any` | No |  |
 | `conversation_id` | `int` | No |  |
 | `error` | `string` | No |  |
+| `id` | `string` | No |  |
 | `not_found` | `bool` | No | A normal no-match, not an error. |
 | `ok` | `bool` | Yes |  |
 | `result` | `map[string]any` | No |  |
@@ -421,6 +422,7 @@ fmt.Println(integration.GetName()) // "integration"
 | `auth_type` | `string` | No | How Conecto authenticates to base_url. |
 | `base_url` | `string` | Yes | Root URL Conecto POSTs actions to. |
 | `credential` | `string` | No |  |
+| `id` | `string` | No |  |
 | `name` | `string` | Yes | Human-readable name. |
 | `signing_secret` | `string` | No | Secret used to sign action calls. |
 | `slug` | `string` | Yes | Stable identifier, used in the path. |

@@ -73,6 +73,10 @@ class Config {
                     "type": "`$STRING`"
                 },
                 {
+                    "name": "id",
+                    "type": "`$STRING`"
+                },
+                {
                     "name": "not_found",
                     "short": "A normal no-match, not an error.",
                     "type": "`$BOOLEAN`"
@@ -601,6 +605,10 @@ class Config {
                 },
                 {
                     "name": "credential",
+                    "type": "`$STRING`"
+                },
+                {
+                    "name": "id",
                     "type": "`$STRING`"
                 },
                 {

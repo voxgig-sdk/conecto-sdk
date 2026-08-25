@@ -10,6 +10,7 @@ export interface Action {
   blocks?: any[]
   conversation_id?: number
   error?: string
+  id?: string
   not_found?: boolean
   ok: boolean
   result?: Record<string, any>
@@ -129,6 +130,7 @@ export interface Integration {
   auth_type?: string
   base_url: string
   credential?: string
+  id?: string
   name: string
   signing_secret?: string
   slug: string
@@ -144,6 +146,7 @@ export interface IntegrationListMatch {
   auth_type?: string
   base_url?: string
   credential?: string
+  id?: string
   name?: string
   signing_secret?: string
   slug?: string
@@ -155,6 +158,7 @@ export interface IntegrationCreateData {
   auth_type?: string
   base_url: string
   credential?: string
+  id?: string
   name: string
   signing_secret?: string
   slug: string

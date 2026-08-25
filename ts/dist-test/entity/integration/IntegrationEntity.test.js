@@ -75,10 +75,16 @@ const utility_1 = require("../../utility");
         const integration_ref01_ent = client.Integration();
         let integration_ref01_data = setup.data.new.integration['integration_ref01'];
         integration_ref01_data = (await integration_ref01_ent.create(integration_ref01_data)).data();
-        (0, node_assert_1.default)(null != integration_ref01_data);
+        (0, node_assert_1.default)(null != integration_ref01_data.id);
         // LIST
         const integration_ref01_match = {};
         const integration_ref01_list = (await integration_ref01_ent.list(integration_ref01_match)).map((e) => e.data());
+        (0, node_assert_1.default)(!isempty(select(integration_ref01_list, { id: integration_ref01_data.id })));
+        // LOAD
+        const integration_ref01_match_dt0 = {};
+        integration_ref01_match_dt0.id = integration_ref01_data.id;
+        const integration_ref01_data_dt0 = (await integration_ref01_ent.load(integration_ref01_match_dt0)).data();
+        (0, node_assert_1.default)(integration_ref01_data_dt0.id === integration_ref01_data.id);
     });
 });
 function basicSetup(extra) {

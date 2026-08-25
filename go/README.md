@@ -281,6 +281,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | `"blocks"` |  |
 | `"conversation_id"` |  |
 | `"error"` |  |
+| `"id"` |  |
 | `"not_found"` | A normal no-match, not an error. |
 | `"ok"` |  |
 | `"result"` |  |
@@ -338,6 +339,7 @@ API path: `/me/`
 | `"auth_type"` | How Conecto authenticates to base_url. |
 | `"base_url"` | Root URL Conecto POSTs actions to. |
 | `"credential"` |  |
+| `"id"` |  |
 | `"name"` | Human-readable name. |
 | `"signing_secret"` | Secret used to sign action calls. |
 | `"slug"` | Stable identifier, used in the path. |
@@ -428,6 +430,7 @@ Create an instance: `action := client.Action(nil)`
 | `blocks` | `[]any` |  |
 | `conversation_id` | `int` |  |
 | `error` | `string` |  |
+| `id` | `string` |  |
 | `not_found` | `bool` | A normal no-match, not an error. |
 | `ok` | `bool` |  |
 | `result` | `map[string]any` |  |
@@ -599,6 +602,7 @@ Create an instance: `integration := client.Integration(nil)`
 | `auth_type` | `string` | How Conecto authenticates to base_url. |
 | `base_url` | `string` | Root URL Conecto POSTs actions to. |
 | `credential` | `string` |  |
+| `id` | `string` |  |
 | `name` | `string` | Human-readable name. |
 | `signing_secret` | `string` | Secret used to sign action calls. |
 | `slug` | `string` | Stable identifier, used in the path. |

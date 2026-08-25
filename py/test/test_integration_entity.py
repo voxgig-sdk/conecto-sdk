@@ -80,6 +80,7 @@ class TestIntegrationEntity:
 
         integration_ref01_data = helpers.to_map(runner.entity_data(integration_ref01_ent.create(integration_ref01_data, None)))
         assert integration_ref01_data is not None
+        assert integration_ref01_data["id"] is not None
 
         # LIST
         integration_ref01_match = {}
@@ -87,10 +88,19 @@ class TestIntegrationEntity:
         integration_ref01_list_result = integration_ref01_ent.list(integration_ref01_match, None)
         assert isinstance(integration_ref01_list_result, list)
 
+        found_item = vs.select(
+            runner.entity_list_to_data(integration_ref01_list_result),
+            {"id": integration_ref01_data["id"]})
+        assert not vs.isempty(found_item)
+
         # LOAD
-        integration_ref01_match_dt0 = {}
+        integration_ref01_match_dt0 = {
+            "id": integration_ref01_data["id"],
+        }
         integration_ref01_data_dt0_loaded = integration_ref01_ent.load(integration_ref01_match_dt0, None)
-        assert integration_ref01_data_dt0_loaded is not None
+        integration_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(integration_ref01_data_dt0_loaded))
+        assert integration_ref01_data_dt0_load_result is not None
+        assert integration_ref01_data_dt0_load_result["id"] == integration_ref01_data["id"]
 
 
 
