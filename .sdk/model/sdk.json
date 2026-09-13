@@ -1,6 +1,15 @@
 {
+  "NAME": "CONECTO",
+  "Name": "Conecto",
   "def": "conecto-openapi.json",
   "main": {
+    "api": {
+      "entity": {},
+      "guide": {}
+    },
+    "custom": {
+      "plurals": {}
+    },
     "def": {
       "desc": ""
     },
@@ -2778,5 +2787,8 @@
     }
   },
   "name": "conecto",
+  "name-": "conecto",
+  "name_": "conecto",
+  "name__orig": "conecto",
   "origin": "voxgig-sdk"
 }
