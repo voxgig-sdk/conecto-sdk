@@ -100,7 +100,7 @@ func TestContactEntity(t *testing.T) {
 		// CREATE
 		contactRef01Ent := client.Contact(nil)
 		contactRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "contact"}, setup.data), "contact_ref01"))
+			vs.GetPath(setup.data, []any{"new", "contact"}), "contact_ref01"))
 
 		contactRef01DataResult, err := contactRef01Ent.Create(contactRef01Data, nil)
 		if err != nil {
@@ -158,7 +158,7 @@ func contactBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"contact01", "contact02", "contact03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -178,7 +178,7 @@ func contactBasicSetup(extra map[string]any) *entityTestSetup {
 		"CONECTO_TEST_CONTACT_ENTID": idmap,
 		"CONECTO_TEST_LIVE":      "FALSE",
 		"CONECTO_TEST_EXPLAIN":   "FALSE",
-		"CONECTO_APIKEY":         "NONE",
+		"CONECTO_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["CONECTO_TEST_CONTACT_ENTID"])
@@ -187,11 +187,23 @@ func contactBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["CONECTO_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["CONECTO_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewConectoSDK(core.ToMapAny(mergedOpts))
 	}

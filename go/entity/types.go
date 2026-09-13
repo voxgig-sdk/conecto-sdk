@@ -47,10 +47,8 @@ type Contact struct {
 
 // ContactListMatch is the typed request payload for Contact.ListTyped.
 type ContactListMatch struct {
-	CreatedAt *string `json:"created_at,omitempty"`
-	CustomFields *map[string]any `json:"custom_fields,omitempty"`
-	Email *string `json:"email,omitempty"`
-	Id *int `json:"id,omitempty"`
+	BeforeId *int `json:"before_id,omitempty"`
+	Limit *int `json:"limit,omitempty"`
 }
 
 // ContactCreateData is the typed request payload for Contact.CreateTyped.
@@ -76,17 +74,15 @@ type Conversation struct {
 // ConversationLoadMatch is the typed request payload for Conversation.LoadTyped.
 type ConversationLoadMatch struct {
 	Id int `json:"id"`
+	SinceId *int `json:"since_id,omitempty"`
 }
 
 // ConversationListMatch is the typed request payload for Conversation.ListTyped.
 type ConversationListMatch struct {
-	Body *string `json:"body,omitempty"`
-	CreatedAt *string `json:"created_at,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Messages *[]any `json:"messages,omitempty"`
+	BeforeId *int `json:"before_id,omitempty"`
+	Limit *int `json:"limit,omitempty"`
 	Session *string `json:"session,omitempty"`
 	Status *string `json:"status,omitempty"`
-	UserId *int `json:"user_id,omitempty"`
 	WidgetId *int `json:"widget_id,omitempty"`
 }
 

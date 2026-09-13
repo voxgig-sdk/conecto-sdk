@@ -117,18 +117,28 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/integrations/{slug}/actions/{action}/run/",
-                  "parts": [
-                    "integrations",
-                    "{slug}",
-                    "actions",
-                    "{id}",
-                    "run"
-                  ],
                   "rename": {
                     "param": {
                       "action": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "integrations"
+                    },
+                    {
+                      "var": "slug"
+                    },
+                    {
+                      "lit": "actions"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "run"
+                    }
+                  ],
                   "select": {
                     "$action": "run",
                     "exist": [
@@ -160,6 +170,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": false,
               "type": "`$STRING`"
@@ -173,6 +184,7 @@
             },
             {
               "active": true,
+              "format": "email",
               "name": "email",
               "req": false,
               "type": "`$STRING`"
@@ -212,8 +224,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/contacts/",
-                  "parts": [
-                    "contacts"
+                  "segments": [
+                    {
+                      "lit": "contacts"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -257,8 +271,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/contacts/",
-                  "parts": [
-                    "contacts"
+                  "segments": [
+                    {
+                      "lit": "contacts"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -293,6 +309,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": false,
               "type": "`$STRING`"
@@ -366,10 +383,16 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/conversations/{id}/assign/",
-                  "parts": [
-                    "conversations",
-                    "{id}",
-                    "assign"
+                  "segments": [
+                    {
+                      "lit": "conversations"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "assign"
+                    }
                   ],
                   "select": {
                     "$action": "assign",
@@ -399,10 +422,16 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/conversations/{id}/handoff/",
-                  "parts": [
-                    "conversations",
-                    "{id}",
-                    "handoff"
+                  "segments": [
+                    {
+                      "lit": "conversations"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "handoff"
+                    }
                   ],
                   "select": {
                     "$action": "handoff",
@@ -432,8 +461,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/conversations/",
-                  "parts": [
-                    "conversations"
+                  "segments": [
+                    {
+                      "lit": "conversations"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -501,8 +532,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/conversations/",
-                  "parts": [
-                    "conversations"
+                  "segments": [
+                    {
+                      "lit": "conversations"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -551,9 +584,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/conversations/{id}/",
-                  "parts": [
-                    "conversations",
-                    "{id}"
+                  "segments": [
+                    {
+                      "lit": "conversations"
+                    },
+                    {
+                      "var": "id"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -589,10 +626,16 @@
                   "kind": "http",
                   "method": "PATCH",
                   "orig": "/conversations/{id}/messages/",
-                  "parts": [
-                    "conversations",
-                    "{id}",
-                    "messages"
+                  "segments": [
+                    {
+                      "lit": "conversations"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "messages"
+                    }
                   ],
                   "select": {
                     "$action": "message",
@@ -644,8 +687,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/me/",
-                  "parts": [
-                    "me"
+                  "segments": [
+                    {
+                      "lit": "me"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -682,6 +727,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "base_url",
               "req": true,
               "short": "Root URL Conecto POSTs actions to.",
@@ -754,10 +800,16 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/integrations/{slug}/install/",
-                  "parts": [
-                    "integrations",
-                    "{slug}",
-                    "install"
+                  "segments": [
+                    {
+                      "lit": "integrations"
+                    },
+                    {
+                      "var": "slug"
+                    },
+                    {
+                      "lit": "install"
+                    }
                   ],
                   "select": {
                     "$action": "install",
@@ -787,10 +839,16 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/integrations/{slug}/rotate_signing_secret/",
-                  "parts": [
-                    "integrations",
-                    "{slug}",
-                    "rotate_signing_secret"
+                  "segments": [
+                    {
+                      "lit": "integrations"
+                    },
+                    {
+                      "var": "slug"
+                    },
+                    {
+                      "lit": "rotate_signing_secret"
+                    }
                   ],
                   "select": {
                     "$action": "rotate_signing_secret",
@@ -809,8 +867,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/integrations/",
-                  "parts": [
-                    "integrations"
+                  "segments": [
+                    {
+                      "lit": "integrations"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -830,8 +890,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/integrations/",
-                  "parts": [
-                    "integrations"
+                  "segments": [
+                    {
+                      "lit": "integrations"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -862,15 +924,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/integrations/{slug}/",
-                  "parts": [
-                    "integrations",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "slug": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "integrations"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -910,8 +976,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/media/",
-                  "parts": [
-                    "media"
+                  "segments": [
+                    {
+                      "lit": "media"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -1020,18 +1088,28 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/widgets/{id}/visitors/{session}/message/",
-                  "parts": [
-                    "widgets",
-                    "{widget_id}",
-                    "visitors",
-                    "{session}",
-                    "message"
-                  ],
                   "rename": {
                     "param": {
                       "id": "widget_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "widgets"
+                    },
+                    {
+                      "var": "widget_id"
+                    },
+                    {
+                      "lit": "visitors"
+                    },
+                    {
+                      "var": "session"
+                    },
+                    {
+                      "lit": "message"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "idempotency_key",
@@ -1071,16 +1149,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/conversations/{id}/messages/",
-                  "parts": [
-                    "conversations",
-                    "{conversation_id}",
-                    "messages"
-                  ],
                   "rename": {
                     "param": {
                       "id": "conversation_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "conversations"
+                    },
+                    {
+                      "var": "conversation_id"
+                    },
+                    {
+                      "lit": "messages"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "conversation_id",
@@ -1125,8 +1209,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/schema/",
-                  "parts": [
-                    "schema"
+                  "segments": [
+                    {
+                      "lit": "schema"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -1149,6 +1235,7 @@
           "fields": [
             {
               "active": true,
+              "format": "email",
               "name": "email",
               "req": false,
               "type": "`$STRING`"
@@ -1191,18 +1278,28 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/widgets/{id}/visitors/{session}/identify/",
-                  "parts": [
-                    "widgets",
-                    "{widget_id}",
-                    "visitors",
-                    "{session}",
-                    "identify"
-                  ],
                   "rename": {
                     "param": {
                       "id": "widget_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "widgets"
+                    },
+                    {
+                      "var": "widget_id"
+                    },
+                    {
+                      "lit": "visitors"
+                    },
+                    {
+                      "var": "session"
+                    },
+                    {
+                      "lit": "identify"
+                    }
+                  ],
                   "select": {
                     "$action": "identify",
                     "exist": [
@@ -1240,18 +1337,28 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/widgets/{id}/visitors/{session}/unverify/",
-                  "parts": [
-                    "widgets",
-                    "{widget_id}",
-                    "visitors",
-                    "{session}",
-                    "unverify"
-                  ],
                   "rename": {
                     "param": {
                       "id": "widget_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "widgets"
+                    },
+                    {
+                      "var": "widget_id"
+                    },
+                    {
+                      "lit": "visitors"
+                    },
+                    {
+                      "var": "session"
+                    },
+                    {
+                      "lit": "unverify"
+                    }
+                  ],
                   "select": {
                     "$action": "unverify",
                     "exist": [
@@ -1284,6 +1391,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": false,
               "type": "`$STRING`"
@@ -1304,6 +1412,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "url",
               "req": true,
               "short": "HTTPS endpoint that receives the event POST.",
@@ -1326,8 +1435,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/webhooks/",
-                  "parts": [
-                    "webhooks"
+                  "segments": [
+                    {
+                      "lit": "webhooks"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -1347,8 +1458,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/webhooks/",
-                  "parts": [
-                    "webhooks"
+                  "segments": [
+                    {
+                      "lit": "webhooks"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -1379,9 +1492,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/webhooks/{id}/",
-                  "parts": [
-                    "webhooks",
-                    "{id}"
+                  "segments": [
+                    {
+                      "lit": "webhooks"
+                    },
+                    {
+                      "var": "id"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -1416,9 +1533,13 @@
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/webhooks/{id}/",
-                  "parts": [
-                    "webhooks",
-                    "{id}"
+                  "segments": [
+                    {
+                      "lit": "webhooks"
+                    },
+                    {
+                      "var": "id"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -1502,8 +1623,11 @@
             }
           },
           "name": "test",
+          "needs": {},
           "origname": "",
           "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
           "target": {
             "go": {
               "deps": {}
@@ -2022,6 +2146,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2047,6 +2174,10 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/runner_test.go",
+            "test/struct_runner_test.go"
+          ],
           "title": "Golang"
         },
         "go-cli": {
@@ -2098,6 +2229,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -2122,6 +2254,7 @@
             },
             "version": "0.1.1"
           },
+          "superseded": [],
           "title": "Go CLI"
         },
         "go-mcp": {
@@ -2173,6 +2306,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -2197,6 +2331,7 @@
             },
             "version": "0.1.1"
           },
+          "superseded": [],
           "title": "Go MCP server"
         },
         "js": {
@@ -2237,6 +2372,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2261,6 +2399,9 @@
             },
             "version": "0.1.1"
           },
+          "superseded": [
+            "test/runner.js"
+          ],
           "title": "JavaScript"
         },
         "lua": {
@@ -2301,6 +2442,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2326,6 +2470,9 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.lua"
+          ],
           "title": "Lua"
         },
         "php": {
@@ -2360,6 +2507,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2385,6 +2535,9 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/StructRunner.php"
+          ],
           "title": "PHP"
         },
         "py": {
@@ -2425,6 +2578,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2450,6 +2606,9 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.py"
+          ],
           "title": "Python"
         },
         "rb": {
@@ -2495,6 +2654,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2520,6 +2682,9 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.rb"
+          ],
           "title": "Ruby"
         },
         "ts": {
@@ -2537,11 +2702,6 @@
               "active": true,
               "kind": "dev",
               "version": "^25.6.0"
-            },
-            "dotenv": {
-              "active": true,
-              "kind": "dev",
-              "version": "^17.4.2"
             },
             "typescript": {
               "active": true,
@@ -2570,6 +2730,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2594,6 +2757,14 @@
             },
             "version": "0.1.1"
           },
+          "superseded": [
+            "test/runner.ts",
+            "test/vendor/omni/compat.ts",
+            "src/feature/secrets/sekreto/Providers.ts",
+            "src/feature/secrets/sekreto/Sigv4.ts",
+            "src/feature/secrets/sekreto/provider/Registry.ts",
+            "src/feature/secrets/sekreto/provider/http.ts"
+          ],
           "title": "TypeScript"
         }
       },

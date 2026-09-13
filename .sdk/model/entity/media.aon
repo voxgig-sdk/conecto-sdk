@@ -12,8 +12,10 @@ main: kit: entity: media: {
         {
           method: "POST"
           orig: "/media/"
-          parts: [
-            "media"
+          segments: [
+            {
+              lit: "media"
+            }
           ]
           transform: {
             req: "`reqdata`"

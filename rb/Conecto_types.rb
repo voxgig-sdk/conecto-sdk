@@ -109,22 +109,14 @@ Contact = Struct.new(
 
 # Request payload for Contact#list.
 #
-# @!attribute [rw] created_at
-#   @return [String, nil]
+# @!attribute [rw] before_id
+#   @return [Integer, nil]
 #
-# @!attribute [rw] custom_fields
-#   @return [Hash, nil]
-#
-# @!attribute [rw] email
-#   @return [String, nil]
-#
-# @!attribute [rw] id
+# @!attribute [rw] limit
 #   @return [Integer, nil]
 ContactListMatch = Struct.new(
-  :created_at,
-  :custom_fields,
-  :email,
-  :id,
+  :before_id,
+  :limit,
   keyword_init: true
 )
 
@@ -190,24 +182,22 @@ Conversation = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [Integer]
+#
+# @!attribute [rw] since_id
+#   @return [Integer, nil]
 ConversationLoadMatch = Struct.new(
   :id,
+  :since_id,
   keyword_init: true
 )
 
 # Request payload for Conversation#list.
 #
-# @!attribute [rw] body
-#   @return [String, nil]
-#
-# @!attribute [rw] created_at
-#   @return [String, nil]
-#
-# @!attribute [rw] id
+# @!attribute [rw] before_id
 #   @return [Integer, nil]
 #
-# @!attribute [rw] messages
-#   @return [Array, nil]
+# @!attribute [rw] limit
+#   @return [Integer, nil]
 #
 # @!attribute [rw] session
 #   @return [String, nil]
@@ -215,19 +205,13 @@ ConversationLoadMatch = Struct.new(
 # @!attribute [rw] status
 #   @return [String, nil]
 #
-# @!attribute [rw] user_id
-#   @return [Integer, nil]
-#
 # @!attribute [rw] widget_id
 #   @return [Integer, nil]
 ConversationListMatch = Struct.new(
-  :body,
-  :created_at,
-  :id,
-  :messages,
+  :before_id,
+  :limit,
   :session,
   :status,
-  :user_id,
   :widget_id,
   keyword_init: true
 )

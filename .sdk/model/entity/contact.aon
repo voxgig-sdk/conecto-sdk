@@ -6,6 +6,7 @@ main: kit: entity: contact: {
 
   fields: [
     {
+      format: "date-time"
       name: "created_at"
       req: false
       type: "`$STRING`"
@@ -17,6 +18,7 @@ main: kit: entity: contact: {
       type: "`$OBJECT`"
     }
     {
+      format: "email"
       name: "email"
       req: false
       type: "`$STRING`"
@@ -53,8 +55,10 @@ main: kit: entity: contact: {
           }
           method: "POST"
           orig: "/contacts/"
-          parts: [
-            "contacts"
+          segments: [
+            {
+              lit: "contacts"
+            }
           ]
           select: {
             exist: [
@@ -93,8 +97,10 @@ main: kit: entity: contact: {
           }
           method: "GET"
           orig: "/contacts/"
-          parts: [
-            "contacts"
+          segments: [
+            {
+              lit: "contacts"
+            }
           ]
           select: {
             exist: [

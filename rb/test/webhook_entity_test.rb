@@ -150,7 +150,7 @@ def webhook_basic_setup(extra)
     "CONECTO_TEST_WEBHOOK_ENTID" => idmap,
     "CONECTO_TEST_LIVE" => "FALSE",
     "CONECTO_TEST_EXPLAIN" => "FALSE",
-    "CONECTO_APIKEY" => "NONE",
+    "CONECTO_APIKEY" => "",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -161,6 +161,9 @@ def webhook_basic_setup(extra)
 
   if env["CONECTO_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
         "apikey" => env["CONECTO_APIKEY"],
       },

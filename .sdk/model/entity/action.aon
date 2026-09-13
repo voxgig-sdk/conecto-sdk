@@ -79,18 +79,28 @@ main: kit: entity: action: {
           }
           method: "POST"
           orig: "/integrations/{slug}/actions/{action}/run/"
-          parts: [
-            "integrations"
-            "{slug}"
-            "actions"
-            "{id}"
-            "run"
-          ]
           rename: {
             param: {
               action: "id"
             }
           }
+          segments: [
+            {
+              lit: "integrations"
+            }
+            {
+              var: "slug"
+            }
+            {
+              lit: "actions"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "run"
+            }
+          ]
           select: {
             "$action": "run"
             exist: [

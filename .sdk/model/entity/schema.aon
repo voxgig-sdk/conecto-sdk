@@ -12,8 +12,10 @@ main: kit: entity: schema: {
         {
           method: "GET"
           orig: "/schema/"
-          parts: [
-            "schema"
+          segments: [
+            {
+              lit: "schema"
+            }
           ]
           transform: {
             req: "`reqdata`"

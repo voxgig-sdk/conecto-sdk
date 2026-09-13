@@ -90,6 +90,10 @@ module ConectoConfig
               "type" => "`$OBJECT`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "action",
           "op" => {
             "create" => {
@@ -118,18 +122,28 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/integrations/{slug}/actions/{action}/run/",
-                  "parts" => [
-                    "integrations",
-                    "{slug}",
-                    "actions",
-                    "{id}",
-                    "run",
-                  ],
                   "rename" => {
                     "param" => {
                       "action" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "integrations",
+                    },
+                    {
+                      "var" => "slug",
+                    },
+                    {
+                      "lit" => "actions",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                    {
+                      "lit" => "run",
+                    },
+                  ],
                   "select" => {
                     "$action" => "run",
                     "exist" => [
@@ -141,6 +155,13 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "integrations",
+                    "{slug}",
+                    "actions",
+                    "{id}",
+                    "run",
+                  ],
                 },
               ],
             },
@@ -156,6 +177,7 @@ module ConectoConfig
         "contact" => {
           "fields" => [
             {
+              "format" => "date-time",
               "name" => "created_at",
               "type" => "`$STRING`",
             },
@@ -165,6 +187,7 @@ module ConectoConfig
               "type" => "`$OBJECT`",
             },
             {
+              "format" => "email",
               "name" => "email",
               "type" => "`$STRING`",
             },
@@ -175,6 +198,10 @@ module ConectoConfig
               "type" => "`$INTEGER`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "contact",
           "op" => {
             "create" => {
@@ -195,8 +222,10 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/contacts/",
-                  "parts" => [
-                    "contacts",
+                  "segments" => [
+                    {
+                      "lit" => "contacts",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -207,6 +236,9 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body.custom_fields`",
                   },
+                  "parts" => [
+                    "contacts",
+                  ],
                 },
               ],
             },
@@ -235,8 +267,10 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/contacts/",
-                  "parts" => [
-                    "contacts",
+                  "segments" => [
+                    {
+                      "lit" => "contacts",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -248,6 +282,9 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body.contacts`",
                   },
+                  "parts" => [
+                    "contacts",
+                  ],
                 },
               ],
             },
@@ -264,6 +301,7 @@ module ConectoConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "created_at",
               "type" => "`$STRING`",
             },
@@ -300,6 +338,10 @@ module ConectoConfig
               "type" => "`$INTEGER`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "conversation",
           "op" => {
             "create" => {
@@ -321,10 +363,16 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/conversations/{id}/assign/",
-                  "parts" => [
-                    "conversations",
-                    "{id}",
-                    "assign",
+                  "segments" => [
+                    {
+                      "lit" => "conversations",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                    {
+                      "lit" => "assign",
+                    },
                   ],
                   "select" => {
                     "$action" => "assign",
@@ -336,6 +384,11 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "conversations",
+                    "{id}",
+                    "assign",
+                  ],
                 },
                 {
                   "args" => {
@@ -352,10 +405,16 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/conversations/{id}/handoff/",
-                  "parts" => [
-                    "conversations",
-                    "{id}",
-                    "handoff",
+                  "segments" => [
+                    {
+                      "lit" => "conversations",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                    {
+                      "lit" => "handoff",
+                    },
                   ],
                   "select" => {
                     "$action" => "handoff",
@@ -367,6 +426,11 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "conversations",
+                    "{id}",
+                    "handoff",
+                  ],
                 },
                 {
                   "args" => {
@@ -382,8 +446,10 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/conversations/",
-                  "parts" => [
-                    "conversations",
+                  "segments" => [
+                    {
+                      "lit" => "conversations",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -394,6 +460,9 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "conversations",
+                  ],
                 },
               ],
             },
@@ -440,8 +509,10 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/conversations/",
-                  "parts" => [
-                    "conversations",
+                  "segments" => [
+                    {
+                      "lit" => "conversations",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -456,6 +527,9 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body.conversations`",
                   },
+                  "parts" => [
+                    "conversations",
+                  ],
                 },
               ],
             },
@@ -486,9 +560,13 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/conversations/{id}/",
-                  "parts" => [
-                    "conversations",
-                    "{id}",
+                  "segments" => [
+                    {
+                      "lit" => "conversations",
+                    },
+                    {
+                      "var" => "id",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -500,6 +578,10 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "conversations",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -522,10 +604,16 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "PATCH",
                   "orig" => "/conversations/{id}/messages/",
-                  "parts" => [
-                    "conversations",
-                    "{id}",
-                    "messages",
+                  "segments" => [
+                    {
+                      "lit" => "conversations",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                    {
+                      "lit" => "messages",
+                    },
                   ],
                   "select" => {
                     "$action" => "message",
@@ -537,6 +625,11 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "conversations",
+                    "{id}",
+                    "messages",
+                  ],
                 },
               ],
             },
@@ -568,14 +661,19 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/me/",
-                  "parts" => [
-                    "me",
+                  "segments" => [
+                    {
+                      "lit" => "me",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "me",
+                  ],
                 },
               ],
             },
@@ -597,6 +695,7 @@ module ConectoConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "base_url",
               "req" => true,
               "short" => "Root URL Conecto POSTs actions to.",
@@ -632,6 +731,10 @@ module ConectoConfig
               "type" => "`$ARRAY`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "integration",
           "op" => {
             "create" => {
@@ -653,10 +756,16 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/integrations/{slug}/install/",
-                  "parts" => [
-                    "integrations",
-                    "{slug}",
-                    "install",
+                  "segments" => [
+                    {
+                      "lit" => "integrations",
+                    },
+                    {
+                      "var" => "slug",
+                    },
+                    {
+                      "lit" => "install",
+                    },
                   ],
                   "select" => {
                     "$action" => "install",
@@ -668,6 +777,11 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "integrations",
+                    "{slug}",
+                    "install",
+                  ],
                 },
                 {
                   "args" => {
@@ -684,10 +798,16 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/integrations/{slug}/rotate_signing_secret/",
-                  "parts" => [
-                    "integrations",
-                    "{slug}",
-                    "rotate_signing_secret",
+                  "segments" => [
+                    {
+                      "lit" => "integrations",
+                    },
+                    {
+                      "var" => "slug",
+                    },
+                    {
+                      "lit" => "rotate_signing_secret",
+                    },
                   ],
                   "select" => {
                     "$action" => "rotate_signing_secret",
@@ -699,20 +819,30 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "integrations",
+                    "{slug}",
+                    "rotate_signing_secret",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/integrations/",
-                  "parts" => [
-                    "integrations",
+                  "segments" => [
+                    {
+                      "lit" => "integrations",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "integrations",
+                  ],
                 },
               ],
             },
@@ -725,14 +855,19 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/integrations/",
-                  "parts" => [
-                    "integrations",
+                  "segments" => [
+                    {
+                      "lit" => "integrations",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.integrations`",
                   },
+                  "parts" => [
+                    "integrations",
+                  ],
                 },
               ],
             },
@@ -755,15 +890,19 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/integrations/{slug}/",
-                  "parts" => [
-                    "integrations",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "slug" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "integrations",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -773,6 +912,10 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "integrations",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -798,14 +941,19 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/media/",
-                  "parts" => [
-                    "media",
+                  "segments" => [
+                    {
+                      "lit" => "media",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "media",
+                  ],
                 },
               ],
             },
@@ -885,18 +1033,28 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/widgets/{id}/visitors/{session}/message/",
-                  "parts" => [
-                    "widgets",
-                    "{widget_id}",
-                    "visitors",
-                    "{session}",
-                    "message",
-                  ],
                   "rename" => {
                     "param" => {
                       "id" => "widget_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "widgets",
+                    },
+                    {
+                      "var" => "widget_id",
+                    },
+                    {
+                      "lit" => "visitors",
+                    },
+                    {
+                      "var" => "session",
+                    },
+                    {
+                      "lit" => "message",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "idempotency_key",
@@ -908,6 +1066,13 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "widgets",
+                    "{widget_id}",
+                    "visitors",
+                    "{session}",
+                    "message",
+                  ],
                 },
                 {
                   "args" => {
@@ -932,16 +1097,22 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/conversations/{id}/messages/",
-                  "parts" => [
-                    "conversations",
-                    "{conversation_id}",
-                    "messages",
-                  ],
                   "rename" => {
                     "param" => {
                       "id" => "conversation_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "conversations",
+                    },
+                    {
+                      "var" => "conversation_id",
+                    },
+                    {
+                      "lit" => "messages",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "conversation_id",
@@ -952,6 +1123,11 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "conversations",
+                    "{conversation_id}",
+                    "messages",
+                  ],
                 },
               ],
             },
@@ -981,14 +1157,19 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/schema/",
-                  "parts" => [
-                    "schema",
+                  "segments" => [
+                    {
+                      "lit" => "schema",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "schema",
+                  ],
                 },
               ],
             },
@@ -1000,6 +1181,7 @@ module ConectoConfig
         "visitor" => {
           "fields" => [
             {
+              "format" => "email",
               "name" => "email",
               "type" => "`$STRING`",
             },
@@ -1036,18 +1218,28 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/widgets/{id}/visitors/{session}/identify/",
-                  "parts" => [
-                    "widgets",
-                    "{widget_id}",
-                    "visitors",
-                    "{session}",
-                    "identify",
-                  ],
                   "rename" => {
                     "param" => {
                       "id" => "widget_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "widgets",
+                    },
+                    {
+                      "var" => "widget_id",
+                    },
+                    {
+                      "lit" => "visitors",
+                    },
+                    {
+                      "var" => "session",
+                    },
+                    {
+                      "lit" => "identify",
+                    },
+                  ],
                   "select" => {
                     "$action" => "identify",
                     "exist" => [
@@ -1059,6 +1251,13 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "widgets",
+                    "{widget_id}",
+                    "visitors",
+                    "{session}",
+                    "identify",
+                  ],
                 },
                 {
                   "args" => {
@@ -1082,18 +1281,28 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/widgets/{id}/visitors/{session}/unverify/",
-                  "parts" => [
-                    "widgets",
-                    "{widget_id}",
-                    "visitors",
-                    "{session}",
-                    "unverify",
-                  ],
                   "rename" => {
                     "param" => {
                       "id" => "widget_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "widgets",
+                    },
+                    {
+                      "var" => "widget_id",
+                    },
+                    {
+                      "lit" => "visitors",
+                    },
+                    {
+                      "var" => "session",
+                    },
+                    {
+                      "lit" => "unverify",
+                    },
+                  ],
                   "select" => {
                     "$action" => "unverify",
                     "exist" => [
@@ -1105,6 +1314,13 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "widgets",
+                    "{widget_id}",
+                    "visitors",
+                    "{session}",
+                    "unverify",
+                  ],
                 },
               ],
             },
@@ -1121,6 +1337,7 @@ module ConectoConfig
         "webhook" => {
           "fields" => [
             {
+              "format" => "date-time",
               "name" => "created_at",
               "type" => "`$STRING`",
             },
@@ -1137,12 +1354,17 @@ module ConectoConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "uri",
               "name" => "url",
               "req" => true,
               "short" => "HTTPS endpoint that receives the event POST.",
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "webhook",
           "op" => {
             "create" => {
@@ -1154,14 +1376,19 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/webhooks/",
-                  "parts" => [
-                    "webhooks",
+                  "segments" => [
+                    {
+                      "lit" => "webhooks",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "webhooks",
+                  ],
                 },
               ],
             },
@@ -1174,14 +1401,19 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/webhooks/",
-                  "parts" => [
-                    "webhooks",
+                  "segments" => [
+                    {
+                      "lit" => "webhooks",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.webhooks`",
                   },
+                  "parts" => [
+                    "webhooks",
+                  ],
                 },
               ],
             },
@@ -1204,9 +1436,13 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/webhooks/{id}/",
-                  "parts" => [
-                    "webhooks",
-                    "{id}",
+                  "segments" => [
+                    {
+                      "lit" => "webhooks",
+                    },
+                    {
+                      "var" => "id",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -1217,6 +1453,10 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "webhooks",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -1239,9 +1479,13 @@ module ConectoConfig
                   "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/webhooks/{id}/",
-                  "parts" => [
-                    "webhooks",
-                    "{id}",
+                  "segments" => [
+                    {
+                      "lit" => "webhooks",
+                    },
+                    {
+                      "var" => "id",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -1252,6 +1496,10 @@ module ConectoConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "webhooks",
+                    "{id}",
+                  ],
                 },
               ],
             },

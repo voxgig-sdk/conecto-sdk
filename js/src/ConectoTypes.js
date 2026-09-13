@@ -41,10 +41,8 @@
 
 /**
  * @typedef {Object} ContactListMatch
- * @property {string} [created_at]
- * @property {Object} [custom_fields]
- * @property {string} [email]
- * @property {number} [id]
+ * @property {number} [before_id]
+ * @property {number} [limit]
  */
 
 /**
@@ -70,17 +68,15 @@
 /**
  * @typedef {Object} ConversationLoadMatch
  * @property {number} id
+ * @property {number} [since_id]
  */
 
 /**
  * @typedef {Object} ConversationListMatch
- * @property {string} [body]
- * @property {string} [created_at]
- * @property {number} [id]
- * @property {Array} [messages]
+ * @property {number} [before_id]
+ * @property {number} [limit]
  * @property {string} [session]
  * @property {string} [status]
- * @property {number} [user_id]
  * @property {number} [widget_id]
  */
 

@@ -6,6 +6,7 @@ main: kit: entity: webhook: {
 
   fields: [
     {
+      format: "date-time"
       name: "created_at"
       req: false
       type: "`$STRING`"
@@ -23,6 +24,7 @@ main: kit: entity: webhook: {
       type: "`$INTEGER`"
     }
     {
+      format: "uri"
       name: "url"
       req: true
       short: "HTTPS endpoint that receives the event POST."
@@ -43,8 +45,10 @@ main: kit: entity: webhook: {
         {
           method: "POST"
           orig: "/webhooks/"
-          parts: [
-            "webhooks"
+          segments: [
+            {
+              lit: "webhooks"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -59,8 +63,10 @@ main: kit: entity: webhook: {
         {
           method: "GET"
           orig: "/webhooks/"
-          parts: [
-            "webhooks"
+          segments: [
+            {
+              lit: "webhooks"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -86,9 +92,13 @@ main: kit: entity: webhook: {
           }
           method: "GET"
           orig: "/webhooks/{id}/"
-          parts: [
-            "webhooks"
-            "{id}"
+          segments: [
+            {
+              lit: "webhooks"
+            }
+            {
+              var: "id"
+            }
           ]
           select: {
             exist: [
@@ -119,9 +129,13 @@ main: kit: entity: webhook: {
           }
           method: "DELETE"
           orig: "/webhooks/{id}/"
-          parts: [
-            "webhooks"
-            "{id}"
+          segments: [
+            {
+              lit: "webhooks"
+            }
+            {
+              var: "id"
+            }
           ]
           select: {
             exist: [

@@ -52,7 +52,7 @@ func TestMediaEntity(t *testing.T) {
 		// CREATE
 		mediaRef01Ent := client.Media(nil)
 		mediaRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "media"}, setup.data), "media_ref01"))
+			vs.GetPath(setup.data, []any{"new", "media"}), "media_ref01"))
 
 		mediaRef01DataResult, err := mediaRef01Ent.Create(mediaRef01Data, nil)
 		if err != nil {
@@ -90,7 +90,7 @@ func mediaBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"media01", "media02", "media03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -110,7 +110,7 @@ func mediaBasicSetup(extra map[string]any) *entityTestSetup {
 		"CONECTO_TEST_MEDIA_ENTID": idmap,
 		"CONECTO_TEST_LIVE":      "FALSE",
 		"CONECTO_TEST_EXPLAIN":   "FALSE",
-		"CONECTO_APIKEY":         "NONE",
+		"CONECTO_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["CONECTO_TEST_MEDIA_ENTID"])
@@ -119,11 +119,23 @@ func mediaBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["CONECTO_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["CONECTO_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewConectoSDK(core.ToMapAny(mergedOpts))
 	}

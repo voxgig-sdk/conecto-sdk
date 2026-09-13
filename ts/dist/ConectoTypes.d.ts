@@ -28,10 +28,8 @@ export interface Contact {
     id: number;
 }
 export interface ContactListMatch {
-    created_at?: string;
-    custom_fields?: Record<string, any>;
-    email?: string;
-    id?: number;
+    before_id?: number;
+    limit?: number;
 }
 export interface ContactCreateData {
     created_at?: string;
@@ -51,15 +49,13 @@ export interface Conversation {
 }
 export interface ConversationLoadMatch {
     id: number;
+    since_id?: number;
 }
 export interface ConversationListMatch {
-    body?: string;
-    created_at?: string;
-    id?: number;
-    messages?: any[];
+    before_id?: number;
+    limit?: number;
     session?: string;
     status?: string;
-    user_id?: number;
     widget_id?: number;
 }
 export interface ConversationCreateData {

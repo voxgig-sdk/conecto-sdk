@@ -58,15 +58,18 @@ def _schema_direct_setup(mockres):
     env = runner.env_override({
         "CONECTO_TEST_SCHEMA_ENTID": {},
         "CONECTO_TEST_LIVE": "FALSE",
-        "CONECTO_APIKEY": "NONE",
+        "CONECTO_APIKEY": "",
     })
 
     live = env.get("CONECTO_TEST_LIVE") == "TRUE"
 
     if live:
-        merged_opts = {
+        # sdk-test-control.json's test.client.options seeds the live
+        # client; the generated fields below overwrite anything they name.
+        merged_opts = dict(runner.live_client_options())
+        merged_opts.update({
             "apikey": env.get("CONECTO_APIKEY"),
-        }
+        })
         client = ConectoSDK(merged_opts)
         return {
             "client": client,

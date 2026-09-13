@@ -81,18 +81,28 @@ main: kit: entity: message: {
           }
           method: "POST"
           orig: "/widgets/{id}/visitors/{session}/message/"
-          parts: [
-            "widgets"
-            "{widget_id}"
-            "visitors"
-            "{session}"
-            "message"
-          ]
           rename: {
             param: {
               id: "widget_id"
             }
           }
+          segments: [
+            {
+              lit: "widgets"
+            }
+            {
+              var: "widget_id"
+            }
+            {
+              lit: "visitors"
+            }
+            {
+              var: "session"
+            }
+            {
+              lit: "message"
+            }
+          ]
           select: {
             exist: [
               "idempotency_key"
@@ -128,16 +138,22 @@ main: kit: entity: message: {
           }
           method: "POST"
           orig: "/conversations/{id}/messages/"
-          parts: [
-            "conversations"
-            "{conversation_id}"
-            "messages"
-          ]
           rename: {
             param: {
               id: "conversation_id"
             }
           }
+          segments: [
+            {
+              lit: "conversations"
+            }
+            {
+              var: "conversation_id"
+            }
+            {
+              lit: "messages"
+            }
+          ]
           select: {
             exist: [
               "conversation_id"

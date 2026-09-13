@@ -78,6 +78,10 @@ local function make_config()
             ["type"] = "`$OBJECT`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "action",
         ["op"] = {
           ["create"] = {
@@ -106,16 +110,26 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/integrations/{slug}/actions/{action}/run/",
-                ["parts"] = {
-                  "integrations",
-                  "{slug}",
-                  "actions",
-                  "{id}",
-                  "run",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["action"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "integrations",
+                  },
+                  {
+                    ["var"] = "slug",
+                  },
+                  {
+                    ["lit"] = "actions",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
+                  {
+                    ["lit"] = "run",
                   },
                 },
                 ["select"] = {
@@ -128,6 +142,13 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "integrations",
+                  "{slug}",
+                  "actions",
+                  "{id}",
+                  "run",
                 },
               },
             },
@@ -144,6 +165,7 @@ local function make_config()
       ["contact"] = {
         ["fields"] = {
           {
+            ["format"] = "date-time",
             ["name"] = "created_at",
             ["type"] = "`$STRING`",
           },
@@ -153,6 +175,7 @@ local function make_config()
             ["type"] = "`$OBJECT`",
           },
           {
+            ["format"] = "email",
             ["name"] = "email",
             ["type"] = "`$STRING`",
           },
@@ -162,6 +185,10 @@ local function make_config()
             ["short"] = "Contact id.",
             ["type"] = "`$INTEGER`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "contact",
         ["op"] = {
@@ -183,8 +210,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/contacts/",
-                ["parts"] = {
-                  "contacts",
+                ["segments"] = {
+                  {
+                    ["lit"] = "contacts",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -194,6 +223,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.custom_fields`",
+                },
+                ["parts"] = {
+                  "contacts",
                 },
               },
             },
@@ -223,8 +255,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/contacts/",
-                ["parts"] = {
-                  "contacts",
+                ["segments"] = {
+                  {
+                    ["lit"] = "contacts",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -235,6 +269,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.contacts`",
+                },
+                ["parts"] = {
+                  "contacts",
                 },
               },
             },
@@ -252,6 +289,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "created_at",
             ["type"] = "`$STRING`",
           },
@@ -288,6 +326,10 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "conversation",
         ["op"] = {
           ["create"] = {
@@ -309,10 +351,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/conversations/{id}/assign/",
-                ["parts"] = {
-                  "conversations",
-                  "{id}",
-                  "assign",
+                ["segments"] = {
+                  {
+                    ["lit"] = "conversations",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
+                  {
+                    ["lit"] = "assign",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "assign",
@@ -323,6 +371,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "conversations",
+                  "{id}",
+                  "assign",
                 },
               },
               {
@@ -340,10 +393,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/conversations/{id}/handoff/",
-                ["parts"] = {
-                  "conversations",
-                  "{id}",
-                  "handoff",
+                ["segments"] = {
+                  {
+                    ["lit"] = "conversations",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
+                  {
+                    ["lit"] = "handoff",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "handoff",
@@ -354,6 +413,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "conversations",
+                  "{id}",
+                  "handoff",
                 },
               },
               {
@@ -370,8 +434,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/conversations/",
-                ["parts"] = {
-                  "conversations",
+                ["segments"] = {
+                  {
+                    ["lit"] = "conversations",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -381,6 +447,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "conversations",
                 },
               },
             },
@@ -428,8 +497,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/conversations/",
-                ["parts"] = {
-                  "conversations",
+                ["segments"] = {
+                  {
+                    ["lit"] = "conversations",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -443,6 +514,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.conversations`",
+                },
+                ["parts"] = {
+                  "conversations",
                 },
               },
             },
@@ -474,9 +548,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/conversations/{id}/",
-                ["parts"] = {
-                  "conversations",
-                  "{id}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "conversations",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -487,6 +565,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "conversations",
+                  "{id}",
                 },
               },
             },
@@ -510,10 +592,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "PATCH",
                 ["orig"] = "/conversations/{id}/messages/",
-                ["parts"] = {
-                  "conversations",
-                  "{id}",
-                  "messages",
+                ["segments"] = {
+                  {
+                    ["lit"] = "conversations",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
+                  {
+                    ["lit"] = "messages",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "message",
@@ -524,6 +612,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "conversations",
+                  "{id}",
+                  "messages",
                 },
               },
             },
@@ -556,13 +649,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/me/",
-                ["parts"] = {
-                  "me",
+                ["segments"] = {
+                  {
+                    ["lit"] = "me",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "me",
                 },
               },
             },
@@ -585,6 +683,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "base_url",
             ["req"] = true,
             ["short"] = "Root URL Conecto POSTs actions to.",
@@ -620,6 +719,10 @@ local function make_config()
             ["type"] = "`$ARRAY`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "integration",
         ["op"] = {
           ["create"] = {
@@ -641,10 +744,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/integrations/{slug}/install/",
-                ["parts"] = {
-                  "integrations",
-                  "{slug}",
-                  "install",
+                ["segments"] = {
+                  {
+                    ["lit"] = "integrations",
+                  },
+                  {
+                    ["var"] = "slug",
+                  },
+                  {
+                    ["lit"] = "install",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "install",
@@ -655,6 +764,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "integrations",
+                  "{slug}",
+                  "install",
                 },
               },
               {
@@ -672,10 +786,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/integrations/{slug}/rotate_signing_secret/",
-                ["parts"] = {
-                  "integrations",
-                  "{slug}",
-                  "rotate_signing_secret",
+                ["segments"] = {
+                  {
+                    ["lit"] = "integrations",
+                  },
+                  {
+                    ["var"] = "slug",
+                  },
+                  {
+                    ["lit"] = "rotate_signing_secret",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "rotate_signing_secret",
@@ -687,19 +807,29 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
+                ["parts"] = {
+                  "integrations",
+                  "{slug}",
+                  "rotate_signing_secret",
+                },
               },
               {
                 ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/integrations/",
-                ["parts"] = {
-                  "integrations",
+                ["segments"] = {
+                  {
+                    ["lit"] = "integrations",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "integrations",
                 },
               },
             },
@@ -713,13 +843,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/integrations/",
-                ["parts"] = {
-                  "integrations",
+                ["segments"] = {
+                  {
+                    ["lit"] = "integrations",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.integrations`",
+                },
+                ["parts"] = {
+                  "integrations",
                 },
               },
             },
@@ -743,13 +878,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/integrations/{slug}/",
-                ["parts"] = {
-                  "integrations",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["slug"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "integrations",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -760,6 +899,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "integrations",
+                  "{id}",
                 },
               },
             },
@@ -786,13 +929,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/media/",
-                ["parts"] = {
-                  "media",
+                ["segments"] = {
+                  {
+                    ["lit"] = "media",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "media",
                 },
               },
             },
@@ -873,16 +1021,26 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/widgets/{id}/visitors/{session}/message/",
-                ["parts"] = {
-                  "widgets",
-                  "{widget_id}",
-                  "visitors",
-                  "{session}",
-                  "message",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["id"] = "widget_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "widgets",
+                  },
+                  {
+                    ["var"] = "widget_id",
+                  },
+                  {
+                    ["lit"] = "visitors",
+                  },
+                  {
+                    ["var"] = "session",
+                  },
+                  {
+                    ["lit"] = "message",
                   },
                 },
                 ["select"] = {
@@ -895,6 +1053,13 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "widgets",
+                  "{widget_id}",
+                  "visitors",
+                  "{session}",
+                  "message",
                 },
               },
               {
@@ -920,14 +1085,20 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/conversations/{id}/messages/",
-                ["parts"] = {
-                  "conversations",
-                  "{conversation_id}",
-                  "messages",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["id"] = "conversation_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "conversations",
+                  },
+                  {
+                    ["var"] = "conversation_id",
+                  },
+                  {
+                    ["lit"] = "messages",
                   },
                 },
                 ["select"] = {
@@ -939,6 +1110,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "conversations",
+                  "{conversation_id}",
+                  "messages",
                 },
               },
             },
@@ -969,13 +1145,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/schema/",
-                ["parts"] = {
-                  "schema",
+                ["segments"] = {
+                  {
+                    ["lit"] = "schema",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "schema",
                 },
               },
             },
@@ -988,6 +1169,7 @@ local function make_config()
       ["visitor"] = {
         ["fields"] = {
           {
+            ["format"] = "email",
             ["name"] = "email",
             ["type"] = "`$STRING`",
           },
@@ -1024,16 +1206,26 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/widgets/{id}/visitors/{session}/identify/",
-                ["parts"] = {
-                  "widgets",
-                  "{widget_id}",
-                  "visitors",
-                  "{session}",
-                  "identify",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["id"] = "widget_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "widgets",
+                  },
+                  {
+                    ["var"] = "widget_id",
+                  },
+                  {
+                    ["lit"] = "visitors",
+                  },
+                  {
+                    ["var"] = "session",
+                  },
+                  {
+                    ["lit"] = "identify",
                   },
                 },
                 ["select"] = {
@@ -1046,6 +1238,13 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "widgets",
+                  "{widget_id}",
+                  "visitors",
+                  "{session}",
+                  "identify",
                 },
               },
               {
@@ -1070,16 +1269,26 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/widgets/{id}/visitors/{session}/unverify/",
-                ["parts"] = {
-                  "widgets",
-                  "{widget_id}",
-                  "visitors",
-                  "{session}",
-                  "unverify",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["id"] = "widget_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "widgets",
+                  },
+                  {
+                    ["var"] = "widget_id",
+                  },
+                  {
+                    ["lit"] = "visitors",
+                  },
+                  {
+                    ["var"] = "session",
+                  },
+                  {
+                    ["lit"] = "unverify",
                   },
                 },
                 ["select"] = {
@@ -1092,6 +1301,13 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "widgets",
+                  "{widget_id}",
+                  "visitors",
+                  "{session}",
+                  "unverify",
                 },
               },
             },
@@ -1109,6 +1325,7 @@ local function make_config()
       ["webhook"] = {
         ["fields"] = {
           {
+            ["format"] = "date-time",
             ["name"] = "created_at",
             ["type"] = "`$STRING`",
           },
@@ -1125,11 +1342,16 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "url",
             ["req"] = true,
             ["short"] = "HTTPS endpoint that receives the event POST.",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "webhook",
         ["op"] = {
@@ -1142,13 +1364,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/webhooks/",
-                ["parts"] = {
-                  "webhooks",
+                ["segments"] = {
+                  {
+                    ["lit"] = "webhooks",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "webhooks",
                 },
               },
             },
@@ -1162,13 +1389,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/webhooks/",
-                ["parts"] = {
-                  "webhooks",
+                ["segments"] = {
+                  {
+                    ["lit"] = "webhooks",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.webhooks`",
+                },
+                ["parts"] = {
+                  "webhooks",
                 },
               },
             },
@@ -1192,9 +1424,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/webhooks/{id}/",
-                ["parts"] = {
-                  "webhooks",
-                  "{id}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "webhooks",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -1204,6 +1440,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "webhooks",
+                  "{id}",
                 },
               },
             },
@@ -1227,9 +1467,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/webhooks/{id}/",
-                ["parts"] = {
-                  "webhooks",
-                  "{id}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "webhooks",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -1239,6 +1483,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "webhooks",
+                  "{id}",
                 },
               },
             },

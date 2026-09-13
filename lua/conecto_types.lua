@@ -34,10 +34,8 @@
 ---@field id number
 
 ---@class ContactListMatch
----@field created_at? string
----@field custom_fields? table
----@field email? string
----@field id? number
+---@field before_id? number
+---@field limit? number
 
 ---@class ContactCreateData
 ---@field created_at? string
@@ -57,15 +55,13 @@
 
 ---@class ConversationLoadMatch
 ---@field id number
+---@field since_id? number
 
 ---@class ConversationListMatch
----@field body? string
----@field created_at? string
----@field id? number
----@field messages? table
+---@field before_id? number
+---@field limit? number
 ---@field session? string
 ---@field status? string
----@field user_id? number
 ---@field widget_id? number
 
 ---@class ConversationCreateData

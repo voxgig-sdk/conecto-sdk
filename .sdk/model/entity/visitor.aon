@@ -6,6 +6,7 @@ main: kit: entity: visitor: {
 
   fields: [
     {
+      format: "email"
       name: "email"
       req: false
       type: "`$STRING`"
@@ -43,18 +44,28 @@ main: kit: entity: visitor: {
           }
           method: "POST"
           orig: "/widgets/{id}/visitors/{session}/identify/"
-          parts: [
-            "widgets"
-            "{widget_id}"
-            "visitors"
-            "{session}"
-            "identify"
-          ]
           rename: {
             param: {
               id: "widget_id"
             }
           }
+          segments: [
+            {
+              lit: "widgets"
+            }
+            {
+              var: "widget_id"
+            }
+            {
+              lit: "visitors"
+            }
+            {
+              var: "session"
+            }
+            {
+              lit: "identify"
+            }
+          ]
           select: {
             "$action": "identify"
             exist: [
@@ -88,18 +99,28 @@ main: kit: entity: visitor: {
           }
           method: "POST"
           orig: "/widgets/{id}/visitors/{session}/unverify/"
-          parts: [
-            "widgets"
-            "{widget_id}"
-            "visitors"
-            "{session}"
-            "unverify"
-          ]
           rename: {
             param: {
               id: "widget_id"
             }
           }
+          segments: [
+            {
+              lit: "widgets"
+            }
+            {
+              var: "widget_id"
+            }
+            {
+              lit: "visitors"
+            }
+            {
+              var: "session"
+            }
+            {
+              lit: "unverify"
+            }
+          ]
           select: {
             "$action": "unverify"
             exist: [

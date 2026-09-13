@@ -56,10 +56,8 @@ class Contact(ContactRequired, total=False):
 
 
 class ContactListMatch(TypedDict, total=False):
-    created_at: str
-    custom_fields: dict
-    email: str
-    id: int
+    before_id: int
+    limit: int
 
 
 class ContactCreateDataRequired(TypedDict):
@@ -86,18 +84,19 @@ class Conversation(ConversationRequired, total=False):
     widget_id: int
 
 
-class ConversationLoadMatch(TypedDict):
+class ConversationLoadMatchRequired(TypedDict):
     id: int
+
+
+class ConversationLoadMatch(ConversationLoadMatchRequired, total=False):
+    since_id: int
 
 
 class ConversationListMatch(TypedDict, total=False):
-    body: str
-    created_at: str
-    id: int
-    messages: list
+    before_id: int
+    limit: int
     session: str
     status: str
-    user_id: int
     widget_id: int
 
 

@@ -22,6 +22,7 @@ const { ConectoEntityBase } = require('./ConectoEntityBase')
 const { BaseFeature } = require('./feature/base/BaseFeature')
 
 
+
 const stdutil = new Utility()
 
 
@@ -31,6 +32,7 @@ class ConectoSDK {
   _utility = new Utility()
   _features
   _rootctx
+  
 
   constructor(options) {
 
@@ -103,6 +105,8 @@ class ConectoSDK {
     return this._utility.struct.clone(this._utility)
   }
 
+  
+
 
   async prepare(fetchargs) {
     const utility = this._utility
@@ -148,6 +152,8 @@ class ConectoSDK {
         spec.headers[key] = uheaders[key]
       }
     }
+
+    
 
     // Apply SDK auth (apikey, auth prefix, etc.)
     const authResult = prepareAuth(ctx)
@@ -435,6 +441,7 @@ const SDK = ConectoSDK
 module.exports = {
   stdutil,
   config,
+  
 
   BaseFeature,
   ConectoEntityBase,

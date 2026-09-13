@@ -12,6 +12,7 @@ main: kit: entity: conversation: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "created_at"
       req: false
       type: "`$STRING`"
@@ -77,10 +78,16 @@ main: kit: entity: conversation: {
           }
           method: "POST"
           orig: "/conversations/{id}/assign/"
-          parts: [
-            "conversations"
-            "{id}"
-            "assign"
+          segments: [
+            {
+              lit: "conversations"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "assign"
+            }
           ]
           select: {
             "$action": "assign"
@@ -107,10 +114,16 @@ main: kit: entity: conversation: {
           }
           method: "POST"
           orig: "/conversations/{id}/handoff/"
-          parts: [
-            "conversations"
-            "{id}"
-            "handoff"
+          segments: [
+            {
+              lit: "conversations"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "handoff"
+            }
           ]
           select: {
             "$action": "handoff"
@@ -137,8 +150,10 @@ main: kit: entity: conversation: {
           }
           method: "POST"
           orig: "/conversations/"
-          parts: [
-            "conversations"
+          segments: [
+            {
+              lit: "conversations"
+            }
           ]
           select: {
             exist: [
@@ -198,8 +213,10 @@ main: kit: entity: conversation: {
           }
           method: "GET"
           orig: "/conversations/"
-          parts: [
-            "conversations"
+          segments: [
+            {
+              lit: "conversations"
+            }
           ]
           select: {
             exist: [
@@ -243,9 +260,13 @@ main: kit: entity: conversation: {
           }
           method: "GET"
           orig: "/conversations/{id}/"
-          parts: [
-            "conversations"
-            "{id}"
+          segments: [
+            {
+              lit: "conversations"
+            }
+            {
+              var: "id"
+            }
           ]
           select: {
             exist: [
@@ -277,10 +298,16 @@ main: kit: entity: conversation: {
           }
           method: "PATCH"
           orig: "/conversations/{id}/messages/"
-          parts: [
-            "conversations"
-            "{id}"
-            "messages"
+          segments: [
+            {
+              lit: "conversations"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "messages"
+            }
           ]
           select: {
             "$action": "message"

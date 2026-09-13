@@ -51,10 +51,8 @@ class Contact
 /** Request payload for Contact#list. */
 class ContactListMatch
 {
-    public ?string $created_at = null;
-    public ?array $custom_fields = null;
-    public ?string $email = null;
-    public ?int $id = null;
+    public ?int $before_id = null;
+    public ?int $limit = null;
 }
 
 /** Request payload for Contact#create. */
@@ -83,18 +81,16 @@ class Conversation
 class ConversationLoadMatch
 {
     public int $id;
+    public ?int $since_id = null;
 }
 
 /** Request payload for Conversation#list. */
 class ConversationListMatch
 {
-    public ?string $body = null;
-    public ?string $created_at = null;
-    public ?int $id = null;
-    public ?array $messages = null;
+    public ?int $before_id = null;
+    public ?int $limit = null;
     public ?string $session = null;
     public ?string $status = null;
-    public ?int $user_id = null;
     public ?int $widget_id = null;
 }
 
