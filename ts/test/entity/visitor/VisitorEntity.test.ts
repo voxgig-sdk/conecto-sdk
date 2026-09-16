@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { ConectoSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('VisitorEntity', async () => {
 
     const live = 'TRUE' === process.env.CONECTO_TEST_LIVE
     for (const op of ['create']) {
-      if (maybeSkipControl(t, 'entityOp', 'visitor.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'visitor.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set CONECTO_TEST_VISITOR_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"format":"email","name":"email","req":false,"type":"`$STRING`","index$":0},{"active":true,"name":"name","req":false,"type":"`$STRING`","index$":1}],"name":"visitor","op":{"create":{"input":"data","name":"create","points":[{"active":true,"args":{"params":[{"active":true,"kind":"param","name":"session","orig":"session","reqd":true,"type":"`$STRING`","index$":0},{"active":true,"kind":"param","name":"widget_id","orig":"id","reqd":true,"type":"`$INTEGER`","index$":1}]},"contract":{"id":"POST /widgets/{id}/visitors/{session}/identify/","json":"{\"operationId\":\"identifyVisitor\",\"parameters\":[{\"description\":\"Widget id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Visitor browser session key.\",\"in\":\"path\",\"name\":\"session\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"email\":{\"format\":\"email\",\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"type\":\"object\"}}},\"required\":false},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":true,\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"POST","orig":"/widgets/{id}/visitors/{session}/identify/","rename":{"param":{"id":"widget_id"}},"segments":[{"lit":"widgets"},{"var":"widget_id"},{"lit":"visitors"},{"var":"session"},{"lit":"identify"}],"select":{"$action":"identify","exist":["session","widget_id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0},{"active":true,"args":{"params":[{"active":true,"kind":"param","name":"session","orig":"session","reqd":true,"type":"`$STRING`","index$":0},{"active":true,"kind":"param","name":"widget_id","orig":"id","reqd":true,"type":"`$INTEGER`","index$":1}]},"contract":{"id":"POST /widgets/{id}/visitors/{session}/unverify/","json":"{\"operationId\":\"unverifyVisitor\",\"parameters\":[{\"description\":\"Widget id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Visitor browser session key.\",\"in\":\"path\",\"name\":\"session\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":true,\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"POST","orig":"/widgets/{id}/visitors/{session}/unverify/","rename":{"param":{"id":"widget_id"}},"segments":[{"lit":"widgets"},{"var":"widget_id"},{"lit":"visitors"},{"var":"session"},{"lit":"unverify"}],"select":{"$action":"unverify","exist":["session","widget_id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":1}],"key$":"create"}},"relations":{"ancestors":[["widget","visitor"]]},"key$":"visitor","name__orig":"visitor","Name":"Visitor","name_":"visitor","name-":"visitor","NAME":"VISITOR","index$":8}, {"active":true,"entity":"visitor","key$":"BasicVisitorFlow","kind":"basic","name":"BasicVisitorFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"visitor_ref01"},"match":{"session":"session01","widget_id":"widget01"},"op":"create","spec":[],"valid":[],"index$":0}]}, 'Visitor')
     }
     const client = setup.client
     const struct = setup.struct
@@ -111,13 +110,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['CONECTO_TEST_VISITOR_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'CONECTO_TEST_VISITOR_ENTID': idmap,
     'CONECTO_TEST_LIVE': 'FALSE',
@@ -129,7 +121,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.CONECTO_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['CONECTO_TEST_VISITOR_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new ConectoSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -142,7 +140,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -155,7 +154,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.CONECTO_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

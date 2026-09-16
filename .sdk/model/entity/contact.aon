@@ -53,6 +53,12 @@ main: kit: entity: contact: {
               }
             ]
           }
+          contract: {
+            id: "POST /contacts/"
+            json: "{\"operationId\":\"createContact\",\"parameters\":[{\"description\":\"Any UUID. Retrying a write with the same key returns 200 with the original result instead of creating a duplicate.\",\"in\":\"header\",\"name\":\"Idempotency-Key\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"custom_fields\":{\"additionalProperties\":true,\"type\":\"object\"},\"email\":{\"format\":\"email\",\"type\":\"string\"}},\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A person known to the workspace.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"custom_fields\":{\"additionalProperties\":true,\"description\":\"Workspace-defined fields.\",\"type\":\"object\"},\"email\":{\"format\":\"email\",\"type\":\"string\"},\"id\":{\"description\":\"Contact id.\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}}},\"description\":\"Created.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "POST"
           orig: "/contacts/"
           segments: [
@@ -94,6 +100,12 @@ main: kit: entity: contact: {
                 type: "`$INTEGER`"
               }
             ]
+          }
+          contract: {
+            id: "GET /contacts/"
+            json: "{\"operationId\":\"listContacts\",\"parameters\":[{\"description\":\"Page size. Defaults to 25.\",\"in\":\"query\",\"name\":\"limit\",\"required\":false,\"schema\":{\"default\":25,\"type\":\"integer\"}},{\"description\":\"Return records older than this id. Take it from next_before_id in the previous response.\",\"in\":\"query\",\"name\":\"before_id\",\"required\":false,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"contacts\":{\"items\":{\"description\":\"A person known to the workspace.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"custom_fields\":{\"additionalProperties\":true,\"description\":\"Workspace-defined fields.\",\"type\":\"object\"},\"email\":{\"format\":\"email\",\"type\":\"string\"},\"id\":{\"description\":\"Contact id.\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"},\"type\":\"array\"},\"next_before_id\":{\"type\":\"integer\"}},\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/contacts/"

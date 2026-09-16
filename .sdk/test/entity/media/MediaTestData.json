@@ -16,5 +16,86 @@
     "media": {
       "media_ref01": {}
     }
+  },
+  "requests": {
+    "POST /media/": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "createMedia",
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "file": {
+                    "format": "binary",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "file"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "description": "Multipart upload, at most 10 MB.",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "An uploaded file, addressable by URL from a block.",
+                  "properties": {
+                    "filename": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "description": "Bytes. Maximum 10 MB on upload.",
+                      "type": "integer"
+                    },
+                    "url": {
+                      "description": "HTTPS URL of the stored file.",
+                      "format": "uri",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "url"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Created."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "basicAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "basicAuth": {
+            "description": "Client id as username, secret as password.",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "bearerAuth": {
+            "description": "Authorization: Bearer <client_id>:<secret>",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    }
   }
 }

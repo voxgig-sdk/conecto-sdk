@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Conecto | Conecto</title><link rel="stylesheet" href="assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="index.html">Conecto<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/conecto-sdk">voxgig-sdk/conecto-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details open><summary>Overview</summary><a aria-current="page" href="index.html">Conecto</a></details>
+<details><summary>API</summary><a href="api/index.html">API overview</a>
+<a href="api/action.html">Action</a>
+<a href="api/contact.html">Contact</a>
+<a href="api/conversation.html">Conversation</a>
+<a href="api/credential.html">Credential</a>
+<a href="api/integration.html">Integration</a>
+<a href="api/media.html">Media</a>
+<a href="api/message.html">Message</a>
+<a href="api/schema.html">Schema</a>
+<a href="api/visitor.html">Visitor</a>
+<a href="api/webhook.html">Webhook</a></details>
+<details><summary>Guides</summary><a href="guides/authentication.html">Authentication</a>
+<a href="guides/first-call.html">Make your first API call</a>
+<a href="guides/errors.html">Handle errors</a>
+<a href="guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="sdks/go.html">Golang</a>
+<a href="sdks/js.html">JavaScript</a>
+<a href="sdks/lua.html">Lua</a>
+<a href="sdks/php.html">PHP</a>
+<a href="sdks/py.html">Python</a>
+<a href="sdks/rb.html">Ruby</a>
+<a href="sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="tools/go-cli.html">Go CLI</a>
+<a href="tools/go-mcp.html">Go MCP server</a></details>
+<details><summary>Features</summary><a href="features/debug.html">Request/response capture ring buffer for debugging</a>
+<a href="features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
+<a href="features/metrics.html">Statistics capture: per-operation counters and latency</a>
+<a href="features/paging.html">Pagination signals for list operations</a>
+<a href="features/ratelimit.html">Client-side rate limiting via a token bucket</a>
+<a href="features/retry.html">Automatic retry of transient failures with exponential backoff</a>
+<a href="features/test.html">In-memory mock transport for testing without a live server</a>
+<a href="features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>Overview</div><h1 id="conecto">Conecto</h1>
+<p>Customer-messaging platform API: live chat, AI agents, tickets and knowledge base. UNOFFICIAL SPEC. Conecto publishes no OpenAPI description. The API does expose <code>GET /schema/</code>, which returns the whole surface as JSON, but that endpoint requires credentials, so this spec was AUTHORED FROM THE PUBLISHED PROSE DOCUMENTATION at https://conecto.chat/developers and cross-checked against the vendor's own MIT-licensed Python SDK (github.com/Nancy-Consulting/conecto-sdk) for paths, verbs and field names. Known limits, stated plainly: response shapes come from documented examples rather than a schema, so optional fields the docs do not show are absent here; <code>blocks</code> is left open because the ten documented block types are an untagged union with no discriminator; and nothing here has been verified against a live workspace. Anyone holding credentials should prefer <code>GET /schema/</code>. Conventions the API applies throughout: pagination is <code>limit</code> plus <code>before_id</code>, with <code>next_before_id</code> in the response; writes accept an <code>Idempotency-Key</code> header and return 200 rather than 201 on a retry; errors are <code>&amp;#123;&amp;quot;error&amp;quot;: &amp;#123;&amp;quot;code&amp;quot;, &amp;quot;message&amp;quot;&amp;#125;&amp;#125;</code>; and the rate limit is 300 requests/min per credential, which returns 429 with <code>Retry-After</code>.</p>
+</main></div>
+<script src="assets/search.js" defer></script></body></html>

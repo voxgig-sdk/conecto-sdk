@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { ConectoSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('ActionEntity', async () => {
 
     const live = 'TRUE' === process.env.CONECTO_TEST_LIVE
     for (const op of ['create']) {
-      if (maybeSkipControl(t, 'entityOp', 'action.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'action.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set CONECTO_TEST_ACTION_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"arguments","req":false,"type":"`$OBJECT`","index$":0},{"active":true,"name":"blocks","req":false,"type":"`$ARRAY`","index$":1},{"active":true,"name":"conversation_id","req":false,"type":"`$INTEGER`","index$":2},{"active":true,"name":"error","req":false,"type":"`$STRING`","index$":3},{"active":true,"name":"id","req":false,"type":"`$STRING`","index$":4},{"active":true,"name":"not_found","req":false,"short":"A normal no-match, not an error.","type":"`$BOOLEAN`","index$":5},{"active":true,"name":"ok","req":true,"type":"`$BOOLEAN`","index$":6},{"active":true,"name":"result","req":false,"type":"`$OBJECT`","index$":7}],"id":{"field":"id","name":"id"},"name":"action","op":{"create":{"input":"data","name":"create","points":[{"active":true,"args":{"params":[{"active":true,"kind":"param","name":"id","orig":"action","reqd":true,"type":"`$STRING`","index$":0},{"active":true,"kind":"param","name":"slug","orig":"slug","reqd":true,"type":"`$STRING`","index$":1}]},"contract":{"id":"POST /integrations/{slug}/actions/{action}/run/","json":"{\"operationId\":\"runIntegrationAction\",\"parameters\":[{\"description\":\"Integration slug.\",\"in\":\"path\",\"name\":\"slug\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"Action name.\",\"in\":\"path\",\"name\":\"action\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"arguments\":{\"additionalProperties\":true,\"type\":\"object\"},\"conversation_id\":{\"type\":\"integer\"}},\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"Result of running an integration action.\",\"properties\":{\"blocks\":{\"items\":{\"additionalProperties\":true,\"description\":\"One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.\",\"properties\":{\"type\":{\"enum\":[\"image\",\"video\",\"embed\",\"audio\",\"file\",\"cards\",\"list\",\"buttons\",\"text\",\"divider\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"error\":{\"type\":\"string\"},\"not_found\":{\"description\":\"A normal no-match, not an error.\",\"type\":\"boolean\"},\"ok\":{\"type\":\"boolean\"},\"result\":{\"additionalProperties\":true,\"type\":\"object\"}},\"required\":[\"ok\"],\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"POST","orig":"/integrations/{slug}/actions/{action}/run/","rename":{"param":{"action":"id"}},"segments":[{"lit":"integrations"},{"var":"slug"},{"lit":"actions"},{"var":"id"},{"lit":"run"}],"select":{"$action":"run","exist":["id","slug"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"}},"relations":{"ancestors":[["integration"]]},"key$":"action","name__orig":"action","Name":"Action","name_":"action","name-":"action","NAME":"ACTION","index$":0}, {"active":true,"entity":"action","key$":"BasicActionFlow","kind":"basic","name":"BasicActionFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"action_ref01"},"match":{"action":"action01","slug":"slug01"},"op":"create","spec":[],"valid":[],"index$":0}]}, 'Action')
     }
     const client = setup.client
     const struct = setup.struct
@@ -111,13 +110,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['CONECTO_TEST_ACTION_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'CONECTO_TEST_ACTION_ENTID': idmap,
     'CONECTO_TEST_LIVE': 'FALSE',
@@ -129,7 +121,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.CONECTO_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['CONECTO_TEST_ACTION_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new ConectoSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -142,7 +140,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -155,7 +154,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.CONECTO_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

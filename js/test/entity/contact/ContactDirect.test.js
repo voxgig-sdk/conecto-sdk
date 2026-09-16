@@ -1,6 +1,6 @@
 
 const envlocal = __dirname + '/../../../.env.local'
-require('dotenv').config({ quiet: true, path: [envlocal] })
+require('../../utility').loadEnvLocal(envlocal)
 
 const { test, describe, afterEach } = require('node:test')
 const assert = require('node:assert')
@@ -34,7 +34,8 @@ describe('ContactDirect', async () => {
   })
 
 
-  test('direct-list-contact', async () => {
+  test('direct-list-contact', async (t) => {
+    if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
     const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
     const { client, calls } = setup
 
@@ -47,7 +48,7 @@ describe('ContactDirect', async () => {
     })
 
     assert(result.ok === true)
-    assert(result.status === 200)
+    assert(setup.live ? result.status >= 200 && result.status < 300 : result.status === 200)
     assert(Array.isArray(result.data))
 
     if (!setup.live) {
@@ -61,6 +62,7 @@ describe('ContactDirect', async () => {
 
 
 
+function liveScenariosActive() { return false && process.env.CONECTO_TEST_LIVE === 'TRUE' }
 function directSetup(mockres) {
   const calls = []
 

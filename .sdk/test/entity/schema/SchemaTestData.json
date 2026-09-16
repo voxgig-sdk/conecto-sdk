@@ -16,5 +16,50 @@
     "schema": {
       "schema_ref01": {}
     }
+  },
+  "requests": {
+    "GET /schema/": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getSchema",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "description": "The complete API surface as data: endpoints, events, block types, actions, limits and error codes.",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "basicAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "basicAuth": {
+            "description": "Client id as username, secret as password.",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "bearerAuth": {
+            "description": "Authorization: Bearer <client_id>:<secret>",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    }
   }
 }

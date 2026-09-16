@@ -43,6 +43,12 @@ main: kit: entity: webhook: {
       name: "create"
       points: [
         {
+          contract: {
+            id: "POST /webhooks/"
+            json: "{\"operationId\":\"createWebhook\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"events\":{\"description\":\"e.g. message.created, conversation.created.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"url\":{\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"url\",\"events\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"An HTTP endpoint subscribed to workspace events.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"events\":{\"description\":\"Event names subscribed to.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"id\":{\"description\":\"Webhook id.\",\"type\":\"integer\"},\"url\":{\"description\":\"HTTPS endpoint that receives the event POST.\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"id\",\"url\",\"events\"],\"type\":\"object\"}}},\"description\":\"Created.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "POST"
           orig: "/webhooks/"
           segments: [
@@ -61,6 +67,12 @@ main: kit: entity: webhook: {
       name: "list"
       points: [
         {
+          contract: {
+            id: "GET /webhooks/"
+            json: "{\"operationId\":\"listWebhooks\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"webhooks\":{\"items\":{\"description\":\"An HTTP endpoint subscribed to workspace events.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"events\":{\"description\":\"Event names subscribed to.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"id\":{\"description\":\"Webhook id.\",\"type\":\"integer\"},\"url\":{\"description\":\"HTTPS endpoint that receives the event POST.\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"id\",\"url\",\"events\"],\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/webhooks/"
           segments: [
@@ -89,6 +101,12 @@ main: kit: entity: webhook: {
                 type: "`$INTEGER`"
               }
             ]
+          }
+          contract: {
+            id: "GET /webhooks/{id}/"
+            json: "{\"operationId\":\"getWebhook\",\"parameters\":[{\"description\":\"Webhook id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"An HTTP endpoint subscribed to workspace events.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"events\":{\"description\":\"Event names subscribed to.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"id\":{\"description\":\"Webhook id.\",\"type\":\"integer\"},\"url\":{\"description\":\"HTTPS endpoint that receives the event POST.\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"id\",\"url\",\"events\"],\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/webhooks/{id}/"
@@ -126,6 +144,12 @@ main: kit: entity: webhook: {
                 type: "`$INTEGER`"
               }
             ]
+          }
+          contract: {
+            id: "DELETE /webhooks/{id}/"
+            json: "{\"operationId\":\"deleteWebhook\",\"parameters\":[{\"description\":\"Webhook id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"204\":{\"description\":\"Deleted.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "DELETE"
           orig: "/webhooks/{id}/"

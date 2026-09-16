@@ -4,7 +4,14 @@ declare(strict_types=1);
 // Conecto SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/DebugFeature.php';
+require_once __DIR__ . '/feature/IdempotencyFeature.php';
+require_once __DIR__ . '/feature/MetricsFeature.php';
+require_once __DIR__ . '/feature/PagingFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class ConectoFeatures
@@ -14,8 +21,22 @@ class ConectoFeatures
         switch ($name) {
             case "base":
                 return new ConectoBaseFeature();
+            case "debug":
+                return new ConectoDebugFeature();
+            case "idempotency":
+                return new ConectoIdempotencyFeature();
+            case "metrics":
+                return new ConectoMetricsFeature();
+            case "paging":
+                return new ConectoPagingFeature();
+            case "ratelimit":
+                return new ConectoRatelimitFeature();
+            case "retry":
+                return new ConectoRetryFeature();
             case "test":
                 return new ConectoTestFeature();
+            case "timeout":
+                return new ConectoTimeoutFeature();
             default:
                 return new ConectoBaseFeature();
         }
@@ -31,7 +52,14 @@ class ConectoFeatures
     {
         switch ($name) {
             case "base":
+            case "debug":
+            case "idempotency":
+            case "metrics":
+            case "paging":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

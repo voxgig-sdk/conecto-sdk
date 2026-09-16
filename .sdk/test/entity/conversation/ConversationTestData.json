@@ -45,5 +45,1034 @@
         "widget_id": "WIDGET01"
       }
     }
+  },
+  "requests": {
+    "POST /conversations/{id}/assign/": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "assignConversation",
+        "parameters": [
+          {
+            "description": "Conversation id.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "user_id"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "A conversation between a visitor and the workspace.",
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Conversation id.",
+                      "type": "integer"
+                    },
+                    "messages": {
+                      "description": "Visitor-facing messages, oldest first.",
+                      "items": {
+                        "description": "A single message in a conversation.",
+                        "properties": {
+                          "blocks": {
+                            "description": "Rich content blocks. At most 10 per message.",
+                            "items": {
+                              "additionalProperties": true,
+                              "description": "One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.",
+                              "properties": {
+                                "type": {
+                                  "enum": [
+                                    "image",
+                                    "video",
+                                    "embed",
+                                    "audio",
+                                    "file",
+                                    "cards",
+                                    "list",
+                                    "buttons",
+                                    "text",
+                                    "divider"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "body": {
+                            "description": "Plain-text body.",
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "description": "When the message was created.",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Message id.",
+                            "type": "integer"
+                          },
+                          "internal": {
+                            "description": "Internal note, not shown to the visitor.",
+                            "type": "boolean"
+                          },
+                          "sender": {
+                            "description": "Who sent it.",
+                            "examples": [
+                              "visitor",
+                              "agent",
+                              "bot"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "sender",
+                          "body",
+                          "created_at"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "session": {
+                      "description": "Visitor browser session key.",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "Lifecycle state.",
+                      "enum": [
+                        "open",
+                        "pending",
+                        "closed"
+                      ],
+                      "type": "string"
+                    },
+                    "widget_id": {
+                      "description": "Widget the conversation belongs to.",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "status"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "basicAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "basicAuth": {
+            "description": "Client id as username, secret as password.",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "bearerAuth": {
+            "description": "Authorization: Bearer <client_id>:<secret>",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "POST /conversations/{id}/handoff/": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "handoffConversation",
+        "parameters": [
+          {
+            "description": "Conversation id.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "A conversation between a visitor and the workspace.",
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Conversation id.",
+                      "type": "integer"
+                    },
+                    "messages": {
+                      "description": "Visitor-facing messages, oldest first.",
+                      "items": {
+                        "description": "A single message in a conversation.",
+                        "properties": {
+                          "blocks": {
+                            "description": "Rich content blocks. At most 10 per message.",
+                            "items": {
+                              "additionalProperties": true,
+                              "description": "One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.",
+                              "properties": {
+                                "type": {
+                                  "enum": [
+                                    "image",
+                                    "video",
+                                    "embed",
+                                    "audio",
+                                    "file",
+                                    "cards",
+                                    "list",
+                                    "buttons",
+                                    "text",
+                                    "divider"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "body": {
+                            "description": "Plain-text body.",
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "description": "When the message was created.",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Message id.",
+                            "type": "integer"
+                          },
+                          "internal": {
+                            "description": "Internal note, not shown to the visitor.",
+                            "type": "boolean"
+                          },
+                          "sender": {
+                            "description": "Who sent it.",
+                            "examples": [
+                              "visitor",
+                              "agent",
+                              "bot"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "sender",
+                          "body",
+                          "created_at"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "session": {
+                      "description": "Visitor browser session key.",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "Lifecycle state.",
+                      "enum": [
+                        "open",
+                        "pending",
+                        "closed"
+                      ],
+                      "type": "string"
+                    },
+                    "widget_id": {
+                      "description": "Widget the conversation belongs to.",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "status"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "basicAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "basicAuth": {
+            "description": "Client id as username, secret as password.",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "bearerAuth": {
+            "description": "Authorization: Bearer <client_id>:<secret>",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "POST /conversations/": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "createConversation",
+        "parameters": [
+          {
+            "description": "Any UUID. Retrying a write with the same key returns 200 with the original result instead of creating a duplicate.",
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "body": {
+                    "description": "Opening message.",
+                    "type": "string"
+                  },
+                  "session": {
+                    "type": "string"
+                  },
+                  "widget_id": {
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "A conversation between a visitor and the workspace.",
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Conversation id.",
+                      "type": "integer"
+                    },
+                    "messages": {
+                      "description": "Visitor-facing messages, oldest first.",
+                      "items": {
+                        "description": "A single message in a conversation.",
+                        "properties": {
+                          "blocks": {
+                            "description": "Rich content blocks. At most 10 per message.",
+                            "items": {
+                              "additionalProperties": true,
+                              "description": "One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.",
+                              "properties": {
+                                "type": {
+                                  "enum": [
+                                    "image",
+                                    "video",
+                                    "embed",
+                                    "audio",
+                                    "file",
+                                    "cards",
+                                    "list",
+                                    "buttons",
+                                    "text",
+                                    "divider"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "body": {
+                            "description": "Plain-text body.",
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "description": "When the message was created.",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Message id.",
+                            "type": "integer"
+                          },
+                          "internal": {
+                            "description": "Internal note, not shown to the visitor.",
+                            "type": "boolean"
+                          },
+                          "sender": {
+                            "description": "Who sent it.",
+                            "examples": [
+                              "visitor",
+                              "agent",
+                              "bot"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "sender",
+                          "body",
+                          "created_at"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "session": {
+                      "description": "Visitor browser session key.",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "Lifecycle state.",
+                      "enum": [
+                        "open",
+                        "pending",
+                        "closed"
+                      ],
+                      "type": "string"
+                    },
+                    "widget_id": {
+                      "description": "Widget the conversation belongs to.",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "status"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Created."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "basicAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "basicAuth": {
+            "description": "Client id as username, secret as password.",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "bearerAuth": {
+            "description": "Authorization: Bearer <client_id>:<secret>",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /conversations/": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "listConversations",
+        "parameters": [
+          {
+            "description": "Filter by lifecycle state.",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "enum": [
+                "open",
+                "pending",
+                "closed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter to one widget.",
+            "in": "query",
+            "name": "widget_id",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Narrow to one visitor browser session.",
+            "in": "query",
+            "name": "session",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page size. Defaults to 25.",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Return records older than this id. Take it from next_before_id in the previous response.",
+            "in": "query",
+            "name": "before_id",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "conversations": {
+                      "items": {
+                        "description": "A conversation between a visitor and the workspace.",
+                        "properties": {
+                          "created_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Conversation id.",
+                            "type": "integer"
+                          },
+                          "messages": {
+                            "description": "Visitor-facing messages, oldest first.",
+                            "items": {
+                              "description": "A single message in a conversation.",
+                              "properties": {
+                                "blocks": {
+                                  "description": "Rich content blocks. At most 10 per message.",
+                                  "items": {
+                                    "additionalProperties": true,
+                                    "description": "One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.",
+                                    "properties": {
+                                      "type": {
+                                        "enum": [
+                                          "image",
+                                          "video",
+                                          "embed",
+                                          "audio",
+                                          "file",
+                                          "cards",
+                                          "list",
+                                          "buttons",
+                                          "text",
+                                          "divider"
+                                        ],
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "type"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "body": {
+                                  "description": "Plain-text body.",
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "description": "When the message was created.",
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "description": "Message id.",
+                                  "type": "integer"
+                                },
+                                "internal": {
+                                  "description": "Internal note, not shown to the visitor.",
+                                  "type": "boolean"
+                                },
+                                "sender": {
+                                  "description": "Who sent it.",
+                                  "examples": [
+                                    "visitor",
+                                    "agent",
+                                    "bot"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "sender",
+                                "body",
+                                "created_at"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "session": {
+                            "description": "Visitor browser session key.",
+                            "type": "string"
+                          },
+                          "status": {
+                            "description": "Lifecycle state.",
+                            "enum": [
+                              "open",
+                              "pending",
+                              "closed"
+                            ],
+                            "type": "string"
+                          },
+                          "widget_id": {
+                            "description": "Widget the conversation belongs to.",
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "status"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "next_before_id": {
+                      "description": "Pass as before_id to fetch the next page.",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "basicAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "basicAuth": {
+            "description": "Client id as username, secret as password.",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "bearerAuth": {
+            "description": "Authorization: Bearer <client_id>:<secret>",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /conversations/{id}/": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getConversation",
+        "parameters": [
+          {
+            "description": "Conversation id.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Return only messages newer than this id — the cheap way to poll a thread already being tracked.",
+            "in": "query",
+            "name": "since_id",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "A conversation between a visitor and the workspace.",
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Conversation id.",
+                      "type": "integer"
+                    },
+                    "messages": {
+                      "description": "Visitor-facing messages, oldest first.",
+                      "items": {
+                        "description": "A single message in a conversation.",
+                        "properties": {
+                          "blocks": {
+                            "description": "Rich content blocks. At most 10 per message.",
+                            "items": {
+                              "additionalProperties": true,
+                              "description": "One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.",
+                              "properties": {
+                                "type": {
+                                  "enum": [
+                                    "image",
+                                    "video",
+                                    "embed",
+                                    "audio",
+                                    "file",
+                                    "cards",
+                                    "list",
+                                    "buttons",
+                                    "text",
+                                    "divider"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "body": {
+                            "description": "Plain-text body.",
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "description": "When the message was created.",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Message id.",
+                            "type": "integer"
+                          },
+                          "internal": {
+                            "description": "Internal note, not shown to the visitor.",
+                            "type": "boolean"
+                          },
+                          "sender": {
+                            "description": "Who sent it.",
+                            "examples": [
+                              "visitor",
+                              "agent",
+                              "bot"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "sender",
+                          "body",
+                          "created_at"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "session": {
+                      "description": "Visitor browser session key.",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "Lifecycle state.",
+                      "enum": [
+                        "open",
+                        "pending",
+                        "closed"
+                      ],
+                      "type": "string"
+                    },
+                    "widget_id": {
+                      "description": "Widget the conversation belongs to.",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "status"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "basicAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "basicAuth": {
+            "description": "Client id as username, secret as password.",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "bearerAuth": {
+            "description": "Authorization: Bearer <client_id>:<secret>",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "PATCH /conversations/{id}/messages/": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "closeConversation",
+        "parameters": [
+          {
+            "description": "Conversation id.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "A conversation between a visitor and the workspace.",
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Conversation id.",
+                      "type": "integer"
+                    },
+                    "messages": {
+                      "description": "Visitor-facing messages, oldest first.",
+                      "items": {
+                        "description": "A single message in a conversation.",
+                        "properties": {
+                          "blocks": {
+                            "description": "Rich content blocks. At most 10 per message.",
+                            "items": {
+                              "additionalProperties": true,
+                              "description": "One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.",
+                              "properties": {
+                                "type": {
+                                  "enum": [
+                                    "image",
+                                    "video",
+                                    "embed",
+                                    "audio",
+                                    "file",
+                                    "cards",
+                                    "list",
+                                    "buttons",
+                                    "text",
+                                    "divider"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "body": {
+                            "description": "Plain-text body.",
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "description": "When the message was created.",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Message id.",
+                            "type": "integer"
+                          },
+                          "internal": {
+                            "description": "Internal note, not shown to the visitor.",
+                            "type": "boolean"
+                          },
+                          "sender": {
+                            "description": "Who sent it.",
+                            "examples": [
+                              "visitor",
+                              "agent",
+                              "bot"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "sender",
+                          "body",
+                          "created_at"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "session": {
+                      "description": "Visitor browser session key.",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "Lifecycle state.",
+                      "enum": [
+                        "open",
+                        "pending",
+                        "closed"
+                      ],
+                      "type": "string"
+                    },
+                    "widget_id": {
+                      "description": "Widget the conversation belongs to.",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "status"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "basicAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "basicAuth": {
+            "description": "Client id as username, secret as password.",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "bearerAuth": {
+            "description": "Authorization: Bearer <client_id>:<secret>",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    }
   }
 }

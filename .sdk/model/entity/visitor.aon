@@ -42,6 +42,12 @@ main: kit: entity: visitor: {
               }
             ]
           }
+          contract: {
+            id: "POST /widgets/{id}/visitors/{session}/identify/"
+            json: "{\"operationId\":\"identifyVisitor\",\"parameters\":[{\"description\":\"Widget id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Visitor browser session key.\",\"in\":\"path\",\"name\":\"session\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"email\":{\"format\":\"email\",\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"type\":\"object\"}}},\"required\":false},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":true,\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "POST"
           orig: "/widgets/{id}/visitors/{session}/identify/"
           rename: {
@@ -96,6 +102,12 @@ main: kit: entity: visitor: {
                 type: "`$INTEGER`"
               }
             ]
+          }
+          contract: {
+            id: "POST /widgets/{id}/visitors/{session}/unverify/"
+            json: "{\"operationId\":\"unverifyVisitor\",\"parameters\":[{\"description\":\"Widget id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Visitor browser session key.\",\"in\":\"path\",\"name\":\"session\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":true,\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "POST"
           orig: "/widgets/{id}/visitors/{session}/unverify/"

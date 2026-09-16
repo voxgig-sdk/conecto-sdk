@@ -40,6 +40,8 @@ const node_path_1 = __importDefault(require("node:path"));
 const Fs = __importStar(require("node:fs"));
 const node_test_1 = require("node:test");
 const node_assert_1 = __importDefault(require("node:assert"));
+const live_runner_1 = require("../../live-runner");
+const live_entity_1 = require("../../live-entity");
 const __1 = require("../../..");
 const utility_1 = require("../../utility");
 // AFTER the imports on purpose: TypeScript hoists `import` above any
@@ -59,16 +61,12 @@ const utility_1 = require("../../utility");
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.CONECTO_TEST_LIVE;
         for (const op of ['create', 'list']) {
-            if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'contact.' + op, live))
+            if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'contact.' + op, live))
                 return;
         }
         const setup = basicSetup();
-        // The basic flow consumes synthetic IDs and field values from the
-        // fixture (entity TestData.json). Those don't exist on the live API.
-        // Skip live runs unless the user provided a real ENTID env override.
-        if (setup.syntheticOnly) {
-            t.skip('live entity test uses synthetic IDs from fixture — set CONECTO_TEST_CONTACT_ENTID JSON to run live');
-            return;
+        if (setup.live) {
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": [{ "active": true, "format": "date-time", "name": "created_at", "req": false, "type": "`$STRING`", "index$": 0 }, { "active": true, "name": "custom_fields", "req": false, "short": "Workspace-defined fields.", "type": "`$OBJECT`", "index$": 1 }, { "active": true, "format": "email", "name": "email", "req": false, "type": "`$STRING`", "index$": 2 }, { "active": true, "name": "id", "req": true, "short": "Contact id.", "type": "`$INTEGER`", "index$": 3 }], "id": { "field": "id", "name": "id" }, "name": "contact", "op": { "create": { "input": "data", "name": "create", "points": [{ "active": true, "args": { "header": [{ "active": true, "kind": "header", "name": "idempotency_key", "orig": "idempotency_key", "reqd": false, "type": "`$STRING`" }] }, "contract": { "id": "POST /contacts/", "json": "{\"operationId\":\"createContact\",\"parameters\":[{\"description\":\"Any UUID. Retrying a write with the same key returns 200 with the original result instead of creating a duplicate.\",\"in\":\"header\",\"name\":\"Idempotency-Key\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"custom_fields\":{\"additionalProperties\":true,\"type\":\"object\"},\"email\":{\"format\":\"email\",\"type\":\"string\"}},\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A person known to the workspace.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"custom_fields\":{\"additionalProperties\":true,\"description\":\"Workspace-defined fields.\",\"type\":\"object\"},\"email\":{\"format\":\"email\",\"type\":\"string\"},\"id\":{\"description\":\"Contact id.\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}}},\"description\":\"Created.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "POST", "orig": "/contacts/", "segments": [{ "lit": "contacts" }], "select": { "exist": ["idempotency_key"] }, "transform": { "req": "`reqdata`", "res": "`body.custom_fields`" }, "index$": 0 }], "key$": "create" }, "list": { "input": "data", "name": "list", "points": [{ "active": true, "args": { "query": [{ "active": true, "kind": "query", "name": "before_id", "orig": "before_id", "reqd": false, "type": "`$INTEGER`", "index$": 0 }, { "active": true, "example": 25, "kind": "query", "name": "limit", "orig": "limit", "reqd": false, "type": "`$INTEGER`", "index$": 1 }] }, "contract": { "id": "GET /contacts/", "json": "{\"operationId\":\"listContacts\",\"parameters\":[{\"description\":\"Page size. Defaults to 25.\",\"in\":\"query\",\"name\":\"limit\",\"required\":false,\"schema\":{\"default\":25,\"type\":\"integer\"}},{\"description\":\"Return records older than this id. Take it from next_before_id in the previous response.\",\"in\":\"query\",\"name\":\"before_id\",\"required\":false,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"contacts\":{\"items\":{\"description\":\"A person known to the workspace.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"custom_fields\":{\"additionalProperties\":true,\"description\":\"Workspace-defined fields.\",\"type\":\"object\"},\"email\":{\"format\":\"email\",\"type\":\"string\"},\"id\":{\"description\":\"Contact id.\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"},\"type\":\"array\"},\"next_before_id\":{\"type\":\"integer\"}},\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "GET", "orig": "/contacts/", "segments": [{ "lit": "contacts" }], "select": { "exist": ["before_id", "limit"] }, "transform": { "req": "`reqdata`", "res": "`body.contacts`" }, "index$": 0 }], "key$": "list" } }, "relations": { "ancestors": [] }, "key$": "contact", "name__orig": "contact", "Name": "Contact", "name_": "contact", "name-": "contact", "NAME": "CONTACT", "index$": 1 }, { "active": true, "entity": "contact", "key$": "BasicContactFlow", "kind": "basic", "name": "BasicContactFlow", "param": {}, "step": [{ "active": true, "data": {}, "input": { "ref": "contact_ref01" }, "match": {}, "op": "create", "spec": [], "valid": [], "index$": 0 }, { "active": true, "data": {}, "input": {}, "match": {}, "op": "list", "spec": [], "valid": [{ "apply": "ItemExists", "def": { "ref": "contact_ref01" } }], "index$": 1 }] }, 'Contact');
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -105,12 +103,6 @@ function basicSetup(extra) {
                 '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']
             }]
     });
-    // Detect whether the user provided a real ENTID JSON via env var. The
-    // basic flow consumes synthetic IDs from the fixture file; without an
-    // override those synthetic IDs reach the live API and 4xx. Surface this
-    // to the test so it can skip rather than fail.
-    const idmapEnvVal = process.env['CONECTO_TEST_CONTACT_ENTID'];
-    const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{');
     const env = (0, utility_1.envOverride)({
         'CONECTO_TEST_CONTACT_ENTID': idmap,
         'CONECTO_TEST_LIVE': 'FALSE',
@@ -119,7 +111,13 @@ function basicSetup(extra) {
     });
     idmap = env['CONECTO_TEST_CONTACT_ENTID'];
     const live = 'TRUE' === env.CONECTO_TEST_LIVE;
+    const transport = (0, live_runner_1.createLiveTransport)();
     if (live) {
+        const rawIds = process.env['CONECTO_TEST_CONTACT_ENTID'];
+        idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {};
+        if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+            throw new Error('Live ENTID must be a JSON object');
+        }
         client = new __1.ConectoSDK(merge([
             // FIRST, so the generated fields below win: sdk-test-control.json's
             // test.client.options adds to the live client, it does not redirect it.
@@ -132,7 +130,8 @@ function basicSetup(extra) {
             // argument at all - so a bare 'extra' silently discarded the apikey
             // and server values above and handed the SDK undefined. Harmless
             // while there was nothing in that object; not harmless now.
-            extra || {}
+            extra || {},
+            { system: { fetch: transport.fetch } }
         ]));
     }
     const setup = {
@@ -144,7 +143,7 @@ function basicSetup(extra) {
         data: entityData,
         explain: 'TRUE' === env.CONECTO_TEST_EXPLAIN,
         live,
-        syntheticOnly: live && !idmapOverridden,
+        transport,
         now: Date.now(),
     };
     return setup;

@@ -33,7 +33,93 @@
         "repr": "auto"
       },
       "contributor": {},
-      "docs": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "github-pages": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "github-pages",
+            "name": "github-pages",
+            "origname": "",
+            "output": {
+              "path": "docs"
+            },
+            "package": "@voxgig/docgen",
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          },
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "action": {
           "active": true,
@@ -122,6 +208,12 @@
                         "type": "`$STRING`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "POST /integrations/{slug}/actions/{action}/run/",
+                    "json": "{\"operationId\":\"runIntegrationAction\",\"parameters\":[{\"description\":\"Integration slug.\",\"in\":\"path\",\"name\":\"slug\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"Action name.\",\"in\":\"path\",\"name\":\"action\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"arguments\":{\"additionalProperties\":true,\"type\":\"object\"},\"conversation_id\":{\"type\":\"integer\"}},\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"Result of running an integration action.\",\"properties\":{\"blocks\":{\"items\":{\"additionalProperties\":true,\"description\":\"One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.\",\"properties\":{\"type\":{\"enum\":[\"image\",\"video\",\"embed\",\"audio\",\"file\",\"cards\",\"list\",\"buttons\",\"text\",\"divider\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"error\":{\"type\":\"string\"},\"not_found\":{\"description\":\"A normal no-match, not an error.\",\"type\":\"boolean\"},\"ok\":{\"type\":\"boolean\"},\"result\":{\"additionalProperties\":true,\"type\":\"object\"}},\"required\":[\"ok\"],\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "POST",
@@ -230,6 +322,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "POST /contacts/",
+                    "json": "{\"operationId\":\"createContact\",\"parameters\":[{\"description\":\"Any UUID. Retrying a write with the same key returns 200 with the original result instead of creating a duplicate.\",\"in\":\"header\",\"name\":\"Idempotency-Key\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"custom_fields\":{\"additionalProperties\":true,\"type\":\"object\"},\"email\":{\"format\":\"email\",\"type\":\"string\"}},\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A person known to the workspace.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"custom_fields\":{\"additionalProperties\":true,\"description\":\"Workspace-defined fields.\",\"type\":\"object\"},\"email\":{\"format\":\"email\",\"type\":\"string\"},\"id\":{\"description\":\"Contact id.\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}}},\"description\":\"Created.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/contacts/",
@@ -276,6 +374,12 @@
                         "type": "`$INTEGER`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "GET /contacts/",
+                    "json": "{\"operationId\":\"listContacts\",\"parameters\":[{\"description\":\"Page size. Defaults to 25.\",\"in\":\"query\",\"name\":\"limit\",\"required\":false,\"schema\":{\"default\":25,\"type\":\"integer\"}},{\"description\":\"Return records older than this id. Take it from next_before_id in the previous response.\",\"in\":\"query\",\"name\":\"before_id\",\"required\":false,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"contacts\":{\"items\":{\"description\":\"A person known to the workspace.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"custom_fields\":{\"additionalProperties\":true,\"description\":\"Workspace-defined fields.\",\"type\":\"object\"},\"email\":{\"format\":\"email\",\"type\":\"string\"},\"id\":{\"description\":\"Contact id.\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"},\"type\":\"array\"},\"next_before_id\":{\"type\":\"integer\"}},\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "GET",
@@ -389,6 +493,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "POST /conversations/{id}/assign/",
+                    "json": "{\"operationId\":\"assignConversation\",\"parameters\":[{\"description\":\"Conversation id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"user_id\":{\"type\":\"integer\"}},\"required\":[\"user_id\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A conversation between a visitor and the workspace.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Conversation id.\",\"type\":\"integer\"},\"messages\":{\"description\":\"Visitor-facing messages, oldest first.\",\"items\":{\"description\":\"A single message in a conversation.\",\"properties\":{\"blocks\":{\"description\":\"Rich content blocks. At most 10 per message.\",\"items\":{\"additionalProperties\":true,\"description\":\"One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.\",\"properties\":{\"type\":{\"enum\":[\"image\",\"video\",\"embed\",\"audio\",\"file\",\"cards\",\"list\",\"buttons\",\"text\",\"divider\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"body\":{\"description\":\"Plain-text body.\",\"type\":\"string\"},\"created_at\":{\"description\":\"When the message was created.\",\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Message id.\",\"type\":\"integer\"},\"internal\":{\"description\":\"Internal note, not shown to the visitor.\",\"type\":\"boolean\"},\"sender\":{\"description\":\"Who sent it.\",\"examples\":[\"visitor\",\"agent\",\"bot\"],\"type\":\"string\"}},\"required\":[\"id\",\"sender\",\"body\",\"created_at\"],\"type\":\"object\"},\"type\":\"array\"},\"session\":{\"description\":\"Visitor browser session key.\",\"type\":\"string\"},\"status\":{\"description\":\"Lifecycle state.\",\"enum\":[\"open\",\"pending\",\"closed\"],\"type\":\"string\"},\"widget_id\":{\"description\":\"Widget the conversation belongs to.\",\"type\":\"integer\"}},\"required\":[\"id\",\"status\"],\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/conversations/{id}/assign/",
@@ -428,6 +538,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "POST /conversations/{id}/handoff/",
+                    "json": "{\"operationId\":\"handoffConversation\",\"parameters\":[{\"description\":\"Conversation id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A conversation between a visitor and the workspace.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Conversation id.\",\"type\":\"integer\"},\"messages\":{\"description\":\"Visitor-facing messages, oldest first.\",\"items\":{\"description\":\"A single message in a conversation.\",\"properties\":{\"blocks\":{\"description\":\"Rich content blocks. At most 10 per message.\",\"items\":{\"additionalProperties\":true,\"description\":\"One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.\",\"properties\":{\"type\":{\"enum\":[\"image\",\"video\",\"embed\",\"audio\",\"file\",\"cards\",\"list\",\"buttons\",\"text\",\"divider\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"body\":{\"description\":\"Plain-text body.\",\"type\":\"string\"},\"created_at\":{\"description\":\"When the message was created.\",\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Message id.\",\"type\":\"integer\"},\"internal\":{\"description\":\"Internal note, not shown to the visitor.\",\"type\":\"boolean\"},\"sender\":{\"description\":\"Who sent it.\",\"examples\":[\"visitor\",\"agent\",\"bot\"],\"type\":\"string\"}},\"required\":[\"id\",\"sender\",\"body\",\"created_at\"],\"type\":\"object\"},\"type\":\"array\"},\"session\":{\"description\":\"Visitor browser session key.\",\"type\":\"string\"},\"status\":{\"description\":\"Lifecycle state.\",\"enum\":[\"open\",\"pending\",\"closed\"],\"type\":\"string\"},\"widget_id\":{\"description\":\"Widget the conversation belongs to.\",\"type\":\"integer\"}},\"required\":[\"id\",\"status\"],\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/conversations/{id}/handoff/",
@@ -466,6 +582,12 @@
                         "type": "`$STRING`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "POST /conversations/",
+                    "json": "{\"operationId\":\"createConversation\",\"parameters\":[{\"description\":\"Any UUID. Retrying a write with the same key returns 200 with the original result instead of creating a duplicate.\",\"in\":\"header\",\"name\":\"Idempotency-Key\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"body\":{\"description\":\"Opening message.\",\"type\":\"string\"},\"session\":{\"type\":\"string\"},\"widget_id\":{\"type\":\"integer\"}},\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A conversation between a visitor and the workspace.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Conversation id.\",\"type\":\"integer\"},\"messages\":{\"description\":\"Visitor-facing messages, oldest first.\",\"items\":{\"description\":\"A single message in a conversation.\",\"properties\":{\"blocks\":{\"description\":\"Rich content blocks. At most 10 per message.\",\"items\":{\"additionalProperties\":true,\"description\":\"One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.\",\"properties\":{\"type\":{\"enum\":[\"image\",\"video\",\"embed\",\"audio\",\"file\",\"cards\",\"list\",\"buttons\",\"text\",\"divider\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"body\":{\"description\":\"Plain-text body.\",\"type\":\"string\"},\"created_at\":{\"description\":\"When the message was created.\",\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Message id.\",\"type\":\"integer\"},\"internal\":{\"description\":\"Internal note, not shown to the visitor.\",\"type\":\"boolean\"},\"sender\":{\"description\":\"Who sent it.\",\"examples\":[\"visitor\",\"agent\",\"bot\"],\"type\":\"string\"}},\"required\":[\"id\",\"sender\",\"body\",\"created_at\"],\"type\":\"object\"},\"type\":\"array\"},\"session\":{\"description\":\"Visitor browser session key.\",\"type\":\"string\"},\"status\":{\"description\":\"Lifecycle state.\",\"enum\":[\"open\",\"pending\",\"closed\"],\"type\":\"string\"},\"widget_id\":{\"description\":\"Widget the conversation belongs to.\",\"type\":\"integer\"}},\"required\":[\"id\",\"status\"],\"type\":\"object\"}}},\"description\":\"Created.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "POST",
@@ -538,6 +660,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "GET /conversations/",
+                    "json": "{\"operationId\":\"listConversations\",\"parameters\":[{\"description\":\"Filter by lifecycle state.\",\"in\":\"query\",\"name\":\"status\",\"required\":false,\"schema\":{\"enum\":[\"open\",\"pending\",\"closed\"],\"type\":\"string\"}},{\"description\":\"Filter to one widget.\",\"in\":\"query\",\"name\":\"widget_id\",\"required\":false,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Narrow to one visitor browser session.\",\"in\":\"query\",\"name\":\"session\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Page size. Defaults to 25.\",\"in\":\"query\",\"name\":\"limit\",\"required\":false,\"schema\":{\"default\":25,\"type\":\"integer\"}},{\"description\":\"Return records older than this id. Take it from next_before_id in the previous response.\",\"in\":\"query\",\"name\":\"before_id\",\"required\":false,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"conversations\":{\"items\":{\"description\":\"A conversation between a visitor and the workspace.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Conversation id.\",\"type\":\"integer\"},\"messages\":{\"description\":\"Visitor-facing messages, oldest first.\",\"items\":{\"description\":\"A single message in a conversation.\",\"properties\":{\"blocks\":{\"description\":\"Rich content blocks. At most 10 per message.\",\"items\":{\"additionalProperties\":true,\"description\":\"One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.\",\"properties\":{\"type\":{\"enum\":[\"image\",\"video\",\"embed\",\"audio\",\"file\",\"cards\",\"list\",\"buttons\",\"text\",\"divider\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"body\":{\"description\":\"Plain-text body.\",\"type\":\"string\"},\"created_at\":{\"description\":\"When the message was created.\",\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Message id.\",\"type\":\"integer\"},\"internal\":{\"description\":\"Internal note, not shown to the visitor.\",\"type\":\"boolean\"},\"sender\":{\"description\":\"Who sent it.\",\"examples\":[\"visitor\",\"agent\",\"bot\"],\"type\":\"string\"}},\"required\":[\"id\",\"sender\",\"body\",\"created_at\"],\"type\":\"object\"},\"type\":\"array\"},\"session\":{\"description\":\"Visitor browser session key.\",\"type\":\"string\"},\"status\":{\"description\":\"Lifecycle state.\",\"enum\":[\"open\",\"pending\",\"closed\"],\"type\":\"string\"},\"widget_id\":{\"description\":\"Widget the conversation belongs to.\",\"type\":\"integer\"}},\"required\":[\"id\",\"status\"],\"type\":\"object\"},\"type\":\"array\"},\"next_before_id\":{\"description\":\"Pass as before_id to fetch the next page.\",\"type\":\"integer\"}},\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/conversations/",
@@ -590,6 +718,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "GET /conversations/{id}/",
+                    "json": "{\"operationId\":\"getConversation\",\"parameters\":[{\"description\":\"Conversation id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Return only messages newer than this id — the cheap way to poll a thread already being tracked.\",\"in\":\"query\",\"name\":\"since_id\",\"required\":false,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A conversation between a visitor and the workspace.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Conversation id.\",\"type\":\"integer\"},\"messages\":{\"description\":\"Visitor-facing messages, oldest first.\",\"items\":{\"description\":\"A single message in a conversation.\",\"properties\":{\"blocks\":{\"description\":\"Rich content blocks. At most 10 per message.\",\"items\":{\"additionalProperties\":true,\"description\":\"One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.\",\"properties\":{\"type\":{\"enum\":[\"image\",\"video\",\"embed\",\"audio\",\"file\",\"cards\",\"list\",\"buttons\",\"text\",\"divider\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"body\":{\"description\":\"Plain-text body.\",\"type\":\"string\"},\"created_at\":{\"description\":\"When the message was created.\",\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Message id.\",\"type\":\"integer\"},\"internal\":{\"description\":\"Internal note, not shown to the visitor.\",\"type\":\"boolean\"},\"sender\":{\"description\":\"Who sent it.\",\"examples\":[\"visitor\",\"agent\",\"bot\"],\"type\":\"string\"}},\"required\":[\"id\",\"sender\",\"body\",\"created_at\"],\"type\":\"object\"},\"type\":\"array\"},\"session\":{\"description\":\"Visitor browser session key.\",\"type\":\"string\"},\"status\":{\"description\":\"Lifecycle state.\",\"enum\":[\"open\",\"pending\",\"closed\"],\"type\":\"string\"},\"widget_id\":{\"description\":\"Widget the conversation belongs to.\",\"type\":\"integer\"}},\"required\":[\"id\",\"status\"],\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/conversations/{id}/",
@@ -631,6 +765,12 @@
                         "type": "`$INTEGER`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "PATCH /conversations/{id}/messages/",
+                    "json": "{\"operationId\":\"closeConversation\",\"parameters\":[{\"description\":\"Conversation id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A conversation between a visitor and the workspace.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Conversation id.\",\"type\":\"integer\"},\"messages\":{\"description\":\"Visitor-facing messages, oldest first.\",\"items\":{\"description\":\"A single message in a conversation.\",\"properties\":{\"blocks\":{\"description\":\"Rich content blocks. At most 10 per message.\",\"items\":{\"additionalProperties\":true,\"description\":\"One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.\",\"properties\":{\"type\":{\"enum\":[\"image\",\"video\",\"embed\",\"audio\",\"file\",\"cards\",\"list\",\"buttons\",\"text\",\"divider\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"body\":{\"description\":\"Plain-text body.\",\"type\":\"string\"},\"created_at\":{\"description\":\"When the message was created.\",\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Message id.\",\"type\":\"integer\"},\"internal\":{\"description\":\"Internal note, not shown to the visitor.\",\"type\":\"boolean\"},\"sender\":{\"description\":\"Who sent it.\",\"examples\":[\"visitor\",\"agent\",\"bot\"],\"type\":\"string\"}},\"required\":[\"id\",\"sender\",\"body\",\"created_at\"],\"type\":\"object\"},\"type\":\"array\"},\"session\":{\"description\":\"Visitor browser session key.\",\"type\":\"string\"},\"status\":{\"description\":\"Lifecycle state.\",\"enum\":[\"open\",\"pending\",\"closed\"],\"type\":\"string\"},\"widget_id\":{\"description\":\"Widget the conversation belongs to.\",\"type\":\"integer\"}},\"required\":[\"id\",\"status\"],\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "PATCH",
@@ -693,6 +833,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "GET /me/",
+                    "json": "{\"operationId\":\"getMe\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"The scope the calling credential has.\",\"properties\":{\"widget_id\":{\"description\":\"Set when the credential is widget-scoped rather than workspace-wide.\",\"type\":\"integer\"},\"workspace_id\":{\"type\":\"integer\"}},\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/me/",
@@ -806,6 +952,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "POST /integrations/{slug}/install/",
+                    "json": "{\"operationId\":\"installIntegration\",\"parameters\":[{\"description\":\"Integration slug.\",\"in\":\"path\",\"name\":\"slug\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"actions\":{\"description\":\"Allowlist of action names.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"widget_ids\":{\"items\":{\"type\":\"integer\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A custom integration the AI agent can call.\",\"properties\":{\"actions\":{\"description\":\"Actions this integration exposes.\",\"items\":{\"description\":\"One callable action on an integration.\",\"properties\":{\"name\":{\"description\":\"Action name, e.g. orders.get_status.\",\"type\":\"string\"},\"path\":{\"description\":\"Path appended to base_url.\",\"type\":\"string\"},\"risk\":{\"description\":\"Identity requirement. public_read needs no identity; verified_read requires a verified visitor email; write is a mutation on a verified account and is never silently retried.\",\"enum\":[\"public_read\",\"verified_read\",\"public_write\",\"write\"],\"type\":\"string\"}},\"required\":[\"name\"],\"type\":\"object\"},\"type\":\"array\"},\"auth_type\":{\"description\":\"How Conecto authenticates to base_url.\",\"type\":\"string\"},\"base_url\":{\"description\":\"Root URL Conecto POSTs actions to.\",\"format\":\"uri\",\"type\":\"string\"},\"name\":{\"description\":\"Human-readable name.\",\"type\":\"string\"},\"signing_secret\":{\"description\":\"Secret used to sign action calls. Returned on create and on read, and replaced by rotate_signing_secret.\",\"type\":\"string\"},\"slug\":{\"description\":\"Stable identifier, used in the path.\",\"type\":\"string\"}},\"required\":[\"slug\",\"name\",\"base_url\"],\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/integrations/{slug}/install/",
@@ -845,6 +997,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "POST /integrations/{slug}/rotate_signing_secret/",
+                    "json": "{\"operationId\":\"rotateIntegrationSigningSecret\",\"parameters\":[{\"description\":\"Integration slug.\",\"in\":\"path\",\"name\":\"slug\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A custom integration the AI agent can call.\",\"properties\":{\"actions\":{\"description\":\"Actions this integration exposes.\",\"items\":{\"description\":\"One callable action on an integration.\",\"properties\":{\"name\":{\"description\":\"Action name, e.g. orders.get_status.\",\"type\":\"string\"},\"path\":{\"description\":\"Path appended to base_url.\",\"type\":\"string\"},\"risk\":{\"description\":\"Identity requirement. public_read needs no identity; verified_read requires a verified visitor email; write is a mutation on a verified account and is never silently retried.\",\"enum\":[\"public_read\",\"verified_read\",\"public_write\",\"write\"],\"type\":\"string\"}},\"required\":[\"name\"],\"type\":\"object\"},\"type\":\"array\"},\"auth_type\":{\"description\":\"How Conecto authenticates to base_url.\",\"type\":\"string\"},\"base_url\":{\"description\":\"Root URL Conecto POSTs actions to.\",\"format\":\"uri\",\"type\":\"string\"},\"name\":{\"description\":\"Human-readable name.\",\"type\":\"string\"},\"signing_secret\":{\"description\":\"Secret used to sign action calls. Returned on create and on read, and replaced by rotate_signing_secret.\",\"type\":\"string\"},\"slug\":{\"description\":\"Stable identifier, used in the path.\",\"type\":\"string\"}},\"required\":[\"slug\",\"name\",\"base_url\"],\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/integrations/{slug}/rotate_signing_secret/",
@@ -873,6 +1031,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "POST /integrations/",
+                    "json": "{\"operationId\":\"createIntegration\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"actions\":{\"items\":{\"description\":\"One callable action on an integration.\",\"properties\":{\"name\":{\"description\":\"Action name, e.g. orders.get_status.\",\"type\":\"string\"},\"path\":{\"description\":\"Path appended to base_url.\",\"type\":\"string\"},\"risk\":{\"description\":\"Identity requirement. public_read needs no identity; verified_read requires a verified visitor email; write is a mutation on a verified account and is never silently retried.\",\"enum\":[\"public_read\",\"verified_read\",\"public_write\",\"write\"],\"type\":\"string\"}},\"required\":[\"name\"],\"type\":\"object\"},\"type\":\"array\"},\"auth_type\":{\"type\":\"string\"},\"base_url\":{\"format\":\"uri\",\"type\":\"string\"},\"credential\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"slug\":{\"type\":\"string\"}},\"required\":[\"slug\",\"name\",\"base_url\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A custom integration the AI agent can call.\",\"properties\":{\"actions\":{\"description\":\"Actions this integration exposes.\",\"items\":{\"description\":\"One callable action on an integration.\",\"properties\":{\"name\":{\"description\":\"Action name, e.g. orders.get_status.\",\"type\":\"string\"},\"path\":{\"description\":\"Path appended to base_url.\",\"type\":\"string\"},\"risk\":{\"description\":\"Identity requirement. public_read needs no identity; verified_read requires a verified visitor email; write is a mutation on a verified account and is never silently retried.\",\"enum\":[\"public_read\",\"verified_read\",\"public_write\",\"write\"],\"type\":\"string\"}},\"required\":[\"name\"],\"type\":\"object\"},\"type\":\"array\"},\"auth_type\":{\"description\":\"How Conecto authenticates to base_url.\",\"type\":\"string\"},\"base_url\":{\"description\":\"Root URL Conecto POSTs actions to.\",\"format\":\"uri\",\"type\":\"string\"},\"name\":{\"description\":\"Human-readable name.\",\"type\":\"string\"},\"signing_secret\":{\"description\":\"Secret used to sign action calls. Returned on create and on read, and replaced by rotate_signing_secret.\",\"type\":\"string\"},\"slug\":{\"description\":\"Stable identifier, used in the path.\",\"type\":\"string\"}},\"required\":[\"slug\",\"name\",\"base_url\"],\"type\":\"object\"}}},\"description\":\"Created. The response carries signing_secret.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/integrations/",
@@ -896,6 +1060,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "GET /integrations/",
+                    "json": "{\"operationId\":\"listIntegrations\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"integrations\":{\"items\":{\"description\":\"A custom integration the AI agent can call.\",\"properties\":{\"actions\":{\"description\":\"Actions this integration exposes.\",\"items\":{\"description\":\"One callable action on an integration.\",\"properties\":{\"name\":{\"description\":\"Action name, e.g. orders.get_status.\",\"type\":\"string\"},\"path\":{\"description\":\"Path appended to base_url.\",\"type\":\"string\"},\"risk\":{\"description\":\"Identity requirement. public_read needs no identity; verified_read requires a verified visitor email; write is a mutation on a verified account and is never silently retried.\",\"enum\":[\"public_read\",\"verified_read\",\"public_write\",\"write\"],\"type\":\"string\"}},\"required\":[\"name\"],\"type\":\"object\"},\"type\":\"array\"},\"auth_type\":{\"description\":\"How Conecto authenticates to base_url.\",\"type\":\"string\"},\"base_url\":{\"description\":\"Root URL Conecto POSTs actions to.\",\"format\":\"uri\",\"type\":\"string\"},\"name\":{\"description\":\"Human-readable name.\",\"type\":\"string\"},\"signing_secret\":{\"description\":\"Secret used to sign action calls. Returned on create and on read, and replaced by rotate_signing_secret.\",\"type\":\"string\"},\"slug\":{\"description\":\"Stable identifier, used in the path.\",\"type\":\"string\"}},\"required\":[\"slug\",\"name\",\"base_url\"],\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/integrations/",
@@ -929,6 +1099,12 @@
                         "type": "`$STRING`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "GET /integrations/{slug}/",
+                    "json": "{\"operationId\":\"getIntegration\",\"parameters\":[{\"description\":\"Integration slug.\",\"in\":\"path\",\"name\":\"slug\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A custom integration the AI agent can call.\",\"properties\":{\"actions\":{\"description\":\"Actions this integration exposes.\",\"items\":{\"description\":\"One callable action on an integration.\",\"properties\":{\"name\":{\"description\":\"Action name, e.g. orders.get_status.\",\"type\":\"string\"},\"path\":{\"description\":\"Path appended to base_url.\",\"type\":\"string\"},\"risk\":{\"description\":\"Identity requirement. public_read needs no identity; verified_read requires a verified visitor email; write is a mutation on a verified account and is never silently retried.\",\"enum\":[\"public_read\",\"verified_read\",\"public_write\",\"write\"],\"type\":\"string\"}},\"required\":[\"name\"],\"type\":\"object\"},\"type\":\"array\"},\"auth_type\":{\"description\":\"How Conecto authenticates to base_url.\",\"type\":\"string\"},\"base_url\":{\"description\":\"Root URL Conecto POSTs actions to.\",\"format\":\"uri\",\"type\":\"string\"},\"name\":{\"description\":\"Human-readable name.\",\"type\":\"string\"},\"signing_secret\":{\"description\":\"Secret used to sign action calls. Returned on create and on read, and replaced by rotate_signing_secret.\",\"type\":\"string\"},\"slug\":{\"description\":\"Stable identifier, used in the path.\",\"type\":\"string\"}},\"required\":[\"slug\",\"name\",\"base_url\"],\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "GET",
@@ -982,6 +1158,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "POST /media/",
+                    "json": "{\"operationId\":\"createMedia\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"multipart/form-data\":{\"schema\":{\"properties\":{\"file\":{\"format\":\"binary\",\"type\":\"string\"}},\"required\":[\"file\"],\"type\":\"object\"}}},\"description\":\"Multipart upload, at most 10 MB.\",\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"An uploaded file, addressable by URL from a block.\",\"properties\":{\"filename\":{\"type\":\"string\"},\"size\":{\"description\":\"Bytes. Maximum 10 MB on upload.\",\"type\":\"integer\"},\"url\":{\"description\":\"HTTPS URL of the stored file.\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"url\"],\"type\":\"object\"}}},\"description\":\"Created.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/media/",
@@ -1094,6 +1276,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "POST /widgets/{id}/visitors/{session}/message/",
+                    "json": "{\"operationId\":\"messageVisitor\",\"parameters\":[{\"description\":\"Widget id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Visitor browser session key.\",\"in\":\"path\",\"name\":\"session\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"Any UUID. Retrying a write with the same key returns 200 with the original result instead of creating a duplicate.\",\"in\":\"header\",\"name\":\"Idempotency-Key\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"body\":{\"type\":\"string\"},\"buttons\":{\"items\":{\"additionalProperties\":true,\"type\":\"object\"},\"type\":\"array\"},\"products\":{\"items\":{\"additionalProperties\":true,\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A single message in a conversation.\",\"properties\":{\"blocks\":{\"description\":\"Rich content blocks. At most 10 per message.\",\"items\":{\"additionalProperties\":true,\"description\":\"One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.\",\"properties\":{\"type\":{\"enum\":[\"image\",\"video\",\"embed\",\"audio\",\"file\",\"cards\",\"list\",\"buttons\",\"text\",\"divider\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"body\":{\"description\":\"Plain-text body.\",\"type\":\"string\"},\"created_at\":{\"description\":\"When the message was created.\",\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Message id.\",\"type\":\"integer\"},\"internal\":{\"description\":\"Internal note, not shown to the visitor.\",\"type\":\"boolean\"},\"sender\":{\"description\":\"Who sent it.\",\"examples\":[\"visitor\",\"agent\",\"bot\"],\"type\":\"string\"}},\"required\":[\"id\",\"sender\",\"body\",\"created_at\"],\"type\":\"object\"}}},\"description\":\"Created.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/widgets/{id}/visitors/{session}/message/",
@@ -1155,6 +1343,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "POST /conversations/{id}/messages/",
+                    "json": "{\"operationId\":\"createMessage\",\"parameters\":[{\"description\":\"Conversation id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Any UUID. Retrying a write with the same key returns 200 with the original result instead of creating a duplicate.\",\"in\":\"header\",\"name\":\"Idempotency-Key\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"ask_email\":{\"description\":\"Prompt the visitor for an email address.\",\"type\":\"boolean\"},\"blocks\":{\"description\":\"At most 10.\",\"items\":{\"additionalProperties\":true,\"description\":\"One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.\",\"properties\":{\"type\":{\"enum\":[\"image\",\"video\",\"embed\",\"audio\",\"file\",\"cards\",\"list\",\"buttons\",\"text\",\"divider\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"body\":{\"type\":\"string\"},\"buttons\":{\"items\":{\"additionalProperties\":true,\"type\":\"object\"},\"type\":\"array\"},\"internal\":{\"description\":\"Internal note, not shown to the visitor.\",\"type\":\"boolean\"},\"products\":{\"items\":{\"additionalProperties\":true,\"type\":\"object\"},\"type\":\"array\"},\"ticket_form\":{\"description\":\"Show the ticket form.\",\"type\":\"boolean\"}},\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"A single message in a conversation.\",\"properties\":{\"blocks\":{\"description\":\"Rich content blocks. At most 10 per message.\",\"items\":{\"additionalProperties\":true,\"description\":\"One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.\",\"properties\":{\"type\":{\"enum\":[\"image\",\"video\",\"embed\",\"audio\",\"file\",\"cards\",\"list\",\"buttons\",\"text\",\"divider\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"body\":{\"description\":\"Plain-text body.\",\"type\":\"string\"},\"created_at\":{\"description\":\"When the message was created.\",\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Message id.\",\"type\":\"integer\"},\"internal\":{\"description\":\"Internal note, not shown to the visitor.\",\"type\":\"boolean\"},\"sender\":{\"description\":\"Who sent it.\",\"examples\":[\"visitor\",\"agent\",\"bot\"],\"type\":\"string\"}},\"required\":[\"id\",\"sender\",\"body\",\"created_at\"],\"type\":\"object\"}}},\"description\":\"Created.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/conversations/{id}/messages/",
@@ -1215,6 +1409,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "GET /schema/",
+                    "json": "{\"operationId\":\"getSchema\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":true,\"description\":\"The complete API surface as data: endpoints, events, block types, actions, limits and error codes.\",\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/schema/",
@@ -1284,6 +1484,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "POST /widgets/{id}/visitors/{session}/identify/",
+                    "json": "{\"operationId\":\"identifyVisitor\",\"parameters\":[{\"description\":\"Widget id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Visitor browser session key.\",\"in\":\"path\",\"name\":\"session\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"email\":{\"format\":\"email\",\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"type\":\"object\"}}},\"required\":false},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":true,\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/widgets/{id}/visitors/{session}/identify/",
@@ -1342,6 +1548,12 @@
                         "type": "`$INTEGER`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "POST /widgets/{id}/visitors/{session}/unverify/",
+                    "json": "{\"operationId\":\"unverifyVisitor\",\"parameters\":[{\"description\":\"Widget id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Visitor browser session key.\",\"in\":\"path\",\"name\":\"session\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":true,\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "POST",
@@ -1441,6 +1653,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "POST /webhooks/",
+                    "json": "{\"operationId\":\"createWebhook\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"events\":{\"description\":\"e.g. message.created, conversation.created.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"url\":{\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"url\",\"events\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"An HTTP endpoint subscribed to workspace events.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"events\":{\"description\":\"Event names subscribed to.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"id\":{\"description\":\"Webhook id.\",\"type\":\"integer\"},\"url\":{\"description\":\"HTTPS endpoint that receives the event POST.\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"id\",\"url\",\"events\"],\"type\":\"object\"}}},\"description\":\"Created.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/webhooks/",
@@ -1464,6 +1682,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "GET /webhooks/",
+                    "json": "{\"operationId\":\"listWebhooks\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"webhooks\":{\"items\":{\"description\":\"An HTTP endpoint subscribed to workspace events.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"events\":{\"description\":\"Event names subscribed to.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"id\":{\"description\":\"Webhook id.\",\"type\":\"integer\"},\"url\":{\"description\":\"HTTPS endpoint that receives the event POST.\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"id\",\"url\",\"events\"],\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/webhooks/",
@@ -1497,6 +1721,12 @@
                         "type": "`$INTEGER`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "GET /webhooks/{id}/",
+                    "json": "{\"operationId\":\"getWebhook\",\"parameters\":[{\"description\":\"Webhook id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"An HTTP endpoint subscribed to workspace events.\",\"properties\":{\"created_at\":{\"format\":\"date-time\",\"type\":\"string\"},\"events\":{\"description\":\"Event names subscribed to.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"id\":{\"description\":\"Webhook id.\",\"type\":\"integer\"},\"url\":{\"description\":\"HTTPS endpoint that receives the event POST.\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"id\",\"url\",\"events\"],\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "GET",
@@ -1539,6 +1769,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "DELETE /webhooks/{id}/",
+                    "json": "{\"operationId\":\"deleteWebhook\",\"parameters\":[{\"description\":\"Webhook id.\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"204\":{\"description\":\"Deleted.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/webhooks/{id}/",
@@ -1569,13 +1805,667 @@
         }
       },
       "feature": {
+        "debug": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "max": 100,
+              "redact": [
+                "authorization",
+                "cookie",
+                "set-cookie",
+                "api-key",
+                "apikey",
+                "x-api-key",
+                "idempotency-key"
+              ]
+            },
+            "optspec": {
+              "now": "`$FUNCTION`",
+              "onEntry": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreDone": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "PreUnexpected": {
+              "active": true,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "debug",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Request/response capture ring buffer for debugging",
+          "transport": "none",
+          "version": "0.0.1"
+        },
+        "idempotency": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "header": "Idempotency-Key",
+              "methods": [
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ],
+              "ops": [
+                "create",
+                "update",
+                "remove"
+              ]
+            },
+            "optspec": {
+              "keygen": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "idempotency",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Idempotency keys for safe retries of mutating operations",
+          "transport": "none",
+          "version": "0.0.1"
+        },
+        "metrics": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false
+            },
+            "optspec": {
+              "now": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreDone": {
+              "active": true,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "PreUnexpected": {
+              "active": true,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "metrics",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Statistics capture: per-operation counters and latency",
+          "transport": "none",
+          "version": "0.0.1"
+        },
+        "paging": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "afterVar": "after",
+              "cursorParam": "cursor",
+              "firstVar": "first",
+              "limitParam": "limit",
+              "pageParam": "page",
+              "startPage": 1
+            },
+            "optspec": {
+              "limit": "`$NUMBER`",
+              "ops": "`$LIST`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "paging",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Pagination signals for list operations",
+          "transport": "none",
+          "version": "0.0.1"
+        },
+        "ratelimit": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "burst": 5,
+              "rate": 5
+            },
+            "optspec": {
+              "now": "`$FUNCTION`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "ratelimit",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Client-side rate limiting via a token bucket",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
+        "retry": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "factor": 2,
+              "maxDelay": 2000,
+              "minDelay": 50,
+              "retries": 2,
+              "statuses": [
+                408,
+                425,
+                429,
+                500,
+                502,
+                503,
+                504
+              ]
+            },
+            "optspec": {
+              "jitter": "`$BOOLEAN`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "retry",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Automatic retry of transient failures with exponential backoff",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
         "test": {
           "active": true,
           "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "config": {
             "options": {
               "active": false
-            }
+            },
+            "optspec": {
+              "entity": "`$MAP`",
+              "net": "`$MAP`"
+            },
+            "strict": false
           },
           "hook": {
             "GetData": {
@@ -1668,6 +2558,105 @@
           },
           "title": "In-memory mock transport for testing without a live server",
           "transport": "base",
+          "version": "0.0.1"
+        },
+        "timeout": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "ms": 30000
+            },
+            "optspec": {
+              "clearTimer": "`$FUNCTION`",
+              "setTimer": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "timeout",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Per-request timeout with transport abort",
+          "transport": "wrap",
           "version": "0.0.1"
         }
       },
@@ -2116,6 +3105,48 @@
         "website": "https://conecto.chat/developers"
       },
       "option": {},
+      "optspec": {
+        "allow": {
+          "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
+          "op": "create,update,load,list,remove,command,direct,graphql"
+        },
+        "apikey": "",
+        "auth": {
+          "basic": false,
+          "prefix": ""
+        },
+        "base": "http://localhost:8000",
+        "clean": {
+          "keys": "key,token,id"
+        },
+        "entity": {
+          "`$CHILD`": {
+            "`$OPEN`": true,
+            "active": false,
+            "alias": {}
+          }
+        },
+        "extend": "`$ANY`",
+        "headers": {
+          "`$CHILD`": "`$STRING`"
+        },
+        "prefix": "",
+        "secret": "",
+        "server": {
+          "`$CHILD`": ""
+        },
+        "suffix": "",
+        "system": {
+          "fetch": "`$ANY`"
+        },
+        "test": {
+          "active": false,
+          "entity": {
+            "`$OPEN`": true
+          }
+        },
+        "utility": {}
+      },
       "repo": {
         "host": "github.com",
         "path": ""
@@ -2382,6 +3413,7 @@
           },
           "package": "@voxgig/sdkgen",
           "provides": {
+            "schema": true,
             "sekreto": true
           },
           "publish": {
@@ -2740,6 +3772,7 @@
           },
           "package": "@voxgig/sdkgen",
           "provides": {
+            "schema": true,
             "sekreto": true
           },
           "publish": {
@@ -2781,7 +3814,7 @@
         "live": {
           "app": false,
           "base": "",
-          "strict": false
+          "strict": true
         }
       }
     }

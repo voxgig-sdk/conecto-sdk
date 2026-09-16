@@ -1,12 +1,26 @@
 # Conecto SDK feature factory
 
 from conecto_sdk.feature.base_feature import ConectoBaseFeature
+from conecto_sdk.feature.debug_feature import ConectoDebugFeature
+from conecto_sdk.feature.idempotency_feature import ConectoIdempotencyFeature
+from conecto_sdk.feature.metrics_feature import ConectoMetricsFeature
+from conecto_sdk.feature.paging_feature import ConectoPagingFeature
+from conecto_sdk.feature.ratelimit_feature import ConectoRatelimitFeature
+from conecto_sdk.feature.retry_feature import ConectoRetryFeature
 from conecto_sdk.feature.test_feature import ConectoTestFeature
+from conecto_sdk.feature.timeout_feature import ConectoTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: ConectoBaseFeature(),
+    "debug": lambda: ConectoDebugFeature(),
+    "idempotency": lambda: ConectoIdempotencyFeature(),
+    "metrics": lambda: ConectoMetricsFeature(),
+    "paging": lambda: ConectoPagingFeature(),
+    "ratelimit": lambda: ConectoRatelimitFeature(),
+    "retry": lambda: ConectoRetryFeature(),
     "test": lambda: ConectoTestFeature(),
+    "timeout": lambda: ConectoTimeoutFeature(),
 }
 
 
