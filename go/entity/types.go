@@ -1,7 +1,7 @@
 // Typed models for the Conecto SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,35 +14,16 @@ import (
 
 // Action is the typed data model for the action entity.
 type Action struct {
-	Arguments *map[string]any `json:"arguments,omitempty"`
-	Blocks *[]any `json:"blocks,omitempty"`
-	ConversationId *int `json:"conversation_id,omitempty"`
-	Error *string `json:"error,omitempty"`
-	Id *string `json:"id,omitempty"`
-	NotFound *bool `json:"not_found,omitempty"`
-	Ok bool `json:"ok"`
-	Result *map[string]any `json:"result,omitempty"`
 }
 
 // ActionCreateData is the typed request payload for Action.CreateTyped.
 type ActionCreateData struct {
 	Id string `json:"id"`
 	Slug string `json:"slug"`
-	Arguments *map[string]any `json:"arguments,omitempty"`
-	Blocks *[]any `json:"blocks,omitempty"`
-	ConversationId *int `json:"conversation_id,omitempty"`
-	Error *string `json:"error,omitempty"`
-	NotFound *bool `json:"not_found,omitempty"`
-	Ok bool `json:"ok"`
-	Result *map[string]any `json:"result,omitempty"`
 }
 
 // Contact is the typed data model for the contact entity.
 type Contact struct {
-	CreatedAt *string `json:"created_at,omitempty"`
-	CustomFields *map[string]any `json:"custom_fields,omitempty"`
-	Email *string `json:"email,omitempty"`
-	Id int `json:"id"`
 }
 
 // ContactListMatch is the typed request payload for Contact.ListTyped.
@@ -61,14 +42,6 @@ type ContactCreateData struct {
 
 // Conversation is the typed data model for the conversation entity.
 type Conversation struct {
-	Body *string `json:"body,omitempty"`
-	CreatedAt *string `json:"created_at,omitempty"`
-	Id int `json:"id"`
-	Messages *[]any `json:"messages,omitempty"`
-	Session *string `json:"session,omitempty"`
-	Status string `json:"status"`
-	UserId int `json:"user_id"`
-	WidgetId *int `json:"widget_id,omitempty"`
 }
 
 // ConversationLoadMatch is the typed request payload for Conversation.LoadTyped.
@@ -94,7 +67,6 @@ type ConversationCreateData struct {
 	Messages *[]any `json:"messages,omitempty"`
 	Session *string `json:"session,omitempty"`
 	Status string `json:"status"`
-	UserId int `json:"user_id"`
 	WidgetId *int `json:"widget_id,omitempty"`
 }
 
@@ -106,14 +78,11 @@ type ConversationUpdateData struct {
 	Messages *[]any `json:"messages,omitempty"`
 	Session *string `json:"session,omitempty"`
 	Status *string `json:"status,omitempty"`
-	UserId *int `json:"user_id,omitempty"`
 	WidgetId *int `json:"widget_id,omitempty"`
 }
 
 // Credential is the typed data model for the credential entity.
 type Credential struct {
-	WidgetId *int `json:"widget_id,omitempty"`
-	WorkspaceId *int `json:"workspace_id,omitempty"`
 }
 
 // CredentialLoadMatch is the typed request payload for Credential.LoadTyped.
@@ -124,15 +93,6 @@ type CredentialLoadMatch struct {
 
 // Integration is the typed data model for the integration entity.
 type Integration struct {
-	Actions *[]any `json:"actions,omitempty"`
-	AuthType *string `json:"auth_type,omitempty"`
-	BaseUrl string `json:"base_url"`
-	Credential *string `json:"credential,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Name string `json:"name"`
-	SigningSecret *string `json:"signing_secret,omitempty"`
-	Slug string `json:"slug"`
-	WidgetIds *[]any `json:"widget_ids,omitempty"`
 }
 
 // IntegrationLoadMatch is the typed request payload for Integration.LoadTyped.
@@ -150,7 +110,6 @@ type IntegrationListMatch struct {
 	Name *string `json:"name,omitempty"`
 	SigningSecret *string `json:"signing_secret,omitempty"`
 	Slug *string `json:"slug,omitempty"`
-	WidgetIds *[]any `json:"widget_ids,omitempty"`
 }
 
 // IntegrationCreateData is the typed request payload for Integration.CreateTyped.
@@ -163,7 +122,6 @@ type IntegrationCreateData struct {
 	Name string `json:"name"`
 	SigningSecret *string `json:"signing_secret,omitempty"`
 	Slug string `json:"slug"`
-	WidgetIds *[]any `json:"widget_ids,omitempty"`
 }
 
 // Media is the typed data model for the media entity.
@@ -176,13 +134,6 @@ type MediaCreateData struct {
 
 // Message is the typed data model for the message entity.
 type Message struct {
-	AskEmail *bool `json:"ask_email,omitempty"`
-	Blocks *[]any `json:"blocks,omitempty"`
-	Body *string `json:"body,omitempty"`
-	Buttons *[]any `json:"buttons,omitempty"`
-	Internal *bool `json:"internal,omitempty"`
-	Products *[]any `json:"products,omitempty"`
-	TicketForm *bool `json:"ticket_form,omitempty"`
 }
 
 // MessageCreateData is the typed request payload for Message.CreateTyped.
@@ -207,24 +158,16 @@ type SchemaLoadMatch struct {
 
 // Visitor is the typed data model for the visitor entity.
 type Visitor struct {
-	Email *string `json:"email,omitempty"`
-	Name *string `json:"name,omitempty"`
 }
 
 // VisitorCreateData is the typed request payload for Visitor.CreateTyped.
 type VisitorCreateData struct {
 	Session string `json:"session"`
 	WidgetId int `json:"widget_id"`
-	Email *string `json:"email,omitempty"`
-	Name *string `json:"name,omitempty"`
 }
 
 // Webhook is the typed data model for the webhook entity.
 type Webhook struct {
-	CreatedAt *string `json:"created_at,omitempty"`
-	Events []any `json:"events"`
-	Id int `json:"id"`
-	Url string `json:"url"`
 }
 
 // WebhookLoadMatch is the typed request payload for Webhook.LoadTyped.

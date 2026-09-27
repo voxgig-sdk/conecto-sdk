@@ -1,0 +1,361 @@
+# Entity: conversation
+
+main: kit: entity: conversation: {
+
+  alias: field: {}
+
+  fields: {
+    body: {
+      h: "Body"
+      n: "body"
+      r: false
+      sh: "Opening message."
+      t: "`$STRING`"
+    }
+    created_at: {
+      fo: "date-time"
+      h: "Created At"
+      n: "created_at"
+      r: false
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Conversation id."
+      t: "`$INTEGER`"
+    }
+    messages: {
+      h: "Messages"
+      n: "messages"
+      r: false
+      sh: "Visitor-facing messages, oldest first."
+      t: "`$ARRAY`"
+    }
+    session: {
+      h: "Session"
+      n: "session"
+      r: false
+      sh: "Visitor browser session key."
+      t: "`$STRING`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: true
+      sh: "Lifecycle state."
+      t: "`$STRING`"
+    }
+    widget_id: {
+      h: "Widget Id"
+      n: "widget_id"
+      r: false
+      sh: "Widget the conversation belongs to."
+      t: "`$INTEGER`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "conversation"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /conversations/{id}/assign/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/conversations/{id}/assign/"
+          q: {
+            "$action": "assign"
+            exist: [
+              "id"
+            ]
+          }
+          s: [
+            {
+              lit: "conversations"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "assign"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /conversations/{id}/handoff/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/conversations/{id}/handoff/"
+          q: {
+            "$action": "handoff"
+            exist: [
+              "id"
+            ]
+          }
+          s: [
+            {
+              lit: "conversations"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "handoff"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /conversations/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "idempotency_key"
+                or: "idempotency_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/conversations/"
+          q: {
+            exist: [
+              "idempotency_key"
+            ]
+          }
+          s: [
+            {
+              lit: "conversations"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /conversations/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "before_id"
+                or: "before_id"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 25
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "session"
+                or: "session"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "status"
+                or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "widget_id"
+                or: "widget_id"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/conversations/"
+          q: {
+            exist: [
+              "before_id"
+              "limit"
+              "session"
+              "status"
+              "widget_id"
+            ]
+          }
+          s: [
+            {
+              lit: "conversations"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.conversations`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /conversations/{id}/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "since_id"
+                or: "since_id"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/conversations/{id}/"
+          q: {
+            exist: [
+              "id"
+              "since_id"
+            ]
+          }
+          s: [
+            {
+              lit: "conversations"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PATCH /conversations/{id}/messages/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "PATCH"
+          o: "/conversations/{id}/messages/"
+          q: {
+            "$action": "message"
+            exist: [
+              "id"
+            ]
+          }
+          s: [
+            {
+              lit: "conversations"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "messages"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -1,31 +1,17 @@
 -- Typed models for the Conecto SDK (LuaLS annotations).
 --
--- GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
--- params (op.<name>.points[].args.params[]). Field/param types come from the
+-- GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+-- params (op.<name>.points[].g.params[]). Field/param types come from the
 -- canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 -- @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
 -- edit by hand.
 
 ---@class Action
----@field arguments? table
----@field blocks? table
----@field conversation_id? number
----@field error? string
 ---@field id? string
----@field not_found? boolean
----@field ok boolean
----@field result? table
 
 ---@class ActionCreateData
 ---@field id string
 ---@field slug string
----@field arguments? table
----@field blocks? table
----@field conversation_id? number
----@field error? string
----@field not_found? boolean
----@field ok boolean
----@field result? table
 
 ---@class Contact
 ---@field created_at? string
@@ -50,7 +36,6 @@
 ---@field messages? table
 ---@field session? string
 ---@field status string
----@field user_id number
 ---@field widget_id? number
 
 ---@class ConversationLoadMatch
@@ -71,7 +56,6 @@
 ---@field messages? table
 ---@field session? string
 ---@field status string
----@field user_id number
 ---@field widget_id? number
 
 ---@class ConversationUpdateData
@@ -81,7 +65,6 @@
 ---@field messages? table
 ---@field session? string
 ---@field status? string
----@field user_id? number
 ---@field widget_id? number
 
 ---@class Credential
@@ -101,7 +84,6 @@
 ---@field name string
 ---@field signing_secret? string
 ---@field slug string
----@field widget_ids? table
 
 ---@class IntegrationLoadMatch
 ---@field id string
@@ -115,7 +97,6 @@
 ---@field name? string
 ---@field signing_secret? string
 ---@field slug? string
----@field widget_ids? table
 
 ---@class IntegrationCreateData
 ---@field actions? table
@@ -126,7 +107,6 @@
 ---@field name string
 ---@field signing_secret? string
 ---@field slug string
----@field widget_ids? table
 
 ---@class Media
 
@@ -156,14 +136,10 @@
 ---@class SchemaLoadMatch
 
 ---@class Visitor
----@field email? string
----@field name? string
 
 ---@class VisitorCreateData
 ---@field session string
 ---@field widget_id number
----@field email? string
----@field name? string
 
 ---@class Webhook
 ---@field created_at? string

@@ -25,10 +25,6 @@ import {
 } from '../../utility'
 
 
-// AFTER the imports on purpose: TypeScript hoists `import` above any
-// statement in the emitted CommonJS, so a loader placed above them would
-// run only after every imported module had already been evaluated - and
-// anything reading process.env at module scope would miss these values.
 loadEnvLocal(__dirname + '/../../../.env.local')
 
 
@@ -55,7 +51,7 @@ describe('MediaEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[],"name":"media","op":{"create":{"input":"data","name":"create","points":[{"active":true,"args":{},"contract":{"id":"POST /media/","json":"{\"operationId\":\"createMedia\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"multipart/form-data\":{\"schema\":{\"properties\":{\"file\":{\"format\":\"binary\",\"type\":\"string\"}},\"required\":[\"file\"],\"type\":\"object\"}}},\"description\":\"Multipart upload, at most 10 MB.\",\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"An uploaded file, addressable by URL from a block.\",\"properties\":{\"filename\":{\"type\":\"string\"},\"size\":{\"description\":\"Bytes. Maximum 10 MB on upload.\",\"type\":\"integer\"},\"url\":{\"description\":\"HTTPS URL of the stored file.\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"url\"],\"type\":\"object\"}}},\"description\":\"Created.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"POST","orig":"/media/","segments":[{"lit":"media"}],"select":{},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"}},"relations":{"ancestors":[]},"key$":"media","name__orig":"media","Name":"Media","name_":"media","name-":"media","NAME":"MEDIA","index$":5}, {"active":true,"entity":"media","key$":"BasicMediaFlow","kind":"basic","name":"BasicMediaFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"media_ref01"},"match":{},"op":"create","spec":[],"valid":[],"index$":0}]}, 'Media')
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"media","op":{"create":{"input":"data","name":"create","points":[{"a":true,"co":{"id":"POST /media/","source":"openapi3","version":2},"g":{},"k":"http","m":"POST","o":"/media/","q":{},"r":{},"s":[{"lit":"media"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"}},"relations":{"ancestors":[]},"key$":"media","name__orig":"media","Name":"Media","name_":"media","name-":"media","NAME":"MEDIA","index$":5}, {"active":true,"entity":"media","key$":"BasicMediaFlow","kind":"basic","name":"BasicMediaFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"media_ref01"},"m":{},"o":"create","s":[],"v":[],"index$":0}]}, 'Media', {"POST /media/":{"protocol":"http","requestBody":{"required":true,"description":"Multipart upload, at most 10 MB.","content":{"multipart/form-data":{"schema":{"type":"object","properties":{"file":{"type":"string","format":"binary"}},"required":["file"]}}}},"parameters":[]}})
     }
     const client = setup.client
     const struct = setup.struct

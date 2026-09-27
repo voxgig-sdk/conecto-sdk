@@ -197,38 +197,9 @@ def make_config():
       "action": {
         "fields": [
           {
-            "name": "arguments",
-            "type": "`$OBJECT`",
-          },
-          {
-            "name": "blocks",
-            "type": "`$ARRAY`",
-          },
-          {
-            "name": "conversation_id",
-            "type": "`$INTEGER`",
-          },
-          {
-            "name": "error",
-            "type": "`$STRING`",
-          },
-          {
             "name": "id",
+            "title": "Id",
             "type": "`$STRING`",
-          },
-          {
-            "name": "not_found",
-            "short": "A normal no-match, not an error.",
-            "type": "`$BOOLEAN`",
-          },
-          {
-            "name": "ok",
-            "req": True,
-            "type": "`$BOOLEAN`",
-          },
-          {
-            "name": "result",
-            "type": "`$OBJECT`",
           },
         ],
         "id": {
@@ -242,32 +213,9 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "action",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "param",
-                      "name": "slug",
-                      "orig": "slug",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "POST",
                 "orig": "/integrations/{slug}/actions/{action}/run/",
-                "rename": {
-                  "param": {
-                    "action": "id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "integrations",
@@ -285,17 +233,6 @@ def make_config():
                     "lit": "run",
                   },
                 ],
-                "select": {
-                  "$action": "run",
-                  "exist": [
-                    "id",
-                    "slug",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "integrations",
                   "{slug}",
@@ -303,6 +240,40 @@ def make_config():
                   "{id}",
                   "run",
                 ],
+                "rename": {
+                  "param": {
+                    "action": "id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "action",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                    {
+                      "name": "slug",
+                      "orig": "slug",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
+                "select": {
+                  "$action": "run",
+                  "exist": [
+                    "id",
+                    "slug",
+                  ],
+                },
               },
             ],
           },
@@ -310,7 +281,7 @@ def make_config():
         "relations": {
           "ancestors": [
             [
-              "integration",
+              "$.main.kit.entity.integration",
             ],
           ],
         },
@@ -318,25 +289,29 @@ def make_config():
       "contact": {
         "fields": [
           {
-            "format": "date-time",
             "name": "created_at",
+            "title": "Created At",
             "type": "`$STRING`",
+            "format": "date-time",
           },
           {
             "name": "custom_fields",
-            "short": "Workspace-defined fields.",
+            "title": "Custom Fields",
             "type": "`$OBJECT`",
+            "short": "Workspace-defined fields.",
           },
           {
-            "format": "email",
             "name": "email",
+            "title": "Email",
             "type": "`$STRING`",
+            "format": "email",
           },
           {
             "name": "id",
+            "title": "Id",
+            "type": "`$INTEGER`",
             "req": True,
             "short": "Contact id.",
-            "type": "`$INTEGER`",
           },
         ],
         "id": {
@@ -350,16 +325,6 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {
-                  "header": [
-                    {
-                      "kind": "header",
-                      "name": "idempotency_key",
-                      "orig": "idempotency_key",
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "POST",
                 "orig": "/contacts/",
@@ -368,18 +333,29 @@ def make_config():
                     "lit": "contacts",
                   },
                 ],
+                "parts": [
+                  "contacts",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.custom_fields`",
+                },
+                "args": {
+                  "header": [
+                    {
+                      "name": "idempotency_key",
+                      "orig": "idempotency_key",
+                      "type": "`$STRING`",
+                      "kind": "header",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "idempotency_key",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.custom_fields`",
-                },
-                "parts": [
-                  "contacts",
-                ],
               },
             ],
           },
@@ -388,23 +364,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "kind": "query",
-                      "name": "before_id",
-                      "orig": "before_id",
-                      "type": "`$INTEGER`",
-                    },
-                    {
-                      "example": 25,
-                      "kind": "query",
-                      "name": "limit",
-                      "orig": "limit",
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/contacts/",
@@ -413,19 +372,37 @@ def make_config():
                     "lit": "contacts",
                   },
                 ],
+                "parts": [
+                  "contacts",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.contacts`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "before_id",
+                      "orig": "before_id",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "limit",
+                      "orig": "limit",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 25,
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "before_id",
                     "limit",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.contacts`",
-                },
-                "parts": [
-                  "contacts",
-                ],
               },
             ],
           },
@@ -438,45 +415,47 @@ def make_config():
         "fields": [
           {
             "name": "body",
-            "short": "Opening message.",
+            "title": "Body",
             "type": "`$STRING`",
+            "short": "Opening message.",
           },
           {
-            "format": "date-time",
             "name": "created_at",
+            "title": "Created At",
             "type": "`$STRING`",
+            "format": "date-time",
           },
           {
             "name": "id",
+            "title": "Id",
+            "type": "`$INTEGER`",
             "req": True,
             "short": "Conversation id.",
-            "type": "`$INTEGER`",
           },
           {
             "name": "messages",
-            "short": "Visitor-facing messages, oldest first.",
+            "title": "Messages",
             "type": "`$ARRAY`",
+            "short": "Visitor-facing messages, oldest first.",
           },
           {
             "name": "session",
-            "short": "Visitor browser session key.",
+            "title": "Session",
             "type": "`$STRING`",
+            "short": "Visitor browser session key.",
           },
           {
             "name": "status",
+            "title": "Status",
+            "type": "`$STRING`",
             "req": True,
             "short": "Lifecycle state.",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "user_id",
-            "req": True,
-            "type": "`$INTEGER`",
           },
           {
             "name": "widget_id",
-            "short": "Widget the conversation belongs to.",
+            "title": "Widget Id",
             "type": "`$INTEGER`",
+            "short": "Widget the conversation belongs to.",
           },
         ],
         "id": {
@@ -490,17 +469,6 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "POST",
                 "orig": "/conversations/{id}/assign/",
@@ -515,34 +483,35 @@ def make_config():
                     "lit": "assign",
                   },
                 ],
+                "parts": [
+                  "conversations",
+                  "{id}",
+                  "assign",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
                 "select": {
                   "$action": "assign",
                   "exist": [
                     "id",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "conversations",
-                  "{id}",
-                  "assign",
-                ],
               },
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "POST",
                 "orig": "/conversations/{id}/handoff/",
@@ -557,33 +526,35 @@ def make_config():
                     "lit": "handoff",
                   },
                 ],
+                "parts": [
+                  "conversations",
+                  "{id}",
+                  "handoff",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
                 "select": {
                   "$action": "handoff",
                   "exist": [
                     "id",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "conversations",
-                  "{id}",
-                  "handoff",
-                ],
               },
               {
-                "args": {
-                  "header": [
-                    {
-                      "kind": "header",
-                      "name": "idempotency_key",
-                      "orig": "idempotency_key",
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "POST",
                 "orig": "/conversations/",
@@ -592,18 +563,29 @@ def make_config():
                     "lit": "conversations",
                   },
                 ],
+                "parts": [
+                  "conversations",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "header": [
+                    {
+                      "name": "idempotency_key",
+                      "orig": "idempotency_key",
+                      "type": "`$STRING`",
+                      "kind": "header",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "idempotency_key",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "conversations",
-                ],
               },
             ],
           },
@@ -612,41 +594,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "kind": "query",
-                      "name": "before_id",
-                      "orig": "before_id",
-                      "type": "`$INTEGER`",
-                    },
-                    {
-                      "example": 25,
-                      "kind": "query",
-                      "name": "limit",
-                      "orig": "limit",
-                      "type": "`$INTEGER`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "session",
-                      "orig": "session",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "status",
-                      "orig": "status",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "widget_id",
-                      "orig": "widget_id",
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/conversations/",
@@ -655,6 +602,49 @@ def make_config():
                     "lit": "conversations",
                   },
                 ],
+                "parts": [
+                  "conversations",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.conversations`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "before_id",
+                      "orig": "before_id",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "limit",
+                      "orig": "limit",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 25,
+                    },
+                    {
+                      "name": "session",
+                      "orig": "session",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "status",
+                      "orig": "status",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "widget_id",
+                      "orig": "widget_id",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "before_id",
@@ -664,13 +654,6 @@ def make_config():
                     "widget_id",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.conversations`",
-                },
-                "parts": [
-                  "conversations",
-                ],
               },
             ],
           },
@@ -679,25 +662,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                  "query": [
-                    {
-                      "kind": "query",
-                      "name": "since_id",
-                      "orig": "since_id",
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/conversations/{id}/",
@@ -709,20 +673,40 @@ def make_config():
                     "var": "id",
                   },
                 ],
+                "parts": [
+                  "conversations",
+                  "{id}",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                  "query": [
+                    {
+                      "name": "since_id",
+                      "orig": "since_id",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "id",
                     "since_id",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "conversations",
-                  "{id}",
-                ],
               },
             ],
           },
@@ -731,17 +715,6 @@ def make_config():
             "name": "update",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "PATCH",
                 "orig": "/conversations/{id}/messages/",
@@ -756,21 +729,33 @@ def make_config():
                     "lit": "messages",
                   },
                 ],
+                "parts": [
+                  "conversations",
+                  "{id}",
+                  "messages",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
                 "select": {
                   "$action": "message",
                   "exist": [
                     "id",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "conversations",
-                  "{id}",
-                  "messages",
-                ],
               },
             ],
           },
@@ -783,11 +768,13 @@ def make_config():
         "fields": [
           {
             "name": "widget_id",
-            "short": "Set when the credential is widget-scoped rather than workspace-wide.",
+            "title": "Widget Id",
             "type": "`$INTEGER`",
+            "short": "Set when the credential is widget-scoped rather than workspace-wide.",
           },
           {
             "name": "workspace_id",
+            "title": "Workspace Id",
             "type": "`$INTEGER`",
           },
         ],
@@ -798,7 +785,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/me/",
@@ -807,14 +793,16 @@ def make_config():
                     "lit": "me",
                   },
                 ],
-                "select": {},
+                "parts": [
+                  "me",
+                ],
+                "rename": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "parts": [
-                  "me",
-                ],
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -827,49 +815,53 @@ def make_config():
         "fields": [
           {
             "name": "actions",
-            "short": "Actions this integration exposes.",
+            "title": "Actions",
             "type": "`$ARRAY`",
+            "short": "Actions this integration exposes.",
           },
           {
             "name": "auth_type",
-            "short": "How Conecto authenticates to base_url.",
+            "title": "Auth Type",
             "type": "`$STRING`",
+            "short": "How Conecto authenticates to base_url.",
           },
           {
-            "format": "uri",
             "name": "base_url",
+            "title": "Base Url",
+            "type": "`$STRING`",
             "req": True,
             "short": "Root URL Conecto POSTs actions to.",
-            "type": "`$STRING`",
+            "format": "uri",
           },
           {
             "name": "credential",
+            "title": "Credential",
             "type": "`$STRING`",
           },
           {
             "name": "id",
+            "title": "Id",
             "type": "`$STRING`",
           },
           {
             "name": "name",
+            "title": "Name",
+            "type": "`$STRING`",
             "req": True,
             "short": "Human-readable name.",
-            "type": "`$STRING`",
           },
           {
             "name": "signing_secret",
-            "short": "Secret used to sign action calls.",
+            "title": "Signing Secret",
             "type": "`$STRING`",
+            "short": "Secret used to sign action calls.",
           },
           {
             "name": "slug",
+            "title": "Slug",
+            "type": "`$STRING`",
             "req": True,
             "short": "Stable identifier, used in the path.",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "widget_ids",
-            "type": "`$ARRAY`",
           },
         ],
         "id": {
@@ -883,17 +875,6 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "slug",
-                      "orig": "slug",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "POST",
                 "orig": "/integrations/{slug}/install/",
@@ -908,34 +889,35 @@ def make_config():
                     "lit": "install",
                   },
                 ],
+                "parts": [
+                  "integrations",
+                  "{slug}",
+                  "install",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "slug",
+                      "orig": "slug",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
                 "select": {
                   "$action": "install",
                   "exist": [
                     "slug",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "integrations",
-                  "{slug}",
-                  "install",
-                ],
               },
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "slug",
-                      "orig": "slug",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "POST",
                 "orig": "/integrations/{slug}/rotate_signing_secret/",
@@ -950,24 +932,35 @@ def make_config():
                     "lit": "rotate_signing_secret",
                   },
                 ],
+                "parts": [
+                  "integrations",
+                  "{slug}",
+                  "rotate_signing_secret",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "slug",
+                      "orig": "slug",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
                 "select": {
                   "$action": "rotate_signing_secret",
                   "exist": [
                     "slug",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "integrations",
-                  "{slug}",
-                  "rotate_signing_secret",
-                ],
               },
               {
-                "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/integrations/",
@@ -976,14 +969,16 @@ def make_config():
                     "lit": "integrations",
                   },
                 ],
-                "select": {},
+                "parts": [
+                  "integrations",
+                ],
+                "rename": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "parts": [
-                  "integrations",
-                ],
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -992,7 +987,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/integrations/",
@@ -1001,14 +995,16 @@ def make_config():
                     "lit": "integrations",
                   },
                 ],
-                "select": {},
+                "parts": [
+                  "integrations",
+                ],
+                "rename": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body.integrations`",
                 },
-                "parts": [
-                  "integrations",
-                ],
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -1017,25 +1013,9 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "slug",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/integrations/{slug}/",
-                "rename": {
-                  "param": {
-                    "slug": "id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "integrations",
@@ -1044,29 +1024,41 @@ def make_config():
                     "var": "id",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "id",
-                  ],
+                "parts": [
+                  "integrations",
+                  "{id}",
+                ],
+                "rename": {
+                  "param": {
+                    "slug": "id",
+                  },
                 },
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "parts": [
-                  "integrations",
-                  "{id}",
-                ],
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "slug",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "id",
+                  ],
+                },
               },
             ],
           },
         },
         "relations": {
-          "ancestors": [
-            [
-              "integration",
-            ],
-          ],
+          "ancestors": [],
         },
       },
       "media": {
@@ -1078,7 +1070,6 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/media/",
@@ -1087,14 +1078,16 @@ def make_config():
                     "lit": "media",
                   },
                 ],
-                "select": {},
+                "parts": [
+                  "media",
+                ],
+                "rename": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "parts": [
-                  "media",
-                ],
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -1107,35 +1100,42 @@ def make_config():
         "fields": [
           {
             "name": "ask_email",
-            "short": "Prompt the visitor for an email address.",
+            "title": "Ask Email",
             "type": "`$BOOLEAN`",
+            "short": "Prompt the visitor for an email address.",
           },
           {
             "name": "blocks",
-            "short": "At most 10.",
+            "title": "Blocks",
             "type": "`$ARRAY`",
+            "short": "At most 10.",
           },
           {
             "name": "body",
+            "title": "Body",
             "type": "`$STRING`",
           },
           {
             "name": "buttons",
+            "title": "Buttons",
             "type": "`$ARRAY`",
           },
           {
             "name": "internal",
-            "short": "Internal note, not shown to the visitor.",
+            "title": "Internal",
             "type": "`$BOOLEAN`",
+            "short": "Internal note, not shown to the visitor.",
           },
           {
             "name": "products",
+            "title": "Products",
             "type": "`$ARRAY`",
           },
           {
             "name": "ticket_form",
-            "short": "Show the ticket form.",
+            "title": "Ticket Form",
             "type": "`$BOOLEAN`",
+            "short": "Show the ticket form.",
           },
         ],
         "name": "message",
@@ -1145,40 +1145,9 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {
-                  "header": [
-                    {
-                      "kind": "header",
-                      "name": "idempotency_key",
-                      "orig": "idempotency_key",
-                      "type": "`$STRING`",
-                    },
-                  ],
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "session",
-                      "orig": "session",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "param",
-                      "name": "widget_id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "POST",
                 "orig": "/widgets/{id}/visitors/{session}/message/",
-                "rename": {
-                  "param": {
-                    "id": "widget_id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "widgets",
@@ -1196,17 +1165,6 @@ def make_config():
                     "lit": "message",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "idempotency_key",
-                    "session",
-                    "widget_id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "widgets",
                   "{widget_id}",
@@ -1214,35 +1172,53 @@ def make_config():
                   "{session}",
                   "message",
                 ],
-              },
-              {
+                "rename": {
+                  "param": {
+                    "id": "widget_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
                 "args": {
                   "header": [
                     {
-                      "kind": "header",
                       "name": "idempotency_key",
                       "orig": "idempotency_key",
                       "type": "`$STRING`",
+                      "kind": "header",
                     },
                   ],
                   "params": [
                     {
+                      "name": "session",
+                      "orig": "session",
+                      "type": "`$STRING`",
                       "kind": "param",
-                      "name": "conversation_id",
-                      "orig": "id",
                       "reqd": True,
+                    },
+                    {
+                      "name": "widget_id",
+                      "orig": "id",
                       "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
                     },
                   ],
                 },
+                "select": {
+                  "exist": [
+                    "idempotency_key",
+                    "session",
+                    "widget_id",
+                  ],
+                },
+              },
+              {
                 "kind": "http",
                 "method": "POST",
                 "orig": "/conversations/{id}/messages/",
-                "rename": {
-                  "param": {
-                    "id": "conversation_id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "conversations",
@@ -1254,21 +1230,45 @@ def make_config():
                     "lit": "messages",
                   },
                 ],
+                "parts": [
+                  "conversations",
+                  "{conversation_id}",
+                  "messages",
+                ],
+                "rename": {
+                  "param": {
+                    "id": "conversation_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "header": [
+                    {
+                      "name": "idempotency_key",
+                      "orig": "idempotency_key",
+                      "type": "`$STRING`",
+                      "kind": "header",
+                    },
+                  ],
+                  "params": [
+                    {
+                      "name": "conversation_id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "conversation_id",
                     "idempotency_key",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "conversations",
-                  "{conversation_id}",
-                  "messages",
-                ],
               },
             ],
           },
@@ -1276,11 +1276,10 @@ def make_config():
         "relations": {
           "ancestors": [
             [
-              "conversation",
+              "$.main.kit.entity.conversation",
             ],
             [
-              "widget",
-              "visitor",
+              "$.main.kit.entity.visitor",
             ],
           ],
         },
@@ -1294,7 +1293,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/schema/",
@@ -1303,14 +1301,16 @@ def make_config():
                     "lit": "schema",
                   },
                 ],
-                "select": {},
+                "parts": [
+                  "schema",
+                ],
+                "rename": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "parts": [
-                  "schema",
-                ],
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -1320,17 +1320,7 @@ def make_config():
         },
       },
       "visitor": {
-        "fields": [
-          {
-            "format": "email",
-            "name": "email",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "name",
-            "type": "`$STRING`",
-          },
-        ],
+        "fields": [],
         "name": "visitor",
         "op": {
           "create": {
@@ -1338,32 +1328,9 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "session",
-                      "orig": "session",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "param",
-                      "name": "widget_id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "POST",
                 "orig": "/widgets/{id}/visitors/{session}/identify/",
-                "rename": {
-                  "param": {
-                    "id": "widget_id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "widgets",
@@ -1381,17 +1348,6 @@ def make_config():
                     "lit": "identify",
                   },
                 ],
-                "select": {
-                  "$action": "identify",
-                  "exist": [
-                    "session",
-                    "widget_id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "widgets",
                   "{widget_id}",
@@ -1399,34 +1355,45 @@ def make_config():
                   "{session}",
                   "identify",
                 ],
-              },
-              {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "session",
-                      "orig": "session",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "param",
-                      "name": "widget_id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
-                "kind": "http",
-                "method": "POST",
-                "orig": "/widgets/{id}/visitors/{session}/unverify/",
                 "rename": {
                   "param": {
                     "id": "widget_id",
                   },
                 },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "session",
+                      "orig": "session",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                    {
+                      "name": "widget_id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
+                "select": {
+                  "$action": "identify",
+                  "exist": [
+                    "session",
+                    "widget_id",
+                  ],
+                },
+              },
+              {
+                "kind": "http",
+                "method": "POST",
+                "orig": "/widgets/{id}/visitors/{session}/unverify/",
                 "segments": [
                   {
                     "lit": "widgets",
@@ -1444,17 +1411,6 @@ def make_config():
                     "lit": "unverify",
                   },
                 ],
-                "select": {
-                  "$action": "unverify",
-                  "exist": [
-                    "session",
-                    "widget_id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "widgets",
                   "{widget_id}",
@@ -1462,44 +1418,77 @@ def make_config():
                   "{session}",
                   "unverify",
                 ],
+                "rename": {
+                  "param": {
+                    "id": "widget_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "session",
+                      "orig": "session",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                    {
+                      "name": "widget_id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
+                "select": {
+                  "$action": "unverify",
+                  "exist": [
+                    "session",
+                    "widget_id",
+                  ],
+                },
               },
             ],
           },
         },
         "relations": {
-          "ancestors": [
-            [
-              "widget",
-              "visitor",
-            ],
-          ],
+          "ancestors": [],
         },
       },
       "webhook": {
         "fields": [
           {
-            "format": "date-time",
             "name": "created_at",
+            "title": "Created At",
             "type": "`$STRING`",
+            "format": "date-time",
           },
           {
             "name": "events",
+            "title": "Events",
+            "type": "`$ARRAY`",
             "req": True,
             "short": "Event names subscribed to.",
-            "type": "`$ARRAY`",
           },
           {
             "name": "id",
+            "title": "Id",
+            "type": "`$INTEGER`",
             "req": True,
             "short": "Webhook id.",
-            "type": "`$INTEGER`",
           },
           {
-            "format": "uri",
             "name": "url",
+            "title": "Url",
+            "type": "`$STRING`",
             "req": True,
             "short": "HTTPS endpoint that receives the event POST.",
-            "type": "`$STRING`",
+            "format": "uri",
           },
         ],
         "id": {
@@ -1513,7 +1502,6 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/webhooks/",
@@ -1522,14 +1510,16 @@ def make_config():
                     "lit": "webhooks",
                   },
                 ],
-                "select": {},
+                "parts": [
+                  "webhooks",
+                ],
+                "rename": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "parts": [
-                  "webhooks",
-                ],
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -1538,7 +1528,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/webhooks/",
@@ -1547,14 +1536,16 @@ def make_config():
                     "lit": "webhooks",
                   },
                 ],
-                "select": {},
+                "parts": [
+                  "webhooks",
+                ],
+                "rename": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body.webhooks`",
                 },
-                "parts": [
-                  "webhooks",
-                ],
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -1563,17 +1554,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/webhooks/{id}/",
@@ -1585,19 +1565,31 @@ def make_config():
                     "var": "id",
                   },
                 ],
+                "parts": [
+                  "webhooks",
+                  "{id}",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "id",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "webhooks",
-                  "{id}",
-                ],
               },
             ],
           },
@@ -1606,17 +1598,6 @@ def make_config():
             "name": "remove",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "DELETE",
                 "orig": "/webhooks/{id}/",
@@ -1628,19 +1609,31 @@ def make_config():
                     "var": "id",
                   },
                 ],
+                "parts": [
+                  "webhooks",
+                  "{id}",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "id",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "webhooks",
-                  "{id}",
-                ],
               },
             ],
           },

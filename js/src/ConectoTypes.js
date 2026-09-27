@@ -1,34 +1,20 @@
 // Typed models for the Conecto SDK (JSDoc typedefs).
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
 // edit by hand.
 
 /**
  * @typedef {Object} Action
- * @property {Object} [arguments]
- * @property {Array} [blocks]
- * @property {number} [conversation_id]
- * @property {string} [error]
  * @property {string} [id]
- * @property {boolean} [not_found]
- * @property {boolean} ok
- * @property {Object} [result]
  */
 
 /**
  * @typedef {Object} ActionCreateData
  * @property {string} id
  * @property {string} slug
- * @property {Object} [arguments]
- * @property {Array} [blocks]
- * @property {number} [conversation_id]
- * @property {string} [error]
- * @property {boolean} [not_found]
- * @property {boolean} ok
- * @property {Object} [result]
  */
 
 /**
@@ -61,7 +47,6 @@
  * @property {Array} [messages]
  * @property {string} [session]
  * @property {string} status
- * @property {number} user_id
  * @property {number} [widget_id]
  */
 
@@ -88,7 +73,6 @@
  * @property {Array} [messages]
  * @property {string} [session]
  * @property {string} status
- * @property {number} user_id
  * @property {number} [widget_id]
  */
 
@@ -100,7 +84,6 @@
  * @property {Array} [messages]
  * @property {string} [session]
  * @property {string} [status]
- * @property {number} [user_id]
  * @property {number} [widget_id]
  */
 
@@ -126,7 +109,6 @@
  * @property {string} name
  * @property {string} [signing_secret]
  * @property {string} slug
- * @property {Array} [widget_ids]
  */
 
 /**
@@ -144,7 +126,6 @@
  * @property {string} [name]
  * @property {string} [signing_secret]
  * @property {string} [slug]
- * @property {Array} [widget_ids]
  */
 
 /**
@@ -157,7 +138,6 @@
  * @property {string} name
  * @property {string} [signing_secret]
  * @property {string} slug
- * @property {Array} [widget_ids]
  */
 
 /**
@@ -201,16 +181,12 @@
 
 /**
  * @typedef {Object} Visitor
- * @property {string} [email]
- * @property {string} [name]
  */
 
 /**
  * @typedef {Object} VisitorCreateData
  * @property {string} session
  * @property {number} widget_id
- * @property {string} [email]
- * @property {string} [name]
  */
 
 /**

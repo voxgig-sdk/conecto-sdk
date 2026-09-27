@@ -135,14 +135,7 @@ fmt.Println(action.GetName()) // "action"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `arguments` | `map[string]any` | No |  |
-| `blocks` | `[]any` | No |  |
-| `conversation_id` | `int` | No |  |
-| `error` | `string` | No |  |
 | `id` | `string` | No |  |
-| `not_found` | `bool` | No | A normal no-match, not an error. |
-| `ok` | `bool` | Yes |  |
-| `result` | `map[string]any` | No |  |
 
 ### Operations
 
@@ -154,7 +147,6 @@ Create a new entity with the given data.
 result, err := client.Action(nil).Create(map[string]any{
     "id": "example_id",
     "slug": "example_slug",
-    "ok": true,
 }, nil)
 if err != nil {
     panic(err)
@@ -271,7 +263,6 @@ fmt.Println(conversation.GetName()) // "conversation"
 | `messages` | `[]any` | No | Visitor-facing messages, oldest first. |
 | `session` | `string` | No | Visitor browser session key. |
 | `status` | `string` | Yes | Lifecycle state. |
-| `user_id` | `int` | Yes |  |
 | `widget_id` | `int` | No | Widget the conversation belongs to. |
 
 ### Operations
@@ -308,7 +299,6 @@ Create a new entity with the given data.
 result, err := client.Conversation(nil).Create(map[string]any{
     "id": 1,
     "status": "example_status",
-    "user_id": 1,
 }, nil)
 if err != nil {
     panic(err)
@@ -426,7 +416,6 @@ fmt.Println(integration.GetName()) // "integration"
 | `name` | `string` | Yes | Human-readable name. |
 | `signing_secret` | `string` | No | Secret used to sign action calls. |
 | `slug` | `string` | Yes | Stable identifier, used in the path. |
-| `widget_ids` | `[]any` | No |  |
 
 ### Operations
 
@@ -651,13 +640,6 @@ visitor := client.Visitor(nil)
 fmt.Println(visitor.GetName()) // "visitor"
 ```
 
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `email` | `string` | No |  |
-| `name` | `string` | No |  |
-
 ### Operations
 
 #### `Create(reqdata, ctrl map[string]any) (any, error)`
@@ -797,14 +779,14 @@ Return the entity name.
 
 | Feature | Version | Description |
 | --- | --- | --- |
-| `debug` | 0.0.1 | Request/response capture ring buffer for debugging |
-| `idempotency` | 0.0.1 | Idempotency keys for safe retries of mutating operations |
-| `metrics` | 0.0.1 | Statistics capture: per-operation counters and latency |
-| `paging` | 0.0.1 | Pagination signals for list operations |
-| `ratelimit` | 0.0.1 | Client-side rate limiting via a token bucket |
-| `retry` | 0.0.1 | Automatic retry of transient failures with exponential backoff |
-| `test` | 0.0.1 | In-memory mock transport for testing without a live server |
-| `timeout` | 0.0.1 | Per-request timeout with transport abort |
+| `debug` | 0.0.1 | Debug capture |
+| `idempotency` | 0.0.1 | Idempotency |
+| `metrics` | 0.0.1 | Metrics |
+| `paging` | 0.0.1 | Paging |
+| `ratelimit` | 0.0.1 | Rate limiting |
+| `retry` | 0.0.1 | Retry |
+| `test` | 0.0.1 | Test transport |
+| `timeout` | 0.0.1 | Timeout |
 
 
 Features are activated via the `feature` option:
@@ -850,7 +832,7 @@ rather than the transport, so their order does not affect what they observe.
 
 #### `debug`
 
-Request/response capture ring buffer for debugging.
+Debug capture.
 
 **Configuration**
 
@@ -881,7 +863,7 @@ its default unless you name it.
 
 #### `idempotency`
 
-Idempotency keys for safe retries of mutating operations.
+Idempotency.
 
 **Configuration**
 
@@ -912,7 +894,7 @@ its default unless you name it.
 
 #### `metrics`
 
-Statistics capture: per-operation counters and latency.
+Metrics.
 
 **Configuration**
 
@@ -940,7 +922,7 @@ its default unless you name it.
 
 #### `paging`
 
-Pagination signals for list operations.
+Paging.
 
 **Configuration**
 
@@ -975,7 +957,7 @@ its default unless you name it.
 
 #### `ratelimit`
 
-Client-side rate limiting via a token bucket.
+Rate limiting.
 
 **Configuration**
 
@@ -1006,7 +988,7 @@ its default unless you name it.
 
 #### `retry`
 
-Automatic retry of transient failures with exponential backoff.
+Retry.
 
 **Configuration**
 
@@ -1040,7 +1022,7 @@ its default unless you name it.
 
 #### `test`
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 **Configuration**
 
@@ -1071,7 +1053,7 @@ its default unless you name it.
 
 #### `timeout`
 
-Per-request timeout with transport abort.
+Timeout.
 
 **Configuration**
 

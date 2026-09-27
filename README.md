@@ -12,7 +12,7 @@ Learn more about Voxgig SDKs at [voxgig.com/sdk](https://voxgig.com/sdk/).
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua, JavaScript SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `debug`, `idempotency`, `metrics`, `paging`, `ratelimit`, `retry`, `test`, `timeout` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
@@ -28,7 +28,6 @@ const client = new ConectoSDK()
 const action = await client.Action().create({
   id: 'example',
   slug: 'example',
-  ok: true,
 })
 ```
 
@@ -117,13 +116,13 @@ console.log(contacts)
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/conecto` | publish pending — [install from git tag](https://github.com/voxgig-sdk/conecto-sdk/releases) |
-| Python | `voxgig-sdk-conecto` | publish pending — [install from git tag](https://github.com/voxgig-sdk/conecto-sdk/releases) |
-| PHP | `voxgig-sdk/conecto` | publish pending — [install from git tag](https://github.com/voxgig-sdk/conecto-sdk/releases) |
+| TypeScript | `@voxgig-sdk/conecto-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/conecto-sdk/tags) |
+| Python | `voxgig-sdk-conecto-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/conecto-sdk/tags) |
+| PHP | `voxgig-sdk/conecto-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/conecto-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/conecto-sdk/go` | `go get github.com/voxgig-sdk/conecto-sdk/go@latest` |
-| Ruby | `voxgig-sdk-conecto` | publish pending — [install from git tag](https://github.com/voxgig-sdk/conecto-sdk/releases) |
-| Lua | `voxgig-sdk-conecto` | publish pending — [install from git tag](https://github.com/voxgig-sdk/conecto-sdk/releases) |
-| JavaScript | `@voxgig-sdk/conecto-js` | publish pending — [install from git tag](https://github.com/voxgig-sdk/conecto-sdk/releases) |
+| Ruby | `voxgig-sdk-conecto-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/conecto-sdk/tags) |
+| Lua | `voxgig-sdk-conecto-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/conecto-sdk/tags) |
+| JavaScript | `@voxgig-sdk/conecto-sdk-js` | publish pending — [install from git tag](https://github.com/voxgig-sdk/conecto-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/conecto-sdk/go-cli` | `go install github.com/voxgig-sdk/conecto-sdk/go-cli/cmd/conecto@latest` |
 | Go MCP server | `github.com/voxgig-sdk/conecto-sdk/go-mcp` | `go get github.com/voxgig-sdk/conecto-sdk/go-mcp@latest` |
 
@@ -132,7 +131,7 @@ console.log(contacts)
 ### TypeScript
 
 ```ts
-import { ConectoSDK } from '@voxgig-sdk/conecto'
+import { ConectoSDK } from '@voxgig-sdk/conecto-sdk'
 
 const client = new ConectoSDK({
   apikey: process.env.CONECTO_APIKEY,
@@ -254,7 +253,7 @@ local client = sdk.new({
 ### JavaScript
 
 ```js
-const { ConectoSDK } = require('@voxgig-sdk/conecto-js')
+const { ConectoSDK } = require('@voxgig-sdk/conecto-sdk-js')
 
 const client = new ConectoSDK({
   apikey: process.env.CONECTO_APIKEY,
@@ -374,14 +373,14 @@ forking the SDK.
 
 | Feature | Purpose |
 | --- | --- |
-| **DebugFeature** | Request/response capture ring buffer for debugging |
-| **IdempotencyFeature** | Idempotency keys for safe retries of mutating operations |
-| **MetricsFeature** | Statistics capture: per-operation counters and latency |
-| **PagingFeature** | Pagination signals for list operations |
-| **RatelimitFeature** | Client-side rate limiting via a token bucket |
-| **RetryFeature** | Automatic retry of transient failures with exponential backoff |
-| **TestFeature** | In-memory mock transport for testing without a live server |
-| **TimeoutFeature** | Per-request timeout with transport abort |
+| **DebugFeature** | Debug capture |
+| **IdempotencyFeature** | Idempotency |
+| **MetricsFeature** | Metrics |
+| **PagingFeature** | Paging |
+| **RatelimitFeature** | Rate limiting |
+| **RetryFeature** | Retry |
+| **TestFeature** | Test transport |
+| **TimeoutFeature** | Timeout |
 
 Pass custom features via the `extend` option at construction time.
 

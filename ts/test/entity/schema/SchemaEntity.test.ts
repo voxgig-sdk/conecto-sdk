@@ -25,10 +25,6 @@ import {
 } from '../../utility'
 
 
-// AFTER the imports on purpose: TypeScript hoists `import` above any
-// statement in the emitted CommonJS, so a loader placed above them would
-// run only after every imported module had already been evaluated - and
-// anything reading process.env at module scope would miss these values.
 loadEnvLocal(__dirname + '/../../../.env.local')
 
 
@@ -55,7 +51,7 @@ describe('SchemaEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[],"name":"schema","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{},"contract":{"id":"GET /schema/","json":"{\"operationId\":\"getSchema\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":true,\"description\":\"The complete API surface as data: endpoints, events, block types, actions, limits and error codes.\",\"type\":\"object\"}}},\"description\":\"Success.\"}},\"security\":[{\"bearerAuth\":[]},{\"basicAuth\":[]}],\"securitySchemes\":{\"basicAuth\":{\"description\":\"Client id as username, secret as password.\",\"scheme\":\"basic\",\"type\":\"http\"},\"bearerAuth\":{\"description\":\"Authorization: Bearer <client_id>:<secret>\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/schema/","segments":[{"lit":"schema"}],"select":{},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"schema","name__orig":"schema","Name":"Schema","name_":"schema","name-":"schema","NAME":"SCHEMA","index$":7}, {"active":true,"entity":"schema","key$":"BasicSchemaFlow","kind":"basic","name":"BasicSchemaFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"schema_ref01","srcdatavar":"schema_ref01_data","suffix":"_dt0"},"match":{},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-schema_ref01"}}],"index$":0}]}, 'Schema')
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"schema","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /schema/","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/schema/","q":{},"r":{},"s":[{"lit":"schema"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"schema","name__orig":"schema","Name":"Schema","name_":"schema","name-":"schema","NAME":"SCHEMA","index$":7}, {"active":true,"entity":"schema","key$":"BasicSchemaFlow","kind":"basic","name":"BasicSchemaFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"schema_ref01","srcdatavar":"schema_ref01_data","suffix":"_dt0"},"m":{},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-schema_ref01"}}],"index$":0}]}, 'Schema', {"GET /schema/":{"protocol":"http","parameters":[]}})
     }
     const client = setup.client
     const struct = setup.struct

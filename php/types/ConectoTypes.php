@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 // Typed models for the Conecto SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 //
@@ -15,14 +15,7 @@ declare(strict_types=1);
 /** Action entity data model. */
 class Action
 {
-    public ?array $arguments = null;
-    public ?array $blocks = null;
-    public ?int $conversation_id = null;
-    public ?string $error = null;
     public ?string $id = null;
-    public ?bool $not_found = null;
-    public bool $ok;
-    public ?array $result = null;
 }
 
 /** Request payload for Action#create. */
@@ -30,13 +23,6 @@ class ActionCreateData
 {
     public string $id;
     public string $slug;
-    public ?array $arguments = null;
-    public ?array $blocks = null;
-    public ?int $conversation_id = null;
-    public ?string $error = null;
-    public ?bool $not_found = null;
-    public bool $ok;
-    public ?array $result = null;
 }
 
 /** Contact entity data model. */
@@ -73,7 +59,6 @@ class Conversation
     public ?array $messages = null;
     public ?string $session = null;
     public string $status;
-    public int $user_id;
     public ?int $widget_id = null;
 }
 
@@ -103,7 +88,6 @@ class ConversationCreateData
     public ?array $messages = null;
     public ?string $session = null;
     public string $status;
-    public int $user_id;
     public ?int $widget_id = null;
 }
 
@@ -116,7 +100,6 @@ class ConversationUpdateData
     public ?array $messages = null;
     public ?string $session = null;
     public ?string $status = null;
-    public ?int $user_id = null;
     public ?int $widget_id = null;
 }
 
@@ -145,7 +128,6 @@ class Integration
     public string $name;
     public ?string $signing_secret = null;
     public string $slug;
-    public ?array $widget_ids = null;
 }
 
 /** Request payload for Integration#load. */
@@ -165,7 +147,6 @@ class IntegrationListMatch
     public ?string $name = null;
     public ?string $signing_secret = null;
     public ?string $slug = null;
-    public ?array $widget_ids = null;
 }
 
 /** Request payload for Integration#create. */
@@ -179,7 +160,6 @@ class IntegrationCreateData
     public string $name;
     public ?string $signing_secret = null;
     public string $slug;
-    public ?array $widget_ids = null;
 }
 
 /** Media entity data model. */
@@ -230,8 +210,6 @@ class SchemaLoadMatch
 /** Visitor entity data model. */
 class Visitor
 {
-    public ?string $email = null;
-    public ?string $name = null;
 }
 
 /** Request payload for Visitor#create. */
@@ -239,8 +217,6 @@ class VisitorCreateData
 {
     public string $session;
     public int $widget_id;
-    public ?string $email = null;
-    public ?string $name = null;
 }
 
 /** Webhook entity data model. */

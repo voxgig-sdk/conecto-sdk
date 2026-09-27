@@ -37,7 +37,7 @@ $client = new ConectoSDK([
 
 ```php
 // create() returns the ENTITY — call data_get() for the created Action record.
-$created = $client->Action()->create(["id" => "example_id", "slug" => "example_slug", "ok" => true]);
+$created = $client->Action()->create(["id" => "example_id", "slug" => "example_slug"]);
 
 ```
 
@@ -261,14 +261,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `arguments` |  |
-| `blocks` |  |
-| `conversation_id` |  |
-| `error` |  |
 | `id` |  |
-| `not_found` | A normal no-match, not an error. |
-| `ok` |  |
-| `result` |  |
 
 Operations: Create.
 
@@ -297,7 +290,6 @@ API path: `/contacts/`
 | `messages` | Visitor-facing messages, oldest first. |
 | `session` | Visitor browser session key. |
 | `status` | Lifecycle state. |
-| `user_id` |  |
 | `widget_id` | Widget the conversation belongs to. |
 
 Operations: Create, List, Load, Update.
@@ -327,7 +319,6 @@ API path: `/me/`
 | `name` | Human-readable name. |
 | `signing_secret` | Secret used to sign action calls. |
 | `slug` | Stable identifier, used in the path. |
-| `widget_ids` |  |
 
 Operations: Create, List, Load.
 
@@ -371,8 +362,6 @@ API path: `/schema/`
 
 | Field | Description |
 | --- | --- |
-| `email` |  |
-| `name` |  |
 
 Operations: Create.
 
@@ -410,14 +399,7 @@ Create an instance: `$action = $client->Action();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `arguments` | `array` |  |
-| `blocks` | `array` |  |
-| `conversation_id` | `int` |  |
-| `error` | `string` |  |
 | `id` | `string` |  |
-| `not_found` | `bool` | A normal no-match, not an error. |
-| `ok` | `bool` |  |
-| `result` | `array` |  |
 
 #### Example: Create
 
@@ -425,7 +407,6 @@ Create an instance: `$action = $client->Action();`
 $action = $client->Action()->create([
     "id" => null, // string
     "slug" => null, // string
-    "ok" => null, // bool
 ]);
 ```
 
@@ -489,7 +470,6 @@ Create an instance: `$conversation = $client->Conversation();`
 | `messages` | `array` | Visitor-facing messages, oldest first. |
 | `session` | `string` | Visitor browser session key. |
 | `status` | `string` | Lifecycle state. |
-| `user_id` | `int` |  |
 | `widget_id` | `int` | Widget the conversation belongs to. |
 
 #### Example: Load
@@ -512,7 +492,6 @@ $conversations = $client->Conversation()->list();
 $conversation = $client->Conversation()->create([
     "id" => null, // int
     "status" => null, // string
-    "user_id" => null, // int
 ]);
 ```
 
@@ -566,7 +545,6 @@ Create an instance: `$integration = $client->Integration();`
 | `name` | `string` | Human-readable name. |
 | `signing_secret` | `string` | Secret used to sign action calls. |
 | `slug` | `string` | Stable identifier, used in the path. |
-| `widget_ids` | `array` |  |
 
 #### Example: Load
 
@@ -670,13 +648,6 @@ Create an instance: `$visitor = $client->Visitor();`
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
 
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `email` | `string` |  |
-| `name` | `string` |  |
-
 #### Example: Create
 
 ```php
@@ -744,14 +715,14 @@ above:
 
 | Feature | What it does |
 |---|---|
-| [`debug`](#debug) | Request/response capture ring buffer for debugging |
-| [`idempotency`](#idempotency) | Idempotency keys for safe retries of mutating operations |
-| [`metrics`](#metrics) | Statistics capture: per-operation counters and latency |
-| [`paging`](#paging) | Pagination signals for list operations |
-| [`ratelimit`](#ratelimit) | Client-side rate limiting via a token bucket |
-| [`retry`](#retry) | Automatic retry of transient failures with exponential backoff |
-| [`test`](#test) | In-memory mock transport for testing without a live server |
-| [`timeout`](#timeout) | Per-request timeout with transport abort |
+| [`debug`](#debug) | Debug capture |
+| [`idempotency`](#idempotency) | Idempotency |
+| [`metrics`](#metrics) | Metrics |
+| [`paging`](#paging) | Paging |
+| [`ratelimit`](#ratelimit) | Rate limiting |
+| [`retry`](#retry) | Retry |
+| [`test`](#test) | Test transport |
+| [`timeout`](#timeout) | Timeout |
 
 > **Order matters for `ratelimit`, `retry`, `timeout`.** These wrap the
 > transport, so each one wraps whatever is already installed: the order you
@@ -760,7 +731,7 @@ above:
 
 ### debug
 
-Request/response capture ring buffer for debugging.
+Debug capture.
 
 | Option | Default |
 |---|---|
@@ -772,7 +743,7 @@ Set `feature.debug.active` to enable it, then override any of the options above.
 
 ### idempotency
 
-Idempotency keys for safe retries of mutating operations.
+Idempotency.
 
 | Option | Default |
 |---|---|
@@ -785,7 +756,7 @@ Set `feature.idempotency.active` to enable it, then override any of the options 
 
 ### metrics
 
-Statistics capture: per-operation counters and latency.
+Metrics.
 
 | Option | Default |
 |---|---|
@@ -795,7 +766,7 @@ Set `feature.metrics.active` to enable it, then override any of the options abov
 
 ### paging
 
-Pagination signals for list operations.
+Paging.
 
 | Option | Default |
 |---|---|
@@ -811,7 +782,7 @@ Set `feature.paging.active` to enable it, then override any of the options above
 
 ### ratelimit
 
-Client-side rate limiting via a token bucket.
+Rate limiting.
 
 | Option | Default |
 |---|---|
@@ -827,7 +798,7 @@ activated earlier.
 
 ### retry
 
-Automatic retry of transient failures with exponential backoff.
+Retry.
 
 | Option | Default |
 |---|---|
@@ -846,7 +817,7 @@ activated earlier.
 
 ### test
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 | Option | Default |
 |---|---|
@@ -856,7 +827,7 @@ Set `feature.test.active` to enable it, then override any of the options above.
 
 ### timeout
 
-Per-request timeout with transport abort.
+Timeout.
 
 | Option | Default |
 |---|---|
@@ -908,14 +879,14 @@ with hook methods named after pipeline stages (e.g. `PrePoint`,
 
 The SDK ships with built-in features:
 
-- **DebugFeature**: Request/response capture ring buffer for debugging
-- **IdempotencyFeature**: Idempotency keys for safe retries of mutating operations
-- **MetricsFeature**: Statistics capture: per-operation counters and latency
-- **PagingFeature**: Pagination signals for list operations
-- **RatelimitFeature**: Client-side rate limiting via a token bucket
-- **RetryFeature**: Automatic retry of transient failures with exponential backoff
-- **TestFeature**: In-memory mock transport for testing without a live server
-- **TimeoutFeature**: Per-request timeout with transport abort
+- **DebugFeature**: Debug capture
+- **IdempotencyFeature**: Idempotency
+- **MetricsFeature**: Metrics
+- **PagingFeature**: Paging
+- **RatelimitFeature**: Rate limiting
+- **RetryFeature**: Retry
+- **TestFeature**: Test transport
+- **TimeoutFeature**: Timeout
 
 Features are initialized in order. Hooks fire in the order features
 were added, so later features can override earlier ones.
@@ -935,6 +906,7 @@ Use `Helpers::to_map()` to safely validate that a value is an array.
 php/
 ├── conecto_sdk.php          -- Main SDK class
 ├── config.php                     -- Configuration
+├── schema.php                     -- Generated option + entity specs
 ├── features.php                   -- Feature factory
 ├── core/                          -- Core types and context
 ├── entity/                        -- Entity implementations

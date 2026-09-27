@@ -2,180 +2,29 @@
   "existing": {
     "action": {
       "ACTION00": {
-        "arguments": {},
-        "blocks": [],
-        "conversation_id": "CONVERSATION01",
-        "error": "s53",
         "id": "ACTION00",
-        "not_found": false,
-        "ok": true,
-        "result": {},
         "slug": "SLUG01"
       },
       "ACTION01": {
-        "arguments": {},
-        "blocks": [],
-        "conversation_id": "CONVERSATION01",
-        "error": "sa3",
         "id": "ACTION01",
-        "not_found": false,
-        "ok": true,
-        "result": {},
         "slug": "SLUG01"
       },
       "ACTION02": {
-        "arguments": {},
-        "blocks": [],
-        "conversation_id": "CONVERSATION01",
-        "error": "sf3",
         "id": "ACTION02",
-        "not_found": false,
-        "ok": true,
-        "result": {},
         "slug": "SLUG01"
       }
     }
   },
   "new": {
     "action": {
-      "action_ref01": {
-        "arguments": {},
-        "blocks": [],
-        "conversation_id": "CONVERSATION01",
-        "error": "s143",
-        "not_found": false,
-        "ok": true,
-        "result": {}
-      }
+      "action_ref01": {}
     }
   },
   "requests": {
     "POST /integrations/{slug}/actions/{action}/run/": {
       "provenance": "operation-contract",
-      "contract": {
-        "operationId": "runIntegrationAction",
-        "parameters": [
-          {
-            "description": "Integration slug.",
-            "in": "path",
-            "name": "slug",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Action name.",
-            "in": "path",
-            "name": "action",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "protocol": "http",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "arguments": {
-                    "additionalProperties": true,
-                    "type": "object"
-                  },
-                  "conversation_id": {
-                    "type": "integer"
-                  }
-                },
-                "type": "object"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "Result of running an integration action.",
-                  "properties": {
-                    "blocks": {
-                      "items": {
-                        "additionalProperties": true,
-                        "description": "One rich-content block in a message. `type` selects the shape; the documented types are image, video, embed, audio, file, cards, list, buttons, text and divider. Invalid blocks are rejected with 400 and a reason rather than dropped silently.",
-                        "properties": {
-                          "type": {
-                            "enum": [
-                              "image",
-                              "video",
-                              "embed",
-                              "audio",
-                              "file",
-                              "cards",
-                              "list",
-                              "buttons",
-                              "text",
-                              "divider"
-                            ],
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "type"
-                        ],
-                        "type": "object"
-                      },
-                      "type": "array"
-                    },
-                    "error": {
-                      "type": "string"
-                    },
-                    "not_found": {
-                      "description": "A normal no-match, not an error.",
-                      "type": "boolean"
-                    },
-                    "ok": {
-                      "type": "boolean"
-                    },
-                    "result": {
-                      "additionalProperties": true,
-                      "type": "object"
-                    }
-                  },
-                  "required": [
-                    "ok"
-                  ],
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Success."
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          },
-          {
-            "basicAuth": []
-          }
-        ],
-        "securitySchemes": {
-          "basicAuth": {
-            "description": "Client id as username, secret as password.",
-            "scheme": "basic",
-            "type": "http"
-          },
-          "bearerAuth": {
-            "description": "Authorization: Bearer <client_id>:<secret>",
-            "scheme": "bearer",
-            "type": "http"
-          }
-        },
-        "securitySource": "definition"
-      }
+      "version": 2,
+      "source": "openapi3"
     }
   }
 }

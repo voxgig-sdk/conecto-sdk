@@ -1,0 +1,71 @@
+# BasicConversationFlow
+
+main: kit: flow: BasicConversationFlow:
+{
+  entity: "conversation",
+  kind: "basic",
+  name: "BasicConversationFlow",
+  step: [
+    {
+      i: {
+        ref: "conversation_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "conversation_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "conversation_ref01",
+        srcdatavar: "conversation_ref01_data",
+        suffix: "_up0",
+        textfield: "body"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-conversation_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "conversation_ref01",
+        srcdatavar: "conversation_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "conversation01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-conversation_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicConversationFlow"
+}

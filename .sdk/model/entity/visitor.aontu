@@ -1,0 +1,141 @@
+# Entity: visitor
+
+main: kit: entity: visitor: {
+
+  alias: field: {}
+
+  name: "visitor"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /widgets/{id}/visitors/{session}/identify/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "session"
+                or: "session"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "widget_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/widgets/{id}/visitors/{session}/identify/"
+          q: {
+            "$action": "identify"
+            exist: [
+              "session"
+              "widget_id"
+            ]
+          }
+          r: {
+            param: {
+              id: "widget_id"
+            }
+          }
+          s: [
+            {
+              lit: "widgets"
+            }
+            {
+              var: "widget_id"
+            }
+            {
+              lit: "visitors"
+            }
+            {
+              var: "session"
+            }
+            {
+              lit: "identify"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /widgets/{id}/visitors/{session}/unverify/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "session"
+                or: "session"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "widget_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/widgets/{id}/visitors/{session}/unverify/"
+          q: {
+            "$action": "unverify"
+            exist: [
+              "session"
+              "widget_id"
+            ]
+          }
+          r: {
+            param: {
+              id: "widget_id"
+            }
+          }
+          s: [
+            {
+              lit: "widgets"
+            }
+            {
+              var: "widget_id"
+            }
+            {
+              lit: "visitors"
+            }
+            {
+              var: "session"
+            }
+            {
+              lit: "unverify"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+
+}

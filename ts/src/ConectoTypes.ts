@@ -1,31 +1,17 @@
 // Typed models for the Conecto SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface Action {
-  arguments?: Record<string, any>
-  blocks?: any[]
-  conversation_id?: number
-  error?: string
   id?: string
-  not_found?: boolean
-  ok: boolean
-  result?: Record<string, any>
 }
 
 export interface ActionCreateData {
   id: string
   slug: string
-  arguments?: Record<string, any>
-  blocks?: any[]
-  conversation_id?: number
-  error?: string
-  not_found?: boolean
-  ok: boolean
-  result?: Record<string, any>
 
   // Selects a custom action instead of the plain create:
   //   'run'
@@ -60,7 +46,6 @@ export interface Conversation {
   messages?: any[]
   session?: string
   status: string
-  user_id: number
   widget_id?: number
 }
 
@@ -84,7 +69,6 @@ export interface ConversationCreateData {
   messages?: any[]
   session?: string
   status: string
-  user_id: number
   widget_id?: number
 
   // Selects a custom action instead of the plain create:
@@ -101,7 +85,6 @@ export interface ConversationUpdateData {
   messages?: any[]
   session?: string
   status?: string
-  user_id?: number
   widget_id?: number
 
   // Selects a custom action instead of the plain update:
@@ -130,7 +113,6 @@ export interface Integration {
   name: string
   signing_secret?: string
   slug: string
-  widget_ids?: any[]
 }
 
 export interface IntegrationLoadMatch {
@@ -146,7 +128,6 @@ export interface IntegrationListMatch {
   name?: string
   signing_secret?: string
   slug?: string
-  widget_ids?: any[]
 }
 
 export interface IntegrationCreateData {
@@ -158,7 +139,6 @@ export interface IntegrationCreateData {
   name: string
   signing_secret?: string
   slug: string
-  widget_ids?: any[]
 
   // Selects a custom action instead of the plain create:
   //   'install' | 'rotate_signing_secret'
@@ -201,15 +181,11 @@ export interface SchemaLoadMatch {
 }
 
 export interface Visitor {
-  email?: string
-  name?: string
 }
 
 export interface VisitorCreateData {
   session: string
   widget_id: number
-  email?: string
-  name?: string
 
   // Selects a custom action instead of the plain create:
   //   'identify' | 'unverify'

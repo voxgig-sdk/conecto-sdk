@@ -1,0 +1,251 @@
+# Entity: integration
+
+main: kit: entity: integration: {
+
+  alias: field: {}
+
+  fields: {
+    actions: {
+      h: "Actions"
+      n: "actions"
+      r: false
+      sh: "Actions this integration exposes."
+      t: "`$ARRAY`"
+    }
+    auth_type: {
+      h: "Auth Type"
+      n: "auth_type"
+      r: false
+      sh: "How Conecto authenticates to base_url."
+      t: "`$STRING`"
+    }
+    base_url: {
+      fo: "uri"
+      h: "Base Url"
+      n: "base_url"
+      r: true
+      sh: "Root URL Conecto POSTs actions to."
+      t: "`$STRING`"
+    }
+    credential: {
+      h: "Credential"
+      n: "credential"
+      r: false
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: true
+      sh: "Human-readable name."
+      t: "`$STRING`"
+    }
+    signing_secret: {
+      h: "Signing Secret"
+      n: "signing_secret"
+      r: false
+      sh: "Secret used to sign action calls."
+      t: "`$STRING`"
+    }
+    slug: {
+      h: "Slug"
+      n: "slug"
+      r: true
+      sh: "Stable identifier, used in the path."
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "integration"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /integrations/{slug}/install/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "slug"
+                or: "slug"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/integrations/{slug}/install/"
+          q: {
+            "$action": "install"
+            exist: [
+              "slug"
+            ]
+          }
+          s: [
+            {
+              lit: "integrations"
+            }
+            {
+              var: "slug"
+            }
+            {
+              lit: "install"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /integrations/{slug}/rotate_signing_secret/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "slug"
+                or: "slug"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/integrations/{slug}/rotate_signing_secret/"
+          q: {
+            "$action": "rotate_signing_secret"
+            exist: [
+              "slug"
+            ]
+          }
+          s: [
+            {
+              lit: "integrations"
+            }
+            {
+              var: "slug"
+            }
+            {
+              lit: "rotate_signing_secret"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /integrations/"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/integrations/"
+          s: [
+            {
+              lit: "integrations"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /integrations/"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/integrations/"
+          s: [
+            {
+              lit: "integrations"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.integrations`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /integrations/{slug}/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "slug"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/integrations/{slug}/"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              slug: "id"
+            }
+          }
+          s: [
+            {
+              lit: "integrations"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

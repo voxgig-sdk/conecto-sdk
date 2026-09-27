@@ -1,0 +1,30 @@
+# BasicContactFlow
+
+main: kit: flow: BasicContactFlow:
+{
+  entity: "contact",
+  kind: "basic",
+  name: "BasicContactFlow",
+  step: [
+    {
+      i: {
+        ref: "contact_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "contact_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicContactFlow"
+}

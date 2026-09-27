@@ -2,46 +2,18 @@
 
 # Typed models for the Conecto SDK.
 #
-# GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-# params (op.<name>.points[].args.params[]). Member types come from the
+# GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+# params (op.<name>.points[].g.params[]). Member types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Ruby types are unenforced; these YARD
 # annotations document the shapes. Do not edit by hand.
 
 # Action entity data model.
 #
-# @!attribute [rw] arguments
-#   @return [Hash, nil]
-#
-# @!attribute [rw] blocks
-#   @return [Array, nil]
-#
-# @!attribute [rw] conversation_id
-#   @return [Integer, nil]
-#
-# @!attribute [rw] error
-#   @return [String, nil]
-#
 # @!attribute [rw] id
 #   @return [String, nil]
-#
-# @!attribute [rw] not_found
-#   @return [Boolean, nil]
-#
-# @!attribute [rw] ok
-#   @return [Boolean]
-#
-# @!attribute [rw] result
-#   @return [Hash, nil]
 Action = Struct.new(
-  :arguments,
-  :blocks,
-  :conversation_id,
-  :error,
   :id,
-  :not_found,
-  :ok,
-  :result,
   keyword_init: true
 )
 
@@ -52,37 +24,9 @@ Action = Struct.new(
 #
 # @!attribute [rw] slug
 #   @return [String]
-#
-# @!attribute [rw] arguments
-#   @return [Hash, nil]
-#
-# @!attribute [rw] blocks
-#   @return [Array, nil]
-#
-# @!attribute [rw] conversation_id
-#   @return [Integer, nil]
-#
-# @!attribute [rw] error
-#   @return [String, nil]
-#
-# @!attribute [rw] not_found
-#   @return [Boolean, nil]
-#
-# @!attribute [rw] ok
-#   @return [Boolean]
-#
-# @!attribute [rw] result
-#   @return [Hash, nil]
 ActionCreateData = Struct.new(
   :id,
   :slug,
-  :arguments,
-  :blocks,
-  :conversation_id,
-  :error,
-  :not_found,
-  :ok,
-  :result,
   keyword_init: true
 )
 
@@ -161,9 +105,6 @@ ContactCreateData = Struct.new(
 # @!attribute [rw] status
 #   @return [String]
 #
-# @!attribute [rw] user_id
-#   @return [Integer]
-#
 # @!attribute [rw] widget_id
 #   @return [Integer, nil]
 Conversation = Struct.new(
@@ -173,7 +114,6 @@ Conversation = Struct.new(
   :messages,
   :session,
   :status,
-  :user_id,
   :widget_id,
   keyword_init: true
 )
@@ -236,9 +176,6 @@ ConversationListMatch = Struct.new(
 # @!attribute [rw] status
 #   @return [String]
 #
-# @!attribute [rw] user_id
-#   @return [Integer]
-#
 # @!attribute [rw] widget_id
 #   @return [Integer, nil]
 ConversationCreateData = Struct.new(
@@ -248,7 +185,6 @@ ConversationCreateData = Struct.new(
   :messages,
   :session,
   :status,
-  :user_id,
   :widget_id,
   keyword_init: true
 )
@@ -273,9 +209,6 @@ ConversationCreateData = Struct.new(
 # @!attribute [rw] status
 #   @return [String, nil]
 #
-# @!attribute [rw] user_id
-#   @return [Integer, nil]
-#
 # @!attribute [rw] widget_id
 #   @return [Integer, nil]
 ConversationUpdateData = Struct.new(
@@ -285,7 +218,6 @@ ConversationUpdateData = Struct.new(
   :messages,
   :session,
   :status,
-  :user_id,
   :widget_id,
   keyword_init: true
 )
@@ -341,9 +273,6 @@ CredentialLoadMatch = Struct.new(
 #
 # @!attribute [rw] slug
 #   @return [String]
-#
-# @!attribute [rw] widget_ids
-#   @return [Array, nil]
 Integration = Struct.new(
   :actions,
   :auth_type,
@@ -353,7 +282,6 @@ Integration = Struct.new(
   :name,
   :signing_secret,
   :slug,
-  :widget_ids,
   keyword_init: true
 )
 
@@ -391,9 +319,6 @@ IntegrationLoadMatch = Struct.new(
 #
 # @!attribute [rw] slug
 #   @return [String, nil]
-#
-# @!attribute [rw] widget_ids
-#   @return [Array, nil]
 IntegrationListMatch = Struct.new(
   :actions,
   :auth_type,
@@ -403,7 +328,6 @@ IntegrationListMatch = Struct.new(
   :name,
   :signing_secret,
   :slug,
-  :widget_ids,
   keyword_init: true
 )
 
@@ -432,9 +356,6 @@ IntegrationListMatch = Struct.new(
 #
 # @!attribute [rw] slug
 #   @return [String]
-#
-# @!attribute [rw] widget_ids
-#   @return [Array, nil]
 IntegrationCreateData = Struct.new(
   :actions,
   :auth_type,
@@ -444,7 +365,6 @@ IntegrationCreateData = Struct.new(
   :name,
   :signing_secret,
   :slug,
-  :widget_ids,
   keyword_init: true
 )
 
@@ -535,17 +455,8 @@ class SchemaLoadMatch
 end
 
 # Visitor entity data model.
-#
-# @!attribute [rw] email
-#   @return [String, nil]
-#
-# @!attribute [rw] name
-#   @return [String, nil]
-Visitor = Struct.new(
-  :email,
-  :name,
-  keyword_init: true
-)
+class Visitor
+end
 
 # Request payload for Visitor#create.
 #
@@ -554,17 +465,9 @@ Visitor = Struct.new(
 #
 # @!attribute [rw] widget_id
 #   @return [Integer]
-#
-# @!attribute [rw] email
-#   @return [String, nil]
-#
-# @!attribute [rw] name
-#   @return [String, nil]
 VisitorCreateData = Struct.new(
   :session,
   :widget_id,
-  :email,
-  :name,
   keyword_init: true
 )
 

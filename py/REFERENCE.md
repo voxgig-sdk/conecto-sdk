@@ -124,14 +124,7 @@ action = client.Action()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `arguments` | `dict` | No |  |
-| `blocks` | `list` | No |  |
-| `conversation_id` | `int` | No |  |
-| `error` | `str` | No |  |
 | `id` | `str` | No |  |
-| `not_found` | `bool` | No | A normal no-match, not an error. |
-| `ok` | `bool` | Yes |  |
-| `result` | `dict` | No |  |
 
 ### Operations
 
@@ -143,7 +136,6 @@ Create a new entity with the given data. Returns the created entity data and rai
 result = client.Action().create({
     "id": "example_id",  # str
     "slug": "example_slug",  # str
-    "ok": True,  # bool
 })
 ```
 
@@ -258,7 +250,6 @@ conversation = client.Conversation()
 | `messages` | `list` | No | Visitor-facing messages, oldest first. |
 | `session` | `str` | No | Visitor browser session key. |
 | `status` | `str` | Yes | Lifecycle state. |
-| `user_id` | `int` | Yes |  |
 | `widget_id` | `int` | No | Widget the conversation belongs to. |
 
 ### Operations
@@ -271,7 +262,6 @@ Create a new entity with the given data. Returns the created entity data and rai
 result = client.Conversation().create({
     "id": 1,  # int
     "status": "example_status",  # str
-    "user_id": 1,  # int
 })
 ```
 
@@ -403,7 +393,6 @@ integration = client.Integration()
 | `name` | `str` | Yes | Human-readable name. |
 | `signing_secret` | `str` | No | Secret used to sign action calls. |
 | `slug` | `str` | Yes | Stable identifier, used in the path. |
-| `widget_ids` | `list` | No |  |
 
 ### Operations
 
@@ -622,13 +611,6 @@ Return the entity name.
 visitor = client.Visitor()
 ```
 
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `email` | `str` | No |  |
-| `name` | `str` | No |  |
-
 ### Operations
 
 #### `create(reqdata, ctrl=None) -> dict`
@@ -759,14 +741,14 @@ Return the entity name.
 
 | Feature | Version | Description |
 | --- | --- | --- |
-| `debug` | 0.0.1 | Request/response capture ring buffer for debugging |
-| `idempotency` | 0.0.1 | Idempotency keys for safe retries of mutating operations |
-| `metrics` | 0.0.1 | Statistics capture: per-operation counters and latency |
-| `paging` | 0.0.1 | Pagination signals for list operations |
-| `ratelimit` | 0.0.1 | Client-side rate limiting via a token bucket |
-| `retry` | 0.0.1 | Automatic retry of transient failures with exponential backoff |
-| `test` | 0.0.1 | In-memory mock transport for testing without a live server |
-| `timeout` | 0.0.1 | Per-request timeout with transport abort |
+| `debug` | 0.0.1 | Debug capture |
+| `idempotency` | 0.0.1 | Idempotency |
+| `metrics` | 0.0.1 | Metrics |
+| `paging` | 0.0.1 | Paging |
+| `ratelimit` | 0.0.1 | Rate limiting |
+| `retry` | 0.0.1 | Retry |
+| `test` | 0.0.1 | Test transport |
+| `timeout` | 0.0.1 | Timeout |
 
 
 Features are activated via the `feature` option:
@@ -812,7 +794,7 @@ rather than the transport, so their order does not affect what they observe.
 
 #### `debug`
 
-Request/response capture ring buffer for debugging.
+Debug capture.
 
 **Configuration**
 
@@ -843,7 +825,7 @@ its default unless you name it.
 
 #### `idempotency`
 
-Idempotency keys for safe retries of mutating operations.
+Idempotency.
 
 **Configuration**
 
@@ -874,7 +856,7 @@ its default unless you name it.
 
 #### `metrics`
 
-Statistics capture: per-operation counters and latency.
+Metrics.
 
 **Configuration**
 
@@ -902,7 +884,7 @@ its default unless you name it.
 
 #### `paging`
 
-Pagination signals for list operations.
+Paging.
 
 **Configuration**
 
@@ -937,7 +919,7 @@ its default unless you name it.
 
 #### `ratelimit`
 
-Client-side rate limiting via a token bucket.
+Rate limiting.
 
 **Configuration**
 
@@ -968,7 +950,7 @@ its default unless you name it.
 
 #### `retry`
 
-Automatic retry of transient failures with exponential backoff.
+Retry.
 
 **Configuration**
 
@@ -1002,7 +984,7 @@ its default unless you name it.
 
 #### `test`
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 **Configuration**
 
@@ -1033,7 +1015,7 @@ its default unless you name it.
 
 #### `timeout`
 
-Per-request timeout with transport abort.
+Timeout.
 
 **Configuration**
 

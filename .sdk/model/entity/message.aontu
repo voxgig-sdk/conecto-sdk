@@ -1,0 +1,195 @@
+# Entity: message
+
+main: kit: entity: message: {
+
+  alias: field: {}
+
+  fields: {
+    ask_email: {
+      h: "Ask Email"
+      n: "ask_email"
+      r: false
+      sh: "Prompt the visitor for an email address."
+      t: "`$BOOLEAN`"
+    }
+    blocks: {
+      h: "Blocks"
+      n: "blocks"
+      r: false
+      sh: "At most 10."
+      t: "`$ARRAY`"
+    }
+    body: {
+      h: "Body"
+      n: "body"
+      r: false
+      t: "`$STRING`"
+    }
+    buttons: {
+      h: "Buttons"
+      n: "buttons"
+      r: false
+      t: "`$ARRAY`"
+    }
+    internal: {
+      h: "Internal"
+      n: "internal"
+      r: false
+      sh: "Internal note, not shown to the visitor."
+      t: "`$BOOLEAN`"
+    }
+    products: {
+      h: "Products"
+      n: "products"
+      r: false
+      t: "`$ARRAY`"
+    }
+    ticket_form: {
+      h: "Ticket Form"
+      n: "ticket_form"
+      r: false
+      sh: "Show the ticket form."
+      t: "`$BOOLEAN`"
+    }
+  }
+
+  name: "message"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /widgets/{id}/visitors/{session}/message/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "idempotency_key"
+                or: "idempotency_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                k: "param"
+                n: "session"
+                or: "session"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "widget_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/widgets/{id}/visitors/{session}/message/"
+          q: {
+            exist: [
+              "idempotency_key"
+              "session"
+              "widget_id"
+            ]
+          }
+          r: {
+            param: {
+              id: "widget_id"
+            }
+          }
+          s: [
+            {
+              lit: "widgets"
+            }
+            {
+              var: "widget_id"
+            }
+            {
+              lit: "visitors"
+            }
+            {
+              var: "session"
+            }
+            {
+              lit: "message"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /conversations/{id}/messages/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "idempotency_key"
+                or: "idempotency_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                k: "param"
+                n: "conversation_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/conversations/{id}/messages/"
+          q: {
+            exist: [
+              "conversation_id"
+              "idempotency_key"
+            ]
+          }
+          r: {
+            param: {
+              id: "conversation_id"
+            }
+          }
+          s: [
+            {
+              lit: "conversations"
+            }
+            {
+              var: "conversation_id"
+            }
+            {
+              lit: "messages"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.conversation")]
+    [path("$.main.kit.entity.visitor")]
+  ]
+
+}

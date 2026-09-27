@@ -1,23 +1,9 @@
 export interface Action {
-    arguments?: Record<string, any>;
-    blocks?: any[];
-    conversation_id?: number;
-    error?: string;
     id?: string;
-    not_found?: boolean;
-    ok: boolean;
-    result?: Record<string, any>;
 }
 export interface ActionCreateData {
     id: string;
     slug: string;
-    arguments?: Record<string, any>;
-    blocks?: any[];
-    conversation_id?: number;
-    error?: string;
-    not_found?: boolean;
-    ok: boolean;
-    result?: Record<string, any>;
     $action?: string;
     [action: string]: any;
 }
@@ -44,7 +30,6 @@ export interface Conversation {
     messages?: any[];
     session?: string;
     status: string;
-    user_id: number;
     widget_id?: number;
 }
 export interface ConversationLoadMatch {
@@ -65,7 +50,6 @@ export interface ConversationCreateData {
     messages?: any[];
     session?: string;
     status: string;
-    user_id: number;
     widget_id?: number;
     $action?: string;
     [action: string]: any;
@@ -77,7 +61,6 @@ export interface ConversationUpdateData {
     messages?: any[];
     session?: string;
     status?: string;
-    user_id?: number;
     widget_id?: number;
     $action?: string;
     [action: string]: any;
@@ -99,7 +82,6 @@ export interface Integration {
     name: string;
     signing_secret?: string;
     slug: string;
-    widget_ids?: any[];
 }
 export interface IntegrationLoadMatch {
     id: string;
@@ -113,7 +95,6 @@ export interface IntegrationListMatch {
     name?: string;
     signing_secret?: string;
     slug?: string;
-    widget_ids?: any[];
 }
 export interface IntegrationCreateData {
     actions?: any[];
@@ -124,7 +105,6 @@ export interface IntegrationCreateData {
     name: string;
     signing_secret?: string;
     slug: string;
-    widget_ids?: any[];
     $action?: string;
     [action: string]: any;
 }
@@ -156,14 +136,10 @@ export interface Schema {
 export interface SchemaLoadMatch {
 }
 export interface Visitor {
-    email?: string;
-    name?: string;
 }
 export interface VisitorCreateData {
     session: string;
     widget_id: number;
-    email?: string;
-    name?: string;
     $action?: string;
     [action: string]: any;
 }

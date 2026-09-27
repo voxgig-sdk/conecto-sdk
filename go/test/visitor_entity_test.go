@@ -93,7 +93,7 @@ func visitorBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"visitor01", "visitor02", "visitor03", "widget01", "widget02", "widget03", "session01"},
+		[]any{"visitor01", "visitor02", "visitor03", "session01", "widget01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

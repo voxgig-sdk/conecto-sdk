@@ -1,0 +1,23 @@
+# BasicVisitorFlow
+
+main: kit: flow: BasicVisitorFlow:
+{
+  entity: "visitor",
+  kind: "basic",
+  name: "BasicVisitorFlow",
+  step: [
+    {
+      i: {
+        ref: "visitor_ref01"
+      }
+
+      m: {
+        session: "session01",
+        widget_id: "widget01"
+      }
+
+      o: "create"
+    }
+  ],
+  "key$": "BasicVisitorFlow"
+}

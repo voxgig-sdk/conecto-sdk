@@ -34,14 +34,14 @@
 <a href="../sdks/ts.html">TypeScript</a></details>
 <details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
 <a href="../tools/go-mcp.html">Go MCP server</a></details>
-<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
-<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
-<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
-<a href="../features/paging.html">Pagination signals for list operations</a>
-<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
-<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
-<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
-<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="conversation">Conversation</h1>
+<details><summary>Features</summary><a href="../features/debug.html">Debug capture</a>
+<a href="../features/idempotency.html">Idempotency</a>
+<a href="../features/metrics.html">Metrics</a>
+<a href="../features/paging.html">Paging</a>
+<a href="../features/ratelimit.html">Rate limiting</a>
+<a href="../features/retry.html">Retry</a>
+<a href="../features/test.html">Test transport</a>
+<a href="../features/timeout.html">Timeout</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="conversation">Conversation</h1>
 <h2 id="operations">Operations</h2>
 <p>Every route this entity exposes. Each route links to its own reference on this page.</p>
 <table>
@@ -92,6 +92,73 @@
 </tr>
 </tbody>
 </table>
+<h2 id="examples">Examples</h2>
+<p>One example per SDK, generated from the API model. The argument names are the parameters and fields of this entity, and the values are placeholders. The examples are not compiled or executed.</p>
+<h3 id="golang">Golang</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/go.html#set-up-the-client">Golang setup</a>, then call the operations:</p>
+<pre><code class="language-go">conversations, err := client.Conversation(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(conversations)
+conversation, err := client.Conversation(nil).Load(map[string]any{&quot;id&quot;: 1}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(conversation)
+created, err := client.Conversation(nil).Create(map[string]any{&quot;id&quot;: 1, &quot;status&quot;: &quot;example&quot;}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(created)
+updated, err := client.Conversation(nil).Update(map[string]any{&quot;id&quot;: 1, &quot;body&quot;: &quot;example&quot;, &quot;created_at&quot;: &quot;example&quot;}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(updated)
+</code></pre>
+<h3 id="javascript">JavaScript</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/js.html#set-up-the-client">JavaScript setup</a>, then call the operations:</p>
+<pre><code class="language-js">const conversations = await client.Conversation().list()
+const conversation = await client.Conversation().load({ id: 1 })
+const created = await client.Conversation().create({ id: 1, status: &quot;example&quot; })
+const updated = await client.Conversation().update({ id: 1, body: &quot;example&quot;, created_at: &quot;example&quot; })
+</code></pre>
+<h3 id="lua">Lua</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/lua.html#set-up-the-client">Lua setup</a>, then call the operations:</p>
+<pre><code class="language-lua">local conversations, err = client:Conversation():list()
+local conversation, err = client:Conversation():load({ id = 1 })
+local created, err = client:Conversation():create({ id = 1, status = &quot;example&quot; })
+local updated, err = client:Conversation():update({ id = 1, body = &quot;example&quot;, created_at = &quot;example&quot; })
+</code></pre>
+<h3 id="php">PHP</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/php.html#set-up-the-client">PHP setup</a>, then call the operations:</p>
+<pre><code class="language-php">$conversations = $client-&gt;Conversation()-&gt;list();
+$conversation = $client-&gt;Conversation()-&gt;load([&quot;id&quot; =&gt; 1]);
+$created = $client-&gt;Conversation()-&gt;create([&quot;id&quot; =&gt; 1, &quot;status&quot; =&gt; &quot;example&quot;]);
+$updated = $client-&gt;Conversation()-&gt;update([&quot;id&quot; =&gt; 1, &quot;body&quot; =&gt; &quot;example&quot;, &quot;created_at&quot; =&gt; &quot;example&quot;]);
+</code></pre>
+<h3 id="python">Python</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/py.html#set-up-the-client">Python setup</a>, then call the operations:</p>
+<pre><code class="language-py">conversations = client.Conversation().list()
+conversation = client.Conversation().load({&quot;id&quot;: 1})
+created = client.Conversation().create({ &quot;id&quot;: 1, &quot;status&quot;: &quot;example&quot; })
+updated = client.Conversation().update({&quot;id&quot;: 1, &quot;body&quot;: &quot;example&quot;, &quot;created_at&quot;: &quot;example&quot;})
+</code></pre>
+<h3 id="ruby">Ruby</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/rb.html#set-up-the-client">Ruby setup</a>, then call the operations:</p>
+<pre><code class="language-rb">conversations = client.Conversation.list()
+conversation = client.Conversation.load({ &quot;id&quot; =&gt; 1 })
+created = client.Conversation.create({ &quot;id&quot; =&gt; 1, &quot;status&quot; =&gt; &quot;example&quot; })
+updated = client.Conversation.update({ &quot;id&quot; =&gt; 1, &quot;body&quot; =&gt; &quot;example&quot;, &quot;created_at&quot; =&gt; &quot;example&quot; })
+</code></pre>
+<h3 id="typescript">TypeScript</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/ts.html#set-up-the-client">TypeScript setup</a>, then call the operations:</p>
+<pre><code class="language-ts">const conversations = await client.Conversation().list()
+const conversation = await client.Conversation().load({ id: 1 })
+const created = await client.Conversation().create({ id: 1, status: &quot;example&quot; })
+const updated = await client.Conversation().update({ id: 1, body: &quot;example&quot;, created_at: &quot;example&quot; })
+</code></pre>
 <h2 id="fields">Fields</h2>
 <table>
 <thead>
@@ -113,7 +180,7 @@
 <td><code>created_at</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td></td>
+<td>Created At</td>
 </tr>
 <tr>
 <td><code>id</code></td>
@@ -138,12 +205,6 @@
 <td><code>string</code></td>
 <td>Yes</td>
 <td>Lifecycle state.</td>
-</tr>
-<tr>
-<td><code>user_id</code></td>
-<td><code>integer</code></td>
-<td>Yes</td>
-<td></td>
 </tr>
 <tr>
 <td><code>widget_id</code></td>
@@ -517,7 +578,7 @@
 | <code>widget_id</code> | <code>query</code> | <code>integer</code> | No | Filter to one widget. |
 | <code>session</code> | <code>query</code> | <code>string</code> | No | Narrow to one visitor browser session. |
 | <code>limit</code> | <code>query</code> | <code>integer</code> | No | Page size. Defaults to 25. |
-| <code>before_id</code> | <code>query</code> | <code>integer</code> | No | Return records older than this id. Take it from next_before_id in the previous response. |</p>
+| <code>before_id</code> | <code>query</code> | <code>integer</code> | No | Return records older than this id. Take it from <code>next_before_id</code> in the previous response. |</p>
 <h4 id="responses-3">Responses</h4>
 <h5 id="200-success-2" class="status" data-status="2xx">200: Success</h5>
 <p><code>application/json</code></p>
@@ -619,7 +680,7 @@
 <td><code>next_before_id</code></td>
 <td><code>integer</code></td>
 <td>No</td>
-<td>Pass as before_id to fetch the next page.</td>
+<td>Pass as <code>before_id</code> to fetch the next page.</td>
 </tr>
 </tbody>
 </table>

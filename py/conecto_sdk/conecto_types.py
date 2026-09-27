@@ -1,7 +1,7 @@
 # Typed models for the Conecto SDK.
 #
-# GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-# params (op.<name>.points[].args.params[]). Field/param types come from the
+# GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+# params (op.<name>.points[].g.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
 #
@@ -16,33 +16,13 @@ from __future__ import annotations
 from typing import TypedDict, Any
 
 
-class ActionRequired(TypedDict):
-    ok: bool
-
-
-class Action(ActionRequired, total=False):
-    arguments: dict
-    blocks: list
-    conversation_id: int
-    error: str
+class Action(TypedDict, total=False):
     id: str
-    not_found: bool
-    result: dict
 
 
-class ActionCreateDataRequired(TypedDict):
+class ActionCreateData(TypedDict):
     id: str
     slug: str
-    ok: bool
-
-
-class ActionCreateData(ActionCreateDataRequired, total=False):
-    arguments: dict
-    blocks: list
-    conversation_id: int
-    error: str
-    not_found: bool
-    result: dict
 
 
 class ContactRequired(TypedDict):
@@ -73,7 +53,6 @@ class ContactCreateData(ContactCreateDataRequired, total=False):
 class ConversationRequired(TypedDict):
     id: int
     status: str
-    user_id: int
 
 
 class Conversation(ConversationRequired, total=False):
@@ -103,7 +82,6 @@ class ConversationListMatch(TypedDict, total=False):
 class ConversationCreateDataRequired(TypedDict):
     id: int
     status: str
-    user_id: int
 
 
 class ConversationCreateData(ConversationCreateDataRequired, total=False):
@@ -124,7 +102,6 @@ class ConversationUpdateData(ConversationUpdateDataRequired, total=False):
     messages: list
     session: str
     status: str
-    user_id: int
     widget_id: int
 
 
@@ -150,7 +127,6 @@ class Integration(IntegrationRequired, total=False):
     credential: str
     id: str
     signing_secret: str
-    widget_ids: list
 
 
 class IntegrationLoadMatch(TypedDict):
@@ -166,7 +142,6 @@ class IntegrationListMatch(TypedDict, total=False):
     name: str
     signing_secret: str
     slug: str
-    widget_ids: list
 
 
 class IntegrationCreateDataRequired(TypedDict):
@@ -181,7 +156,6 @@ class IntegrationCreateData(IntegrationCreateDataRequired, total=False):
     credential: str
     id: str
     signing_secret: str
-    widget_ids: list
 
 
 class Media(TypedDict):
@@ -224,19 +198,13 @@ class SchemaLoadMatch(TypedDict):
     pass
 
 
-class Visitor(TypedDict, total=False):
-    email: str
-    name: str
+class Visitor(TypedDict):
+    pass
 
 
-class VisitorCreateDataRequired(TypedDict):
+class VisitorCreateData(TypedDict):
     session: str
     widget_id: int
-
-
-class VisitorCreateData(VisitorCreateDataRequired, total=False):
-    email: str
-    name: str
 
 
 class WebhookRequired(TypedDict):

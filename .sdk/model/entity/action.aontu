@@ -1,0 +1,95 @@
+# Entity: action
+
+main: kit: entity: action: {
+
+  alias: field: {}
+
+  fields: {
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "action"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /integrations/{slug}/actions/{action}/run/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "action"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "slug"
+                or: "slug"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/integrations/{slug}/actions/{action}/run/"
+          q: {
+            "$action": "run"
+            exist: [
+              "id"
+              "slug"
+            ]
+          }
+          r: {
+            param: {
+              action: "id"
+            }
+          }
+          s: [
+            {
+              lit: "integrations"
+            }
+            {
+              var: "slug"
+            }
+            {
+              lit: "actions"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "run"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.integration")]
+  ]
+
+}

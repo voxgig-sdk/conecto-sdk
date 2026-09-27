@@ -67,7 +67,7 @@ function visitor_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["visitor01", "visitor02", "visitor03", "widget01", "widget02", "widget03", "session01"] as $k) {
+    foreach (["visitor01", "visitor02", "visitor03", "session01", "widget01"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

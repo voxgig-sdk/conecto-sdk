@@ -1,0 +1,39 @@
+# Entity: schema
+
+main: kit: entity: schema: {
+
+  alias: field: {}
+
+  name: "schema"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /schema/"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/schema/"
+          s: [
+            {
+              lit: "schema"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+
+}

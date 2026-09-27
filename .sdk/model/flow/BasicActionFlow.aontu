@@ -1,0 +1,23 @@
+# BasicActionFlow
+
+main: kit: flow: BasicActionFlow:
+{
+  entity: "action",
+  kind: "basic",
+  name: "BasicActionFlow",
+  step: [
+    {
+      i: {
+        ref: "action_ref01"
+      }
+
+      m: {
+        action: "action01",
+        slug: "slug01"
+      }
+
+      o: "create"
+    }
+  ],
+  "key$": "BasicActionFlow"
+}

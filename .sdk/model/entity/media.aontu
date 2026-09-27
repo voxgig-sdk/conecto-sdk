@@ -1,0 +1,39 @@
+# Entity: media
+
+main: kit: entity: media: {
+
+  alias: field: {}
+
+  name: "media"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /media/"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/media/"
+          s: [
+            {
+              lit: "media"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+
+}

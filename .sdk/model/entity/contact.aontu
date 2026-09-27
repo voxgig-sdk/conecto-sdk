@@ -1,0 +1,136 @@
+# Entity: contact
+
+main: kit: entity: contact: {
+
+  alias: field: {}
+
+  fields: {
+    created_at: {
+      fo: "date-time"
+      h: "Created At"
+      n: "created_at"
+      r: false
+      t: "`$STRING`"
+    }
+    custom_fields: {
+      h: "Custom Fields"
+      n: "custom_fields"
+      r: false
+      sh: "Workspace-defined fields."
+      t: "`$OBJECT`"
+    }
+    email: {
+      fo: "email"
+      h: "Email"
+      n: "email"
+      r: false
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Contact id."
+      t: "`$INTEGER`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "contact"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /contacts/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            header: [
+              {
+                k: "header"
+                n: "idempotency_key"
+                or: "idempotency_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/contacts/"
+          q: {
+            exist: [
+              "idempotency_key"
+            ]
+          }
+          s: [
+            {
+              lit: "contacts"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.custom_fields`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /contacts/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "before_id"
+                or: "before_id"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 25
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/contacts/"
+          q: {
+            exist: [
+              "before_id"
+              "limit"
+            ]
+          }
+          s: [
+            {
+              lit: "contacts"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.contacts`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

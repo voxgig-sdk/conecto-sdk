@@ -18,10 +18,6 @@ Results: Success.
 
 SDK operations: `create`.
 
-Key fields to recognise:
-
-- `not_found`: A normal no-match, not an error.
-
 ### [Contact](docs/api/contact.html)
 
 Results: Created.; Success.
@@ -42,10 +38,10 @@ SDK operations: `create`, `list`, `load`, `update`.
 Key fields to recognise:
 
 - `body`: Plain-text body.
+- `created_at`: When the message was created.
 - `id`: Conversation id.
 - `messages`: Visitor-facing messages, oldest first.
 - `session`: Visitor browser session key.
-- `status`: Lifecycle state.
 
 ### [Credential](docs/api/credential.html)
 
@@ -87,6 +83,7 @@ Key fields to recognise:
 
 - `ask_email`: Prompt the visitor for an email address.
 - `blocks`: Rich content blocks. At most 10 per message.
+- `body`: Plain-text body.
 - `internal`: Internal note, not shown to the visitor.
 - `ticket_form`: Show the ticket form.
 

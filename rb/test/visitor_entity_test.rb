@@ -59,7 +59,7 @@ def visitor_basic_setup(extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
-    ["visitor01", "visitor02", "visitor03", "widget01", "widget02", "widget03", "session01"],
+    ["visitor01", "visitor02", "visitor03", "session01", "widget01"],
     {
       "`$PACK`" => ["", {
         "`$KEY`" => "`$COPY`",

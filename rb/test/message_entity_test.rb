@@ -58,7 +58,7 @@ def message_basic_setup(extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
-    ["message01", "message02", "message03", "conversation01", "conversation02", "conversation03", "widget01", "widget02", "widget03", "visitor01", "visitor02", "visitor03"],
+    ["message01", "message02", "message03", "conversation01", "conversation02", "conversation03", "visitor01", "visitor02", "visitor03"],
     {
       "`$PACK`" => ["", {
         "`$KEY`" => "`$COPY`",
